@@ -4,11 +4,11 @@ namespace WKosArch.Domain.Features
 {
     public interface IFeature
     {
-        bool IsReady { get; }
     }
 
     public interface IAsyncFeature : IFeature
     {
+        bool IsReady { get; }
         UniTask InitializeAsync();
         UniTask DestroyAsync();
     }
