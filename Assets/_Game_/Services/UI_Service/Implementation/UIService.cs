@@ -13,9 +13,6 @@ namespace WKosArch.Services.UIService
         private readonly IStaticDataService _staticDataService;
 
         public IUserInterface UI { get; private set; }
-        public bool IsReady => _isReady;
-
-        private bool _isReady;
 
         public UIService(IStaticDataService staticDataService, ISceneManagementService sceneManagementService,
             IDIContainer container)
@@ -26,8 +23,6 @@ namespace WKosArch.Services.UIService
             UI = new UserInterface(container);
 
             _sceneManagementService.OnSceneLoaded += SceneLoaded;
-
-            _isReady = true;
         }
 
         public void Dispose()

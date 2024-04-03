@@ -11,3 +11,5 @@ public class SettingViewModel : IViewModel
         Log.PrintYellow("SettingViewModel OpenSettingMenuWindow");
     }
 }
+
+public Semple

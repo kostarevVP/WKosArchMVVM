@@ -33,6 +33,12 @@ MonoBehaviour:
   - {fileID: 8016690077172017031, guid: 5c3dd11ddef8f1242a4dc1a040ffe6d0, type: 3}
   - {fileID: 6483907254112274420, guid: 74cd46670d4765048ae1d273428521f6, type: 3}
   - {fileID: 1064096034875164688, guid: 540255744a692604bad0a7ee2d330dcf, type: 3}
+  _windowPrefabMappings:
+  - ViewModelTypeFullName: SettingViewModel
+    PrefabView: {fileID: 2753145602361935973, guid: 4a5890b4b77e8454cae13d6d741a654c,
+      type: 3}
+  _windowPrefabByDefault: {fileID: 2753145602361935973, guid: 4a5890b4b77e8454cae13d6d741a654c,
+    type: 3}
   SceneName:
   - Quest_Scene
   SceneIndex: 01000000

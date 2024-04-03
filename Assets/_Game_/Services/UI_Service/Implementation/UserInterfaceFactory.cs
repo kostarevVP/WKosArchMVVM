@@ -215,6 +215,8 @@ namespace Assets._Game_.Services.UI_Service.Implementation
         private void CreateNewUiViews()
         {
 
+
+
             WindowViewModel[] windowPrefabsForCreating = _uiSceneConfig.WindowPrefabs;
             HudViewModel[] hudPrefabsForCreating = _uiSceneConfig.HudPrefabs;
             WidgetViewModel[] widgetPrefabsForCreating = _uiSceneConfig.WidgetPrefabs;

@@ -1,5 +1,7 @@
 using Assets._Game_.Services.UI_Service.Views.UiView;
+using Lukomor.MVVM;
 using System;
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -17,9 +19,16 @@ namespace WKosArch.Services.UIService
         [SerializeField] private HudViewModel[] _hudPrefabs;
         [SerializeField] private WidgetViewModel[] _widgetPrefabs;
 
+        [SerializeField] private List<ViewModelToViewMapping> _windowPrefabMappings;
+        [SerializeField] private View _windowPrefabByDefault;
+
+        private readonly Dictionary<string, View> _windowMappings = new();
+
         public WindowViewModel[] WindowPrefabs => _windowPrefabs;
         public HudViewModel[] HudPrefabs => _hudPrefabs;
         public WidgetViewModel[] WidgetPrefabs => _widgetPrefabs;
+
+        public Dictionary<string, View> WindowMappings => _windowMappings;
 
 
         [HideInInspector] public string[] SceneName;
@@ -50,6 +59,17 @@ namespace WKosArch.Services.UIService
                         Log.PrintWarning($"Not add Scene to UISceneConfig {this}");
                     }
                 }
+            }
+
+            RefreshMappings(_windowMappings, _windowPrefabMappings);
+
+        }
+
+        private void RefreshMappings(Dictionary<string, View> maping, List<ViewModelToViewMapping> prefabMappings)
+        {
+            foreach (var prefabMapping in prefabMappings)
+            {
+                maping.TryAdd(prefabMapping.ViewModelTypeFullName, prefabMapping.PrefabView);
             }
         }
 #endif
