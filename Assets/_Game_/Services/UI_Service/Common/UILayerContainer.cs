@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Lukomor;
+using UnityEngine;
 
 namespace WKosArch.Services.UIService.Common
 {
@@ -6,6 +7,6 @@ namespace WKosArch.Services.UIService.Common
     {
         [SerializeField] private UILayer _layer;
 
-        public UILayer layer => _layer;
+        public UILayer Layer => _layer;
     }
 }

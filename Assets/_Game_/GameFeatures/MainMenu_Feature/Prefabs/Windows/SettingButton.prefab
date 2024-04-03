@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6166874882345627567}
   - component: {fileID: 6575986846543859330}
   - component: {fileID: 6857464436222953423}
+  - component: {fileID: 2054364204202509490}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -119,7 +120,34 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6575986846543859330}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2054364204202509490}
+        m_TargetAssemblyTypeName: Lukomor.MVVM.Binders.EmptyMethodBinder, Lukomor
+        m_MethodName: Perform
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &2054364204202509490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7331563061577192521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06cf34b09b4bdd54c9a5e0beb612ddee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _viewModelTypeFullName: SettingViewModel
+  _propertyName: OpenSettingMenuWindow
+  _button: {fileID: 6857464436222953423}
 --- !u!1 &7753979221662274415
 GameObject:
   m_ObjectHideFlags: 0
@@ -132,6 +160,8 @@ GameObject:
   - component: {fileID: 5691430947277082385}
   - component: {fileID: 8770292261683149688}
   - component: {fileID: 3303389980071931279}
+  - component: {fileID: 2753145602361935973}
+  - component: {fileID: 9043097842680538297}
   m_Layer: 5
   m_Name: SettingButton
   m_TagString: Untagged
@@ -152,7 +182,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4896842395346791901}
-  - {fileID: 7976273285359252082}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -201,140 +230,37 @@ MonoBehaviour:
   _closeButton: {fileID: 0}
   _backButton: {fileID: 0}
   _settingButton: {fileID: 6857464436222953423}
-  _openQuestButton: {fileID: 9016672853020631026}
---- !u!1001 &1429261850283334146
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 7505590465010948573}
-    m_Modifications:
-    - target: {fileID: 1092929344023306004, guid: 7ff4a6f23c5c40c4c8c8c9edc093ecce,
-        type: 3}
-      propertyPath: m_Name
-      value: QuestButton
-      objectReference: {fileID: 0}
-    - target: {fileID: 9035531875977881712, guid: 7ff4a6f23c5c40c4c8c8c9edc093ecce,
-        type: 3}
-      propertyPath: m_Pivot.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 9035531875977881712, guid: 7ff4a6f23c5c40c4c8c8c9edc093ecce,
-        type: 3}
-      propertyPath: m_Pivot.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9035531875977881712, guid: 7ff4a6f23c5c40c4c8c8c9edc093ecce,
-        type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 9035531875977881712, guid: 7ff4a6f23c5c40c4c8c8c9edc093ecce,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9035531875977881712, guid: 7ff4a6f23c5c40c4c8c8c9edc093ecce,
-        type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 9035531875977881712, guid: 7ff4a6f23c5c40c4c8c8c9edc093ecce,
-        type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9035531875977881712, guid: 7ff4a6f23c5c40c4c8c8c9edc093ecce,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 350
-      objectReference: {fileID: 0}
-    - target: {fileID: 9035531875977881712, guid: 7ff4a6f23c5c40c4c8c8c9edc093ecce,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 150
-      objectReference: {fileID: 0}
-    - target: {fileID: 9035531875977881712, guid: 7ff4a6f23c5c40c4c8c8c9edc093ecce,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9035531875977881712, guid: 7ff4a6f23c5c40c4c8c8c9edc093ecce,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9035531875977881712, guid: 7ff4a6f23c5c40c4c8c8c9edc093ecce,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9035531875977881712, guid: 7ff4a6f23c5c40c4c8c8c9edc093ecce,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9035531875977881712, guid: 7ff4a6f23c5c40c4c8c8c9edc093ecce,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9035531875977881712, guid: 7ff4a6f23c5c40c4c8c8c9edc093ecce,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9035531875977881712, guid: 7ff4a6f23c5c40c4c8c8c9edc093ecce,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9035531875977881712, guid: 7ff4a6f23c5c40c4c8c8c9edc093ecce,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 487.31
-      objectReference: {fileID: 0}
-    - target: {fileID: 9035531875977881712, guid: 7ff4a6f23c5c40c4c8c8c9edc093ecce,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9035531875977881712, guid: 7ff4a6f23c5c40c4c8c8c9edc093ecce,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9035531875977881712, guid: 7ff4a6f23c5c40c4c8c8c9edc093ecce,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9035531875977881712, guid: 7ff4a6f23c5c40c4c8c8c9edc093ecce,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 7ff4a6f23c5c40c4c8c8c9edc093ecce, type: 3}
---- !u!224 &7976273285359252082 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 9035531875977881712, guid: 7ff4a6f23c5c40c4c8c8c9edc093ecce,
-    type: 3}
-  m_PrefabInstance: {fileID: 1429261850283334146}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &9016672853020631026 stripped
+--- !u!114 &2753145602361935973
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7995132042022225392, guid: 7ff4a6f23c5c40c4c8c8c9edc093ecce,
-    type: 3}
-  m_PrefabInstance: {fileID: 1429261850283334146}
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 7753979221662274415}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Script: {fileID: 11500000, guid: 5989cd7a91e7628428e62faf560317b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _viewModelTypeFullName: SettingViewModel
+  _viewModelPropertyName: 
+  _isParentView: 1
+  _subViews: []
+  _childBinders:
+  - {fileID: 2054364204202509490}
+  - {fileID: 9043097842680538297}
+--- !u!114 &9043097842680538297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7753979221662274415}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e4627a229c0622478db175fccacd689, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _viewModelTypeFullName: 
+  _propertyName: 
+  _layer: 0

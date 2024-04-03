@@ -198,7 +198,7 @@ namespace Assets._Game_.Services.UI_Service.Implementation
 
         private Transform GetLayerContainer(UILayer layer)
         {
-            return _containers.FirstOrDefault(container => container.layer == layer)?.transform;
+            return _containers.FirstOrDefault(container => container.Layer == layer)?.transform;
         }
 
         private void DestroyOldWindows()

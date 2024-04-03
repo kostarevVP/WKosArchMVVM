@@ -161,9 +161,16 @@ namespace WKosArch.Domain.Contexts
 
         private async UniTask WaitInitializationComplete()
         {
+            var asyncFeatures = new List<IAsyncFeature>();
+
+            foreach (var feature in _cachedGameplayFeatures)
+            {
+                if (feature is IAsyncFeature asyncFeature)
+                    asyncFeatures.Add(asyncFeature);
+            }
+
             await UnityAwaiters.WaitUntil(() =>
-                _cachedGameplayFeatures.All(feature => feature.IsReady)
-                && _cachedServiceFeatures.All(service => service.IsReady));
+                asyncFeatures.All(feature => feature.IsReady));
 
             IsReady = true;
         }

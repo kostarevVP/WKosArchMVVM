@@ -22,7 +22,6 @@ namespace Lukomor.MVVM.Binders
             }
 #endif
             _button.onClick.AddListener(OnClick);
-
         }
 
         private void OnDisable()
@@ -33,7 +32,6 @@ namespace Lukomor.MVVM.Binders
                 return;
             }
 #endif
-            
             _button.onClick.RemoveListener(OnClick);
         }
 

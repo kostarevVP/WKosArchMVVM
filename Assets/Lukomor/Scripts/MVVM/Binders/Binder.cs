@@ -22,7 +22,6 @@ namespace Lukomor.MVVM.Binders
             var parentView = GetComponentInParent<View>();
             parentView.RegisterBinder(this);
 #endif
-            
             OnStart();
         }
 
@@ -31,7 +30,7 @@ namespace Lukomor.MVVM.Binders
         private void OnDestroy()
         {
             _binding?.Dispose();
-            
+
 #if UNITY_EDITOR
             var parentView = GetComponentInParent<View>();
             if (parentView)
@@ -39,7 +38,6 @@ namespace Lukomor.MVVM.Binders
                 parentView.RemoveBinder(this);
             }
 #endif
-            
             OnDestroyed();
         }
 
