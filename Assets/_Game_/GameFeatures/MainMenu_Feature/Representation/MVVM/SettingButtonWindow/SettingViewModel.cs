@@ -1,15 +1,19 @@
-using Lukomor.MVVM;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using Lukomor;
+using System;
 using WKosArch.Extentions;
 
-public class SettingViewModel : IViewModel
+public class SettingViewModel : UiViewModel
 {
-   public void OpenSettingMenuWindow()
+    public IObservable<float> MusicValue { get; }
+    public IObservable<int> IntValure { get; }
+    public IObservable<bool> BoolValue { get; }
+    public void OpenSettingMenuWindow()
     {
         Log.PrintYellow("SettingViewModel OpenSettingMenuWindow");
     }
-}
 
-public Semple
+    public void ReadInputValue(float value)
+    {
+
+    }
+} 

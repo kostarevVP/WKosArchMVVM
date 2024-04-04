@@ -162,6 +162,11 @@ GameObject:
   - component: {fileID: 3303389980071931279}
   - component: {fileID: 2753145602361935973}
   - component: {fileID: 9043097842680538297}
+  - component: {fileID: 936255676091121149}
+  - component: {fileID: 4330038426463451132}
+  - component: {fileID: 2840728914078706243}
+  - component: {fileID: 5198503370648216520}
+  - component: {fileID: 9016261348971947745}
   m_Layer: 5
   m_Name: SettingButton
   m_TagString: Untagged
@@ -249,6 +254,10 @@ MonoBehaviour:
   _childBinders:
   - {fileID: 2054364204202509490}
   - {fileID: 9043097842680538297}
+  - {fileID: 936255676091121149}
+  - {fileID: 2840728914078706243}
+  - {fileID: 5198503370648216520}
+  - {fileID: 9016261348971947745}
 --- !u!114 &9043097842680538297
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -264,3 +273,95 @@ MonoBehaviour:
   _viewModelTypeFullName: 
   _propertyName: 
   _layer: 0
+--- !u!114 &936255676091121149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7753979221662274415}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54ab0d0bfec4cb74ca924b03e285ddcf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _viewModelTypeFullName: SettingViewModel
+  _propertyName: Closed
+  _destroyingGameObject: {fileID: 7753979221662274415}
+  _transitionOut: {fileID: 4330038426463451132}
+--- !u!114 &4330038426463451132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7753979221662274415}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d771d1c7e81d5804b87137301734e1f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _duration: 1
+  _ease: 19
+--- !u!114 &2840728914078706243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7753979221662274415}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04602d047113c294ea377af33d6f57a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _viewModelTypeFullName: SettingViewModel
+  _propertyName: BoolValue
+  _colorTrue: {r: 1, g: 1, b: 1, a: 1}
+  _colorFalse: {r: 1, g: 1, b: 1, a: 1}
+  _event:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &5198503370648216520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7753979221662274415}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4e415cd7d7a4634a9af81fc711000a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _viewModelTypeFullName: SettingViewModel
+  _propertyName: MusicValue
+  _event:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7331563061577192521}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &9016261348971947745
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7753979221662274415}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ae43f7c7b4186641b72492824ec0a14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _viewModelTypeFullName: SettingViewModel
+  _propertyName: Open
