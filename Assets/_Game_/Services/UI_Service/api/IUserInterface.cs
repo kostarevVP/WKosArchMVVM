@@ -13,8 +13,7 @@ namespace WKosArch.Services.UIService.UI
         //void Back(bool hideCurrentWindow = true, bool forced = false);
         //void CloseAllWindowInStack();
         void Build(UISceneConfig config);
-        void Show<TWindowViewModel>(UiViewModel uiViewModel) where TWindowViewModel : UiViewModel;
-        void Show(UiViewModel uiViewModel);
-        void Show<TUiViewModel>() where TUiViewModel : UiViewModel;
+        void Hide<TUiViewModel>() where TUiViewModel : UiViewModel;
+        void Show<TUiViewModel>() where TUiViewModel : UiViewModel, new();
     }
 }

@@ -13,20 +13,24 @@ namespace Lukomor
         public UILayer TargetLayer { get; set; }
         public IObservable<Unit> Opened { get; }
         public IObservable<bool> Closed { get; }
-        public IDIContainer DiContainer { get; set; }
-        public IUserInterface UI { get; set; }
+        public IObservable<bool> Hided { get; }
+
+        public IDIContainer DiContainer => _dIContainer;
+        public IUserInterface UI => _userInterface;
 
         private IDIContainer _dIContainer;
         private IUserInterface _userInterface;
 
-        private event Action<bool> _closed;
         private event Action<Unit> _opened;
+        private event Action<bool> _closed;
+        private event Action<bool> _hided;
 
 
         protected UiViewModel()
         {
             Opened = Observable.FromEvent<Unit>(a => _opened += a, a => _opened -= a);
             Closed = Observable.FromEvent<bool>(a => _closed += a, a => _closed -= a);
+            Hided = Observable.FromEvent<bool>(a => _hided  += a, a => _hided -= a);
         }
 
         public void Inject(IDIContainer dIContainer, IUserInterface userInterface)
@@ -40,5 +44,8 @@ namespace Lukomor
 
         public void Close(bool forced = false) => 
             _closed?.Invoke(forced);
+
+        public void Hide(bool forced = false) =>
+            _hided?.Invoke(forced);
     }
 }

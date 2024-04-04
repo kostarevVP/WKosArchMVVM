@@ -1,9 +1,6 @@
 using Cysharp.Threading.Tasks;
-using UnityEngine;
-using WKosArch.Common.DIContainer;
 using WKosArch.Extentions;
 using WKosArch.Services.Scenes;
-using WKosArch.Services.UIService;
 using WKosArch.Services.UIService.UI;
 
 namespace WKosArch.Features.LoadLevelFeature
@@ -64,7 +61,7 @@ namespace WKosArch.Features.LoadLevelFeature
         {
             //in this point load player and all environment
             Log.PrintYellow("Load environment");
-            _ui.Show(new SettingViewModel());
+            _ui.Show<SettingViewModel>();
         }
 
         public void PlayStartLevelAnimation()

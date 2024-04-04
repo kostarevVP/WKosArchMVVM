@@ -135,17 +135,28 @@ namespace WKosArch.Services.UIService.UI
 
         public void Show<TWindowViewModel>(UiViewModel uiViewModel) where TWindowViewModel : UiViewModel
         {
-            _uiFactory.CreateView(uiViewModel);
+            //_uiFactory.CreateView(uiViewModel);
         }
 
         public void Show(UiViewModel uiViewModel)
         {
-            _uiFactory.CreateView(uiViewModel);
+            //_uiFactory.CreateView(uiViewModel);
         }
 
-        public void Show<TUiViewModel>() where TUiViewModel : UiViewModel
+        public void Show<TUiViewModel>() where TUiViewModel : UiViewModel, new() 
         {
-           _uiFactory.CreateView<TUiViewModel>();
+           var viewModel = _uiFactory.GetOrCreateViewModel<TUiViewModel>();
+           _uiFactory.GetOrCreateActiveView(viewModel);
+        }
+
+        public void Close<TUiViewModel>() where TUiViewModel: UiViewModel
+        {
+            _uiFactory.Close<TUiViewModel>();
+        }
+
+        public void Hide<TUiViewModel>() where TUiViewModel : UiViewModel
+        {
+            _uiFactory.Hide<TUiViewModel>();
         }
     }
 }

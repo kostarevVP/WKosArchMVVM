@@ -1,5 +1,5 @@
-using Assets._Game_.Services.UI_Service.Views.UiView;
 using Assets.LocalPackages.WKosArch.Scripts.Common.DIContainer;
+using Lukomor;
 using Lukomor.MVVM;
 using System;
 using System.Collections.Generic;
@@ -17,14 +17,18 @@ namespace Assets._Game_.Services.UI_Service.Implementation
     {
         private const string PrefabPath = "[INTERFACE]";
 
-        public Dictionary<string, Lukomor.UiViewModel> UiViewModelsCache => _createdUiViewModelsCache;
+        public Dictionary<string, UiViewModel> UiViewModelsCache => _createdUiViewModelsCache;
+        public Dictionary<string, View> ViewCache => _createdViewCache;
+
 
 
         [SerializeField] private UILayerContainer[] _containers;
 
         private static UserInterfaceFactory _instance;
 
-        private Dictionary<string, Lukomor.UiViewModel> _createdUiViewModelsCache = new();
+        private Dictionary<string, UiViewModel> _createdUiViewModelsCache = new();
+        private Dictionary<string, View> _createdViewCache = new();
+
         private Dictionary<Type, WidgetViewModel> _createdWidgetViewModelsCache = new();
 
         private IDIContainer _diContainer;
@@ -139,21 +143,21 @@ namespace Assets._Game_.Services.UI_Service.Implementation
         //    return CreateUiViewModel<TUiViewModel>(uiViewModelType);
         //}
 
-        public void CreateView(Lukomor.UiViewModel uiViewModel)
+        public View CreateView(UiViewModel uiViewModel)
         {
-            uiViewModel.UI = _ui;
+            View view = null;
 
-            if (_uiSceneConfig.WindowMappings.TryGetValue(uiViewModel.GetType().FullName, out View view))
+            if (_uiSceneConfig.WindowMappings.TryGetValue(uiViewModel.GetType().FullName, out View prefabView))
             {
-                if (view == null)
+                if (prefabView == null)
                 {
                     Log.PrintWarning($"Couldn't open View for ({uiViewModel}). Maybe its not add to UISceneConfig for this Scene");
                 }
                 else
                 {
-                    var containerLayer = GetLayerContainer(uiViewModel.TargetLayer);
-                    var prefabView = Instantiate(view, containerLayer);
-                    prefabView.Bind(uiViewModel);
+                    Transform containerLayer = GetLayerContainer(uiViewModel.TargetLayer);
+                    view = Instantiate(prefabView, containerLayer);
+                    view.Bind(uiViewModel);
                 }
             }
             else
@@ -161,7 +165,7 @@ namespace Assets._Game_.Services.UI_Service.Implementation
                 Log.PrintWarning($"Couldn't find View for ({uiViewModel}). Maybe its not add to UISceneConfig for this Scene");
             }
 
-
+            return view;
         }
 
 
@@ -268,21 +272,68 @@ namespace Assets._Game_.Services.UI_Service.Implementation
 
         }
 
-        public void CreateView<TUiViewModel>() where TUiViewModel : Lukomor.UiViewModel, new()
+        public UiViewModel GetOrCreateViewModel<TUiViewModel>() where TUiViewModel : UiViewModel, new()
         {
             var fullName = typeof(TUiViewModel).FullName;
 
-            if (_createdUiViewModelsCache.TryGetValue(fullName, out Lukomor.UiViewModel uiViewModel))
+            if (_createdUiViewModelsCache.TryGetValue(fullName, out UiViewModel uiViewModel))
             {
-                // якщо об'Їкт вже створено, ви можете його використовувати.
+                if (uiViewModel == null)
+                {
+                    _createdUiViewModelsCache.Remove(fullName);
+
+                    uiViewModel = new TUiViewModel();
+                    uiViewModel.Inject(_diContainer, _ui);
+
+                    _createdUiViewModelsCache.Add(fullName, uiViewModel);
+                }
             }
             else
             {
-                // —творенн€ нового об'Їкта TUiViewModel за допомогою конструктора без параметр≥в.
                 uiViewModel = new TUiViewModel();
+                uiViewModel.Inject(_diContainer, _ui);
+
                 _createdUiViewModelsCache.Add(fullName, uiViewModel);
             }
+
+            return uiViewModel;
         }
 
+        public View GetOrCreateActiveView(UiViewModel viewModel)
+        {
+            var fullName = viewModel.GetType().FullName;
+
+            if (_createdViewCache.TryGetValue(fullName, out View view))
+            {
+                if (!view.isActiveAndEnabled)
+                {
+                    view.gameObject.SetActive(true);
+                }
+                return view;
+            }
+            else
+            {
+                view = CreateView(viewModel);
+
+                _createdViewCache.Add(fullName, view);
+            }
+
+            return view;
+        }
+
+        public void Close<TUiViewModel>() where TUiViewModel : UiViewModel
+        {
+            var fullName = typeof(TUiViewModel).FullName;
+
+            _createdUiViewModelsCache[fullName].Close();
+            _createdViewCache.Remove(fullName);
+        }
+
+        public void Hide<TUiViewModel>() where TUiViewModel : UiViewModel
+        {
+            var fullName = typeof(TUiViewModel).FullName;
+
+            _createdUiViewModelsCache[fullName].Hide();
+        }
     }
 }
