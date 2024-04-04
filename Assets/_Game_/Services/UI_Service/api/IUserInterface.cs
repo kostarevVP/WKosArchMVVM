@@ -15,6 +15,6 @@ namespace WKosArch.Services.UIService.UI
         void Build(UISceneConfig config);
         void Show<TWindowViewModel>(UiViewModel uiViewModel) where TWindowViewModel : UiViewModel;
         void Show(UiViewModel uiViewModel);
-
+        void Show<TUiViewModel>() where TUiViewModel : UiViewModel;
     }
 }

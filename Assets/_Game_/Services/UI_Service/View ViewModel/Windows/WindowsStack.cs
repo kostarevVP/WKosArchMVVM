@@ -68,6 +68,5 @@ namespace WKosArch.UIService.Views.Windows
         {
             _windowsQueue.Remove(windowType);
         }
-
     }
 }

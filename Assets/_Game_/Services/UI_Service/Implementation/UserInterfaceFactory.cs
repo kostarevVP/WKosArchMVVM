@@ -4,16 +4,12 @@ using Lukomor.MVVM;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 using WKosArch.Extentions;
 using WKosArch.Services.UIService;
 using WKosArch.Services.UIService.Common;
 using WKosArch.Services.UIService.UI;
-using WKosArch.UIService.Views;
-using WKosArch.UIService.Views.HUD;
 using WKosArch.UIService.Views.Widgets;
-using WKosArch.UIService.Views.Windows;
 
 namespace Assets._Game_.Services.UI_Service.Implementation
 {
@@ -145,6 +141,8 @@ namespace Assets._Game_.Services.UI_Service.Implementation
 
         public void CreateView(Lukomor.UiViewModel uiViewModel)
         {
+            uiViewModel.UI = _ui;
+
             if (_uiSceneConfig.WindowMappings.TryGetValue(uiViewModel.GetType().FullName, out View view))
             {
                 if (view == null)
@@ -162,6 +160,8 @@ namespace Assets._Game_.Services.UI_Service.Implementation
             {
                 Log.PrintWarning($"Couldn't find View for ({uiViewModel}). Maybe its not add to UISceneConfig for this Scene");
             }
+
+
         }
 
 
@@ -267,5 +267,22 @@ namespace Assets._Game_.Services.UI_Service.Implementation
             _createdUiViewModelsCache.Clear();
 
         }
+
+        public void CreateView<TUiViewModel>() where TUiViewModel : Lukomor.UiViewModel, new()
+        {
+            var fullName = typeof(TUiViewModel).FullName;
+
+            if (_createdUiViewModelsCache.TryGetValue(fullName, out Lukomor.UiViewModel uiViewModel))
+            {
+                // якщо об'Їкт вже створено, ви можете його використовувати.
+            }
+            else
+            {
+                // —творенн€ нового об'Їкта TUiViewModel за допомогою конструктора без параметр≥в.
+                uiViewModel = new TUiViewModel();
+                _createdUiViewModelsCache.Add(fullName, uiViewModel);
+            }
+        }
+
     }
 }

@@ -142,5 +142,10 @@ namespace WKosArch.Services.UIService.UI
         {
             _uiFactory.CreateView(uiViewModel);
         }
+
+        public void Show<TUiViewModel>() where TUiViewModel : UiViewModel
+        {
+           _uiFactory.CreateView<TUiViewModel>();
+        }
     }
 }

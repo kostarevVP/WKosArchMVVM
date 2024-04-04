@@ -4,7 +4,7 @@ using Lukomor.MVVM;
 
 namespace Lukomor
 {
-    public class WindowViewModel : UiViewModel
+    public abstract class WindowViewModel : UiViewModel
     {
     }
 }

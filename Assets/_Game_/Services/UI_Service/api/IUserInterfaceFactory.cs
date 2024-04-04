@@ -10,5 +10,6 @@ namespace Assets._Game_.Services.UI_Service.Implementation
         void Build(UISceneConfig config);
         void Construct(IDIContainer dIContainer, IUserInterface userInterface);
         void CreateView(UiViewModel uiViewModel);
+        void CreateView<TUiViewModel>() where TUiViewModel : Lukomor.UiViewModel, new();
     }
 }
