@@ -1,5 +1,6 @@
 using Assets._Game_.Services.UI_Service.Views.UiView;
 using Assets.LocalPackages.WKosArch.Scripts.Common.DIContainer;
+using Lukomor.MVVM;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,18 +17,18 @@ using WKosArch.UIService.Views.Windows;
 
 namespace Assets._Game_.Services.UI_Service.Implementation
 {
-    public class UserInterfaceFactory : MonoBehaviour, IUserInterfaceFactory
+    public class UserInterfaceFactory : MonoBehaviour, IUserInterfaceFactory, IDisposable
     {
         private const string PrefabPath = "[INTERFACE]";
 
-        public Dictionary<Type, UiViewModel> UiViewModelsCache => _createdUiViewModelsCache;
+        public Dictionary<string, Lukomor.UiViewModel> UiViewModelsCache => _createdUiViewModelsCache;
 
 
         [SerializeField] private UILayerContainer[] _containers;
 
         private static UserInterfaceFactory _instance;
 
-        private Dictionary<Type, UiViewModel> _createdUiViewModelsCache = new();
+        private Dictionary<string, Lukomor.UiViewModel> _createdUiViewModelsCache = new();
         private Dictionary<Type, WidgetViewModel> _createdWidgetViewModelsCache = new();
 
         private IDIContainer _diContainer;
@@ -59,214 +60,212 @@ namespace Assets._Game_.Services.UI_Service.Implementation
         public void Build(UISceneConfig config)
         {
             _uiSceneConfig = config;
-
-            DestroyOldWindows();
-            CreateNewUiViews();
         }
 
-        public TUiViewModel ShowUiView<TUiViewModel>() where TUiViewModel : UiViewModel
+        //public TUiViewModel ShowUiView<TUiViewModel>() where TUiViewModel : Lukomor.UiViewModel
+        //{
+        //    Type uiViewModelType = typeof(TUiViewModel);
+
+        //    return ShowUiView<TUiViewModel>(uiViewModelType);
+        //}
+
+        //public TUiViewModel ShowUiView<TUiViewModel>(Type uiViewModelType) where TUiViewModel : Lukomor.UiViewModel
+        //{
+        //    TUiViewModel uiViewModel = null;
+
+        //    if (_createdUiViewModelsCache.TryGetValue(uiViewModelType, out var viewModel))
+        //    {
+        //        uiViewModel = viewModel as TUiViewModel;
+        //    }
+        //    else
+        //    {
+        //        uiViewModel = CreateUiViewModel<TUiViewModel>(uiViewModelType);
+        //    }
+
+        //    ActivateWindowViewModel(uiViewModel);
+
+        //    return uiViewModel;
+        //}
+
+        //public TWidgetViewModel ShowWidgetView<TWidgetViewModel>(Type widgetModelType, Transform root) where TWidgetViewModel : WidgetViewModel
+        //{
+        //    TWidgetViewModel widgetViewModel = null;
+
+        //    if (_createdWidgetViewModelsCache.TryGetValue(widgetModelType, out var viewModel))
+        //    {
+        //        if (!viewModel.gameObject.IsUnityNull())
+        //        {
+        //            widgetViewModel = viewModel as TWidgetViewModel;
+        //        }
+        //        else
+        //        {
+        //            widgetViewModel = CreateWidgetViewModel<TWidgetViewModel>(widgetModelType, root);
+        //        }
+        //    }
+        //    else
+        //    {
+        //        widgetViewModel = CreateWidgetViewModel<TWidgetViewModel>(widgetModelType, root);
+        //    }
+
+        //    return widgetViewModel;
+        //}
+
+        //private TUiViewModel CreateWidgetViewModel<TUiViewModel>(Type typeViewModel, Transform root) where TUiViewModel : WidgetViewModel
+        //{
+        //    TUiViewModel prefabWidgetViewModel = null;
+
+        //    if (_uiSceneConfig.TryGetWidgetPrefab(typeViewModel, out TUiViewModel prefab))
+        //    {
+        //        if (prefab == null)
+        //        {
+        //            Log.PrintWarning($"Couldn't open window ({typeViewModel}). Maybe its not add to UISceneConfig for this Scene");
+        //        }
+        //        else
+        //        {
+        //            prefabWidgetViewModel = Instantiate(prefab, root);
+        //            prefabWidgetViewModel.InjectDI(_diContainer);
+
+        //            if (prefabWidgetViewModel.IsSingleInstance)
+        //            {
+        //                _createdWidgetViewModelsCache[typeViewModel] = prefabWidgetViewModel;
+        //            }
+        //        }
+        //    }
+
+        //    return prefabWidgetViewModel;
+        //}
+
+
+        //private TUiViewModel CreateUiViewModel<TUiViewModel>(TUiViewModel uiViewModel) where TUiViewModel : Lukomor.UiViewModel
+        //{
+        //    Type uiViewModelType = uiViewModel.GetType();
+
+        //    return CreateUiViewModel<TUiViewModel>(uiViewModelType);
+        //}
+
+        public void CreateView(Lukomor.UiViewModel uiViewModel)
         {
-            Type uiViewModelType = typeof(TUiViewModel);
-
-            return ShowUiView<TUiViewModel>(uiViewModelType);
-        }
-
-        public TUiViewModel ShowUiView<TUiViewModel>(Type uiViewModelType) where TUiViewModel : UiViewModel
-        {
-            TUiViewModel uiViewModel = null;
-
-            if (_createdUiViewModelsCache.TryGetValue(uiViewModelType, out var viewModel))
+            if (_uiSceneConfig.WindowMappings.TryGetValue(uiViewModel.GetType().FullName, out View view))
             {
-                uiViewModel = viewModel as TUiViewModel;
+                if (view == null)
+                {
+                    Log.PrintWarning($"Couldn't open View for ({uiViewModel}). Maybe its not add to UISceneConfig for this Scene");
+                }
+                else
+                {
+                    var containerLayer = GetLayerContainer(uiViewModel.TargetLayer);
+                    var prefabView = Instantiate(view, containerLayer);
+                    prefabView.Bind(uiViewModel);
+                }
             }
             else
             {
-                uiViewModel = CreateUiViewModel<TUiViewModel>(uiViewModelType);
+                Log.PrintWarning($"Couldn't find View for ({uiViewModel}). Maybe its not add to UISceneConfig for this Scene");
             }
-
-            ActivateWindowViewModel(uiViewModel);
-
-            return uiViewModel;
-        }
-
-        public TWidgetViewModel ShowWidgetView<TWidgetViewModel>(Type widgetModelType, Transform root) where TWidgetViewModel : WidgetViewModel
-        {
-            TWidgetViewModel widgetViewModel = null;
-
-            if (_createdWidgetViewModelsCache.TryGetValue(widgetModelType, out var viewModel))
-            {
-                if (!viewModel.gameObject.IsUnityNull())
-                {
-                    widgetViewModel = viewModel as TWidgetViewModel;
-                }
-                else
-                {
-                    widgetViewModel = CreateWidgetViewModel<TWidgetViewModel>(widgetModelType, root);
-                }
-            }
-            else
-            {
-                widgetViewModel = CreateWidgetViewModel<TWidgetViewModel>(widgetModelType, root);
-            }
-
-            return widgetViewModel;
-        }
-
-        private TUiViewModel CreateWidgetViewModel<TUiViewModel>(Type typeViewModel, Transform root) where TUiViewModel : WidgetViewModel
-        {
-            TUiViewModel prefabWidgetViewModel = null;
-
-            if (_uiSceneConfig.TryGetWidgetPrefab(typeViewModel, out TUiViewModel prefab))
-            {
-                if (prefab == null)
-                {
-                    Log.PrintWarning($"Couldn't open window ({typeViewModel}). Maybe its not add to UISceneConfig for this Scene");
-                }
-                else
-                {
-                    prefabWidgetViewModel = Instantiate(prefab, root);
-                    prefabWidgetViewModel.InjectDI(_diContainer);
-
-                    if (prefabWidgetViewModel.IsSingleInstance)
-                    {
-                        _createdWidgetViewModelsCache[typeViewModel] = prefabWidgetViewModel;
-                    }
-                }
-            }
-
-            return prefabWidgetViewModel;
         }
 
 
-        private TUiViewModel CreateUiViewModel<TUiViewModel>(TUiViewModel uiViewModel) where TUiViewModel : UiViewModel
-        {
-            Type uiViewModelType = uiViewModel.GetType();
+        //private void ActivateWindowViewModel(UiViewModel uiViewModel)
+        //{
+        //    if (!uiViewModel.UiView.IsShown)
+        //    {
+        //        uiViewModel.Subscribe();
 
-            return CreateUiViewModel<TUiViewModel>(uiViewModelType);
-        }
+        //        var uiView = uiViewModel.UiView;
 
-        private TUiViewModel CreateUiViewModel<TUiViewModel>(Type typeViewModel) where TUiViewModel : UiViewModel
-        {
-            TUiViewModel prefabUiViewModel = null;
+        //        uiView.Show();
+        //        uiView.Hidden += OnWindowHidden;
+        //        uiView.Destroyed += OnWindowDestroyed;
+        //    }
 
-            if (_uiSceneConfig.TryGetPrefab(typeViewModel, out TUiViewModel prefab))
-            {
-                if (prefab == null)
-                {
-                    Log.PrintWarning($"Couldn't open window ({typeViewModel}). Maybe its not add to UISceneConfig for this Scene");
-                }
-                else
-                {
-                    var containerLayer = GetLayerContainer(prefab.WindowSettings.TargetLayer);
-                    prefabUiViewModel = Instantiate(prefab, containerLayer);
-                    prefabUiViewModel.InjectDI(_diContainer);
+        //    uiViewModel.Refresh();
+        //}
 
-                    _createdUiViewModelsCache[typeViewModel] = prefabUiViewModel;
-                }
-            }
+        //private void OnWindowHidden(UiViewModel uiViewModel)
+        //{
+        //    uiViewModel.Unsubscribe();
+        //}
 
-            return prefabUiViewModel;
-        }
+        //private void OnWindowDestroyed(UiViewModel uiViewModel)
+        //{
+        //    OnWindowHidden(uiViewModel);
 
-        private void ActivateWindowViewModel(UiViewModel uiViewModel)
-        {
-            if (!uiViewModel.UiView.IsShown)
-            {
-                uiViewModel.Subscribe();
-
-                var uiView = uiViewModel.UiView;
-
-                uiView.Show();
-                uiView.Hidden += OnWindowHidden;
-                uiView.Destroyed += OnWindowDestroyed;
-            }
-
-            uiViewModel.Refresh();
-        }
-
-        private void OnWindowHidden(UiViewModel uiViewModel)
-        {
-            uiViewModel.Unsubscribe();
-        }
-
-        private void OnWindowDestroyed(UiViewModel uiViewModel)
-        {
-            OnWindowHidden(uiViewModel);
-
-            _createdUiViewModelsCache.Remove(uiViewModel.GetType());
-        }
+        //    _createdUiViewModelsCache.Remove(uiViewModel.GetType());
+        //}
 
         private Transform GetLayerContainer(UILayer layer)
         {
             return _containers.FirstOrDefault(container => container.Layer == layer)?.transform;
         }
 
-        private void DestroyOldWindows()
-        {
-            foreach (var createdWindowViewModelItem in _createdUiViewModelsCache)
-            {
-                Destroy(createdWindowViewModelItem.Value.gameObject);
-            }
+        //private void DestroyOldWindows()
+        //{
+        //    foreach (var createdWindowViewModelItem in _createdUiViewModelsCache)
+        //    {
+        //        Destroy(createdWindowViewModelItem.Value.gameObject);
+        //    }
 
+        //    _createdUiViewModelsCache.Clear();
+        //    _createdWidgetViewModelsCache.Clear();
+        //}
+
+        //private void CreateNewUiViews()
+        //{
+        //    WindowViewModel[] windowPrefabsForCreating = _uiSceneConfig.WindowPrefabs;
+        //    HudViewModel[] hudPrefabsForCreating = _uiSceneConfig.HudPrefabs;
+        //    WidgetViewModel[] widgetPrefabsForCreating = _uiSceneConfig.WidgetPrefabs;
+
+        //    foreach (WindowViewModel prefab in windowPrefabsForCreating)
+        //    {
+        //        if (prefab.WindowSettings.IsPreCached)
+        //        {
+        //            AddToUiViewModelToCash(prefab);
+        //        }
+        //    }
+
+        //    foreach (HudViewModel prefab in hudPrefabsForCreating)
+        //    {
+        //        if (prefab.WindowSettings.IsPreCached)
+        //        {
+        //            AddToUiViewModelToCash(prefab);
+        //        }
+        //    }
+
+        //}
+
+        //private TUiViewModel AddToUiViewModelToCash<TUiViewModel>(TUiViewModel uiViewModel) where TUiViewModel : UiViewModel
+        //{
+        //    var viewModel = CreateUiViewModel(uiViewModel);
+
+        //    HideUiViewModelInstantly(viewModel);
+
+        //    if (viewModel.WindowSettings.OpenWhenCreated)
+        //    {
+        //        var type = viewModel.GetType();
+        //        _ui.Show<TUiViewModel>(type);
+        //    }
+
+        //    return viewModel;
+        //}
+
+        //private static void HideUiViewModelInstantly<TUiViewModel>(TUiViewModel prefabUiViewModel) where TUiViewModel : ViewModel
+        //{
+        //    if (prefabUiViewModel is WindowViewModel)
+        //    {
+        //        var windowViewModel = prefabUiViewModel as WindowViewModel;
+        //        windowViewModel.Window.HideInstantly();
+        //    }
+        //    if (prefabUiViewModel is HudViewModel)
+        //    {
+        //        var windowViewModel = prefabUiViewModel as HudViewModel;
+        //        windowViewModel.Hud.HideInstantly();
+        //    }
+        //}
+
+        public void Dispose()
+        {
             _createdUiViewModelsCache.Clear();
-            _createdWidgetViewModelsCache.Clear();
-        }
-
-        private void CreateNewUiViews()
-        {
-
-
-
-            WindowViewModel[] windowPrefabsForCreating = _uiSceneConfig.WindowPrefabs;
-            HudViewModel[] hudPrefabsForCreating = _uiSceneConfig.HudPrefabs;
-            WidgetViewModel[] widgetPrefabsForCreating = _uiSceneConfig.WidgetPrefabs;
-
-            foreach (WindowViewModel prefab in windowPrefabsForCreating)
-            {
-                if (prefab.WindowSettings.IsPreCached)
-                {
-                    AddToUiViewModelToCash(prefab);
-                }
-            }
-
-            foreach (HudViewModel prefab in hudPrefabsForCreating)
-            {
-                if (prefab.WindowSettings.IsPreCached)
-                {
-                    AddToUiViewModelToCash(prefab);
-                }
-            }
 
         }
-
-        private TUiViewModel AddToUiViewModelToCash<TUiViewModel>(TUiViewModel uiViewModel) where TUiViewModel : UiViewModel
-        {
-            var viewModel = CreateUiViewModel(uiViewModel);
-
-            HideUiViewModelInstantly(viewModel);
-
-            if (viewModel.WindowSettings.OpenWhenCreated)
-            {
-                var type = viewModel.GetType();
-                _ui.Show<TUiViewModel>(type);
-            }
-
-            return viewModel;
-        }
-
-        private static void HideUiViewModelInstantly<TUiViewModel>(TUiViewModel prefabUiViewModel) where TUiViewModel : ViewModel
-        {
-            if (prefabUiViewModel is WindowViewModel)
-            {
-                var windowViewModel = prefabUiViewModel as WindowViewModel;
-                windowViewModel.Window.HideInstantly();
-            }
-            if (prefabUiViewModel is HudViewModel)
-            {
-                var windowViewModel = prefabUiViewModel as HudViewModel;
-                windowViewModel.Hud.HideInstantly();
-            }
-        }
-
     }
 }

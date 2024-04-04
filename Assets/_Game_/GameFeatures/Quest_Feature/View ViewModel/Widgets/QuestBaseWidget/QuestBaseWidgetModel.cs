@@ -56,48 +56,48 @@ public class QuestBaseWidgetModel : WidgetViewModel
 
     private void AddNewStateWidgets()
     {
-        if(_quest is ICollectionQuest)
-        {
-            var buttonsWidget = UI.ShowWidget<NewStateButtonsCollectionWidgetModel>(this.transform);
-            buttonsWidget.Construct(_quest as ICollectionQuest);
-        }
-        if(_quest is IJourneyQuest)
-        {
-            var buttonsWidget = UI.ShowWidget<NewStateButtonsJourneyWidgetModel>(this.transform);
-            buttonsWidget.Construct(_quest as IJourneyQuest);
-        }
+        //if(_quest is ICollectionQuest)
+        //{
+        //    var buttonsWidget = UI.ShowWidget<NewStateButtonsCollectionWidgetModel>(this.transform);
+        //    buttonsWidget.Construct(_quest as ICollectionQuest);
+        //}
+        //if(_quest is IJourneyQuest)
+        //{
+        //    var buttonsWidget = UI.ShowWidget<NewStateButtonsJourneyWidgetModel>(this.transform);
+        //    buttonsWidget.Construct(_quest as IJourneyQuest);
+        //}
     }
 
     private void AddActiveStateWidgets()
     {
-        if (_quest is ICollectionQuest)
-        {
-            var sliderWidget = UI.ShowWidget<SliderWidgetModel>(this.transform);
-            sliderWidget.Construct(_quest as ICollectionQuest);
-            var buttonsWidget = UI.ShowWidget<ActiveButtonsCollectionWidgetModel>(this.transform);
-            buttonsWidget.Construct(_quest as ICollectionQuest);
-        }
-        if (_quest is IJourneyQuest)
-        {
-            var buttonsWidget = UI.ShowWidget<ActiveStateButtonsJourneyWidgetModel>(this.transform);
-            buttonsWidget.Construct(_quest as IJourneyQuest);
-        }
+        //if (_quest is ICollectionQuest)
+        //{
+        //    var sliderWidget = UI.ShowWidget<SliderWidgetModel>(this.transform);
+        //    sliderWidget.Construct(_quest as ICollectionQuest);
+        //    var buttonsWidget = UI.ShowWidget<ActiveButtonsCollectionWidgetModel>(this.transform);
+        //    buttonsWidget.Construct(_quest as ICollectionQuest);
+        //}
+        //if (_quest is IJourneyQuest)
+        //{
+        //    var buttonsWidget = UI.ShowWidget<ActiveStateButtonsJourneyWidgetModel>(this.transform);
+        //    buttonsWidget.Construct(_quest as IJourneyQuest);
+        //}
     }
 
     private void AddDisactiveStateWidgets()
     {
-        if (_quest is ICollectionQuest)
-        {
-            var sliderWidget = UI.ShowWidget<SliderWidgetModel>(this.transform);
-            sliderWidget.Construct(_quest as ICollectionQuest);
-            var buttonsWidget = UI.ShowWidget<DisactiveStateButtonsCollectionWidgetModel>(this.transform);
-            buttonsWidget.Construct(_quest as ICollectionQuest);
-        }
-        if (_quest is IJourneyQuest)
-        {
-            var buttonsWidget = UI.ShowWidget<DisactiveStateButtonsJourneyWidgetModel>(this.transform);
-            buttonsWidget.Construct(_quest as IJourneyQuest);
-        }
+        //if (_quest is ICollectionQuest)
+        //{
+        //    var sliderWidget = UI.ShowWidget<SliderWidgetModel>(this.transform);
+        //    sliderWidget.Construct(_quest as ICollectionQuest);
+        //    var buttonsWidget = UI.ShowWidget<DisactiveStateButtonsCollectionWidgetModel>(this.transform);
+        //    buttonsWidget.Construct(_quest as ICollectionQuest);
+        //}
+        //if (_quest is IJourneyQuest)
+        //{
+        //    var buttonsWidget = UI.ShowWidget<DisactiveStateButtonsJourneyWidgetModel>(this.transform);
+        //    buttonsWidget.Construct(_quest as IJourneyQuest);
+        //}
     }
 
 }

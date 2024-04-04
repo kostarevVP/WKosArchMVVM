@@ -1,19 +1,22 @@
-﻿using System.Reactive;
-using UnityEngine;
+﻿using UnityEngine;
 using WKosArch.Services.UIService.Common;
 
 namespace Lukomor.MVVM.Binders
 {
-    public class CloseWindowWithAnimationBinder : ObservableBinder<Unit>
+    public class CloseWindowWithAnimationBinder : ObservableBinder<bool>
     {
         [SerializeField] private GameObject _destroyingGameObject;
         [Space]
-        [SerializeField] 
+        [SerializeField]
         private Transition _transitionOut = default;
 
-        protected override async void OnPropertyChanged(Unit newValue)
+        protected override async void OnPropertyChanged(bool forced)
         {
-            await _transitionOut.Play();
+            if (!forced)
+            {
+                await _transitionOut.Play();
+            }
+
             Destroy(_destroyingGameObject);
         }
 

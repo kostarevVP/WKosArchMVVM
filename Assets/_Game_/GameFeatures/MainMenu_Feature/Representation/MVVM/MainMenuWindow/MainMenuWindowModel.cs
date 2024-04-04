@@ -3,15 +3,15 @@ using WKosArch.UIService.Views.Windows;
 
 public partial class MainMenuWindowModel : WindowViewModel
 {
-    internal void OpenAboutWindow() => 
-        UI.Show<AboutUsWindowModel>();
+    //internal void OpenAboutWindow() => 
+    //    UI.Show<AboutUsWindowModel>();
 
-    internal void OpenQuitGameWindow() => 
-        UI.Show<QuitGameWindowModel>();
+    //internal void OpenQuitGameWindow() => 
+    //    UI.Show<QuitGameWindowModel>();
 
-    internal void OpenRestartWindow() => 
-        UI.Show<RestartWindowModel>();
+    //internal void OpenRestartWindow() => 
+    //    UI.Show<RestartWindowModel>();
 
-    internal void OpenSoundWindow() => 
-        UI.Show<AudioSettingViewModel>();
+    //internal void OpenSoundWindow() => 
+    //    UI.Show<AudioSettingViewModel>();
 }

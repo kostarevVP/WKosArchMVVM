@@ -26,7 +26,7 @@ public class QuestWindowModel : WindowViewModel
             await _activeVidget.Widget.Hide();
         }
 
-        _activeVidget = UI.ShowWidget<QuestsListWidgetModel>(_widgetRoot);
+        //_activeVidget = UI.ShowWidget<QuestsListWidgetModel>(_widgetRoot);
         _scrollRect.content = _activeVidget.GetComponent<RectTransform>();
         _activeVidget.InitState(questState);
     }

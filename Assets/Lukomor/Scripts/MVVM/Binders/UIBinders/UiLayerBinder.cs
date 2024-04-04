@@ -13,7 +13,7 @@ namespace Lukomor
         protected override IDisposable BindInternal(IViewModel viewModel)
         {
             if (viewModel is UiViewModel uiViewModel)
-                uiViewModel.Layer = _layer;
+                uiViewModel.TargetLayer = _layer;
 
             return null;
         }

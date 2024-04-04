@@ -35,9 +35,9 @@ MonoBehaviour:
   - {fileID: 1064096034875164688, guid: 540255744a692604bad0a7ee2d330dcf, type: 3}
   _windowPrefabMappings:
   - ViewModelTypeFullName: SettingViewModel
-    PrefabView: {fileID: 2753145602361935973, guid: 4a5890b4b77e8454cae13d6d741a654c,
+    PrefabView: {fileID: -2590758396542306396, guid: 4a5890b4b77e8454cae13d6d741a654c,
       type: 3}
-  _windowPrefabByDefault: {fileID: 2753145602361935973, guid: 4a5890b4b77e8454cae13d6d741a654c,
+  _windowPrefabByDefault: {fileID: -2590758396542306396, guid: 4a5890b4b77e8454cae13d6d741a654c,
     type: 3}
   SceneName:
   - Quest_Scene

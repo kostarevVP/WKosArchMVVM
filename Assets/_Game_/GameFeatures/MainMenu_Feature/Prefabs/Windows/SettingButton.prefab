@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6166874882345627567}
   - component: {fileID: 6575986846543859330}
   - component: {fileID: 6857464436222953423}
-  - component: {fileID: 2054364204202509490}
+  - component: {fileID: 1961483515448083985}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -120,20 +120,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6575986846543859330}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2054364204202509490}
-        m_TargetAssemblyTypeName: Lukomor.MVVM.Binders.EmptyMethodBinder, Lukomor
-        m_MethodName: Perform
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &2054364204202509490
+      m_Calls: []
+--- !u!114 &1961483515448083985
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -158,15 +146,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7505590465010948573}
   - component: {fileID: 5691430947277082385}
-  - component: {fileID: 8770292261683149688}
-  - component: {fileID: 3303389980071931279}
-  - component: {fileID: 2753145602361935973}
-  - component: {fileID: 9043097842680538297}
-  - component: {fileID: 936255676091121149}
-  - component: {fileID: 4330038426463451132}
-  - component: {fileID: 2840728914078706243}
-  - component: {fileID: 5198503370648216520}
-  - component: {fileID: 9016261348971947745}
+  - component: {fileID: -2590758396542306396}
+  - component: {fileID: -6443120374579071707}
   m_Layer: 5
   m_Name: SettingButton
   m_TagString: Untagged
@@ -202,40 +183,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7753979221662274415}
   m_CullTransparentMesh: 1
---- !u!114 &8770292261683149688
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7753979221662274415}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd9ce7a530af88c47a622bc846a22679, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _windowSettings:
-    TargetLayer: 150
-    IsPreCached: 1
-    OpenWhenCreated: 1
---- !u!114 &3303389980071931279
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7753979221662274415}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84acc0389fcecc04f9eb6230cd9f539c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _transitionIn: {fileID: 0}
-  _transitionOut: {fileID: 0}
-  _closeButton: {fileID: 0}
-  _backButton: {fileID: 0}
-  _settingButton: {fileID: 6857464436222953423}
---- !u!114 &2753145602361935973
+--- !u!114 &-2590758396542306396
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -252,28 +200,9 @@ MonoBehaviour:
   _isParentView: 1
   _subViews: []
   _childBinders:
-  - {fileID: 2054364204202509490}
-  - {fileID: 9043097842680538297}
-  - {fileID: 936255676091121149}
-  - {fileID: 2840728914078706243}
-  - {fileID: 5198503370648216520}
-  - {fileID: 9016261348971947745}
---- !u!114 &9043097842680538297
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7753979221662274415}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e4627a229c0622478db175fccacd689, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _viewModelTypeFullName: 
-  _propertyName: 
-  _layer: 0
---- !u!114 &936255676091121149
+  - {fileID: -6443120374579071707}
+  - {fileID: 1961483515448083985}
+--- !u!114 &-6443120374579071707
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -288,80 +217,4 @@ MonoBehaviour:
   _viewModelTypeFullName: SettingViewModel
   _propertyName: Closed
   _destroyingGameObject: {fileID: 7753979221662274415}
-  _transitionOut: {fileID: 4330038426463451132}
---- !u!114 &4330038426463451132
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7753979221662274415}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d771d1c7e81d5804b87137301734e1f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _duration: 1
-  _ease: 19
---- !u!114 &2840728914078706243
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7753979221662274415}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04602d047113c294ea377af33d6f57a4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _viewModelTypeFullName: SettingViewModel
-  _propertyName: BoolValue
-  _colorTrue: {r: 1, g: 1, b: 1, a: 1}
-  _colorFalse: {r: 1, g: 1, b: 1, a: 1}
-  _event:
-    m_PersistentCalls:
-      m_Calls: []
---- !u!114 &5198503370648216520
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7753979221662274415}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4e415cd7d7a4634a9af81fc711000a2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _viewModelTypeFullName: SettingViewModel
-  _propertyName: MusicValue
-  _event:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 7331563061577192521}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &9016261348971947745
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7753979221662274415}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ae43f7c7b4186641b72492824ec0a14, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _viewModelTypeFullName: SettingViewModel
-  _propertyName: Open
+  _transitionOut: {fileID: 0}

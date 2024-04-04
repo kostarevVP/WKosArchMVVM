@@ -11,14 +11,14 @@ public class WindowRestart : Window<RestartWindowModel>
     public override void Subscribe()
     {
         base.Subscribe();
-        _confirmRestartButton.onClick.AddListener(ViewModel.RestartGame);
-        _cancelRestartButton.onClick.AddListener(ViewModel.Close);
+        //_confirmRestartButton.onClick.AddListener(ViewModel.RestartGame);
+        //_cancelRestartButton.onClick.AddListener(ViewModel.Close);
     }
 
     public override void Unsubscribe()
     {
         base.Unsubscribe();
-        _confirmRestartButton.onClick.RemoveListener(ViewModel.RestartGame);
-        _cancelRestartButton?.onClick.RemoveListener(ViewModel.Close);
+        //_confirmRestartButton.onClick.RemoveListener(ViewModel.RestartGame);
+        //_cancelRestartButton?.onClick.RemoveListener(ViewModel.Close);
     }
 }

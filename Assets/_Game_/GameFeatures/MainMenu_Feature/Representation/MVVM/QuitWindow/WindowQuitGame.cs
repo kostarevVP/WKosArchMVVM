@@ -11,14 +11,14 @@ public class WindowQuitGame : Window<QuitGameWindowModel>
     public override void Subscribe()
     {
         base.Subscribe();
-        _confirmExitButton.onClick.AddListener(ViewModel.CloseAplication);
-        _cancelExitButton.onClick.AddListener(ViewModel.Close);
+        //_confirmExitButton.onClick.AddListener(ViewModel.CloseAplication);
+        //_cancelExitButton.onClick.AddListener(ViewModel.Close);
     }
 
     public override void Unsubscribe()
     {
         base.Unsubscribe();
-        _confirmExitButton.onClick.RemoveListener(ViewModel.CloseAplication);
-        _cancelExitButton?.onClick.RemoveListener(ViewModel.Close);
+        //_confirmExitButton.onClick.RemoveListener(ViewModel.CloseAplication);
+        //_cancelExitButton?.onClick.RemoveListener(ViewModel.Close);
     }
 }

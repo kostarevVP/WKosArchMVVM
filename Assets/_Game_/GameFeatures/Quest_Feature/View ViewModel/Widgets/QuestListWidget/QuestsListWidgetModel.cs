@@ -10,15 +10,15 @@ public class QuestsListWidgetModel : WidgetViewModel
     {
         if(questState == QuestState.New)
         {
-             UI.ShowWidget<RandomQuestWidgetModel>(this.transform);
+             //UI.ShowWidget<RandomQuestWidgetModel>(this.transform);
         }
 
         foreach(var quest in  _questFeature.Quests)
         {
             if(quest.State == questState)
             {
-                var baseWidget = UI.ShowWidget<QuestBaseWidgetModel>(this.transform);
-                baseWidget.Construct(quest);
+                //var baseWidget = UI.ShowWidget<QuestBaseWidgetModel>(this.transform);
+                //baseWidget.Construct(quest);
             }
         }
     }
