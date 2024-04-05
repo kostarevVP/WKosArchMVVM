@@ -217,7 +217,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _viewModelTypeFullName: SettingViewModel
   _propertyName: Closed
-  _destroyingGameObject: {fileID: 7331563061577192521}
+  _destroyingGameObject: {fileID: 7753979221662274415}
   _transitionOut: {fileID: 3885325146712311827}
 --- !u!114 &3885325146712311827
 MonoBehaviour:

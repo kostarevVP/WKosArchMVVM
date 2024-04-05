@@ -1,10 +1,11 @@
-using Assets.LocalPackages.WKosArch.Scripts.Common.DIContainer;
-using Lukomor.MVVM;
-
-
 namespace Lukomor
 {
     public abstract class WindowViewModel : UiViewModel
     {
+        public void Back() => 
+            UI.Back();
+
+        public void CloseAllWindow() => 
+            UI.CloseAllWindowInStack();
     }
 }

@@ -1082,6 +1082,7 @@ GameObject:
   - component: {fileID: 8875228521137279047}
   - component: {fileID: 8807115153189117612}
   - component: {fileID: 8894514058345726443}
+  - component: {fileID: 7616897680788907946}
   m_Layer: 5
   m_Name: Back Button
   m_TagString: Untagged
@@ -1191,6 +1192,21 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &7616897680788907946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2726194320954917346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06cf34b09b4bdd54c9a5e0beb612ddee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _viewModelTypeFullName: AboutUsWindowModel
+  _propertyName: Back
+  _button: {fileID: 8894514058345726443}
 --- !u!1 &2899021979017246604
 GameObject:
   m_ObjectHideFlags: 0
@@ -1771,6 +1787,7 @@ GameObject:
   - component: {fileID: 3435089610598622877}
   - component: {fileID: 1056372200687308027}
   - component: {fileID: 2077777013738474342}
+  - component: {fileID: 1027523397725373608}
   m_Layer: 5
   m_Name: Close Button
   m_TagString: Untagged
@@ -1880,6 +1897,21 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1027523397725373608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3994130450448071335}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06cf34b09b4bdd54c9a5e0beb612ddee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _viewModelTypeFullName: AboutUsWindowModel
+  _propertyName: CloseAllWindow
+  _button: {fileID: 2077777013738474342}
 --- !u!1 &4021960539434733552
 GameObject:
   m_ObjectHideFlags: 0
@@ -2032,8 +2064,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4993019835852009041}
   - component: {fileID: 1057400379490127362}
-  - component: {fileID: 7470987972230643704}
-  - component: {fileID: 2729901305920453414}
+  - component: {fileID: 513986370602217839}
+  - component: {fileID: 726026246678160995}
+  - component: {fileID: 2357250500268832167}
   m_Layer: 5
   m_Name: AboutUs_Window
   m_TagString: Untagged
@@ -2082,7 +2115,7 @@ MonoBehaviour:
   - {fileID: 2969920882615211709}
   - {fileID: 5299929237112706133}
   _gameLinkPlayMarket: https://google.com
---- !u!114 &7470987972230643704
+--- !u!114 &513986370602217839
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2091,14 +2124,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 4419004440189377215}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62abedb451ca21d4fa589a74e4beac7a, type: 3}
+  m_Script: {fileID: 11500000, guid: 5989cd7a91e7628428e62faf560317b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _windowSettings:
-    TargetLayer: 50
-    IsPreCached: 0
-    OpenWhenCreated: 0
---- !u!114 &2729901305920453414
+  _viewModelTypeFullName: AboutUsWindowModel
+  _viewModelPropertyName: 
+  _isParentView: 1
+  _subViews: []
+  _childBinders:
+  - {fileID: 726026246678160995}
+  - {fileID: 2357250500268832167}
+  - {fileID: 7616897680788907946}
+  - {fileID: 1027523397725373608}
+--- !u!114 &726026246678160995
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2107,25 +2145,29 @@ MonoBehaviour:
   m_GameObject: {fileID: 4419004440189377215}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e4d1d6df5cfd594ca21e0a74b1a150f, type: 3}
+  m_Script: {fileID: 11500000, guid: 54ab0d0bfec4cb74ca924b03e285ddcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _transitionIn: {fileID: 0}
+  _viewModelTypeFullName: AboutUsWindowModel
+  _propertyName: Hided
+  _destroyingGameObject: {fileID: 4419004440189377215}
   _transitionOut: {fileID: 0}
-  _closeButton: {fileID: 2077777013738474342}
-  _backButton: {fileID: 8894514058345726443}
-  _siteButton: {fileID: 9066528676496769492}
-  _siteLink: https://wkosstudio.wixsite.com/main
-  _tikTokButton: {fileID: 1684968948471953319}
-  _tikTokLink: https://www.tiktok.com/@wkosstudio
-  _youTubeButton: {fileID: 1264391232917363854}
-  _youTubeLink: https://www.youtube.com/@WKosStudio
-  _xButton: {fileID: 5430766589814943918}
-  _xLink: https://twitter.com/WKosStudio
-  _instagramButton: {fileID: 2196652629255680668}
-  _instagramLink: https://www.instagram.com/wkosstudio/
-  _linkedInButton: {fileID: 3027461656521220715}
-  _linkedInLink: https://www.linkedin.com/in/vadym-kostariev/
+--- !u!114 &2357250500268832167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4419004440189377215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54ab0d0bfec4cb74ca924b03e285ddcf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _viewModelTypeFullName: AboutUsWindowModel
+  _propertyName: Closed
+  _destroyingGameObject: {fileID: 4419004440189377215}
+  _transitionOut: {fileID: 0}
 --- !u!1 &4487687649172957740
 GameObject:
   m_ObjectHideFlags: 0

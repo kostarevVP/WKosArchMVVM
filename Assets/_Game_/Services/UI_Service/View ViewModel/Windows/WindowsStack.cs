@@ -36,10 +36,8 @@ namespace WKosArch.UIService.Views.Windows
 
                 result = _windowsQueue[lastIndex];
 
-                if (!typeof(IHomeWindow).IsAssignableFrom(result.GetType()))
-                {
+                //if (!typeof(IHomeWindow).IsAssignableFrom(result.WindowViewModel.GetType()))
                     _windowsQueue.RemoveAt(lastIndex);
-                }
             }
 
             return result;

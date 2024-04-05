@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Quest_Scene_UI_SceneConfig
   m_EditorClassIdentifier: 
   _windowPrefabs:
-  - {fileID: 8770292261683149688, guid: 4a5890b4b77e8454cae13d6d741a654c, type: 3}
+  - {fileID: 0}
   - {fileID: 8295979030991519121, guid: c08f0a07e44657e4c8462d46a895aa7d, type: 3}
   - {fileID: 1507065231399839668, guid: 55b2eed892c67f84e97acf48ddbdb6f0, type: 3}
-  - {fileID: 7470987972230643704, guid: ee627f0b4a7561944a530c8ff65b326d, type: 3}
+  - {fileID: 0}
   - {fileID: 4600851426264866564, guid: b995157c9ed9978499a89e395fc692ac, type: 3}
   - {fileID: 445053327419328153, guid: b0b28945d83435441b9737d76721a1a5, type: 3}
   - {fileID: 4861344124513083390, guid: 99ff7d2667078cb49bc37b680c34b13e, type: 3}
@@ -36,6 +36,12 @@ MonoBehaviour:
   _windowPrefabMappings:
   - ViewModelTypeFullName: SettingViewModel
     PrefabView: {fileID: -2590758396542306396, guid: 4a5890b4b77e8454cae13d6d741a654c,
+      type: 3}
+  - ViewModelTypeFullName: MainMenuViewModel
+    PrefabView: {fileID: 3765569506975932943, guid: c08f0a07e44657e4c8462d46a895aa7d,
+      type: 3}
+  - ViewModelTypeFullName: AboutUsWindowModel
+    PrefabView: {fileID: 513986370602217839, guid: ee627f0b4a7561944a530c8ff65b326d,
       type: 3}
   _windowPrefabByDefault: {fileID: -2590758396542306396, guid: 4a5890b4b77e8454cae13d6d741a654c,
     type: 3}

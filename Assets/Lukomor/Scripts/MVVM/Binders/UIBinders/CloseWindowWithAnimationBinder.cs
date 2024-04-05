@@ -12,7 +12,7 @@ namespace Lukomor.MVVM.Binders
 
         protected override async void OnPropertyChanged(bool forced)
         {
-            if (!forced)
+            if (!forced && _transitionOut != default)
             {
                 await _transitionOut.Play();
             }

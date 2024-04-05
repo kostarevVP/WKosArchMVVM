@@ -13,8 +13,8 @@ namespace Assets._Game_.Services.UI_Service.Implementation
         void Build(UISceneConfig config);
         void Construct(IDIContainer dIContainer, IUserInterface userInterface);
 
-        void Close<TUiViewModel>() where TUiViewModel : UiViewModel;
-        void Hide<TUiViewModel>() where TUiViewModel : UiViewModel;
+        void Close(UiViewModel currentUiViewModel);
+        void Hide(UiViewModel viewModel);
 
         View GetOrCreateActiveView(UiViewModel viewModel, Transform root = null);
         UiViewModel GetOrCreateViewModel<TUiViewModel>() where TUiViewModel : UiViewModel, new();

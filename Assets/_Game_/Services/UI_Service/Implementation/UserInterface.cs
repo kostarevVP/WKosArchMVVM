@@ -3,7 +3,6 @@ using Assets.LocalPackages.WKosArch.Scripts.Common.DIContainer;
 using Lukomor;
 using System;
 using System.Collections.Generic;
-using UnityEditor.PackageManager.UI;
 using UnityEngine;
 using WKosArch.Extentions;
 using WKosArch.UIService.Views.Windows;
@@ -30,17 +29,21 @@ namespace WKosArch.Services.UIService.UI
 
             if (IsHomeWindowType(currentUiViewModel))
             {
-                OpenGameCloseWindow();
+                _windowStack.Push(new WindowTreeNode(currentUiViewModel));
+                OpenGameCloseWindowPopup();
+                return;
             }
 
             if (hideCurrentWindow)
             {
-                currentUiViewModel.Close(forced);
+                _uiFactory.Close(currentUiViewModel);
             }
 
             var previousUiViewModel = _windowStack.Pop().WindowViewModel;
 
             _uiFactory.GetOrCreateActiveView(previousUiViewModel);
+
+            AddWindowToWindowStack(previousUiViewModel);
         }
 
         //public void CloseAllWindowInStack()
@@ -112,8 +115,9 @@ namespace WKosArch.Services.UIService.UI
             _uiFactory.Build(config);
         }
 
-        private void OpenGameCloseWindow()
+        private void OpenGameCloseWindowPopup()
         {
+
             Log.PrintColor($"OpenGameCloseWindow", Color.red);
         }
 
@@ -121,29 +125,35 @@ namespace WKosArch.Services.UIService.UI
             typeof(IHomeWindow).IsAssignableFrom(viewModel.GetType());
 
 
-        public void Show<TUiViewModel>() where TUiViewModel : UiViewModel, new()
+        public void Show<TUiViewModel>(bool hideCurrentWindow = true, bool forced = false) where TUiViewModel : UiViewModel, new()
         {
+            if (hideCurrentWindow)
+                FocusedWindowViewModel?.Close(forced);
+
             UiViewModel uiViewModel = _uiFactory.GetOrCreateViewModel<TUiViewModel>();
             _uiFactory.GetOrCreateActiveView(uiViewModel);
 
-            _windowStack.Push(new WindowTreeNode(uiViewModel));
-        }
-
-        public void OpenLastWindow()
-        {
-            UiViewModel window = _windowStack.Pop().WindowViewModel;
-            _uiFactory.GetOrCreateActiveView(window);
+            AddWindowToWindowStack(uiViewModel);
 
         }
 
-        public void Close<TUiViewModel>() where TUiViewModel : UiViewModel
+        private void AddWindowToWindowStack(UiViewModel uiViewModel)
         {
-            _uiFactory.Close<TUiViewModel>();
+            if (uiViewModel is Lukomor.WindowViewModel windowViewModel)
+            {
+                FocusedWindowViewModel = windowViewModel;
+                _windowStack.Push(new WindowTreeNode(windowViewModel));
+            }
         }
 
-        public void Hide<TUiViewModel>() where TUiViewModel : UiViewModel
+        public void Close<TUiViewModel>(bool hideCurrentWindow = true, bool forced = false) where TUiViewModel : UiViewModel
         {
-            _uiFactory.Hide<TUiViewModel>();
+            //_uiFactory.Close(typeof(TUiViewModel).FullName);
+        }
+
+        public void Hide<TUiViewModel>(bool hideCurrentWindow = true, bool forced = false) where TUiViewModel : UiViewModel
+        {
+            //_uiFactory.Hide<TUiViewModel>();
         }
 
         public void CloseAllWindowInStack()

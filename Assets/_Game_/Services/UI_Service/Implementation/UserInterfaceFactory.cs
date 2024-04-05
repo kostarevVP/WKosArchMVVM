@@ -59,7 +59,7 @@ namespace Assets._Game_.Services.UI_Service.Implementation
             _uiSceneConfig = config;
         }
 
-        public View CreateView(UiViewModel uiViewModel, Transform containerLayer = null)
+        private View CreateView(UiViewModel uiViewModel, Transform containerLayer = null)
         {
             View view = null;
 
@@ -123,6 +123,7 @@ namespace Assets._Game_.Services.UI_Service.Implementation
                 if (!view.isActiveAndEnabled)
                 {
                     view.gameObject.SetActive(true);
+                    viewModel.Open();
                 }
                 return view;
             }
@@ -133,20 +134,22 @@ namespace Assets._Game_.Services.UI_Service.Implementation
                 _createdViewCache.Add(fullName, view);
             }
 
+            
+
             return view;
         }
 
-        public void Close<TUiViewModel>() where TUiViewModel : UiViewModel
+        public void Close(UiViewModel viewModel)
         {
-            var fullName = typeof(TUiViewModel).FullName;
+            var fullName = viewModel.GetType().FullName;
 
             _createdUiViewModelsCache[fullName].Close();
             _createdViewCache.Remove(fullName);
         }
 
-        public void Hide<TUiViewModel>() where TUiViewModel : UiViewModel
+        public void Hide(UiViewModel viewModel)
         {
-            var fullName = typeof(TUiViewModel).FullName;
+            var fullName = viewModel.GetType().FullName;
 
             _createdUiViewModelsCache[fullName].Hide();
         }

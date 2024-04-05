@@ -7,9 +7,9 @@ namespace WKosArch.Services.UIService.UI
     {
         void Build(UISceneConfig config);
 
-        void Show<TUiViewModel>() where TUiViewModel : UiViewModel, new();
-        void Hide<TUiViewModel>() where TUiViewModel : UiViewModel;
-        void Close<TUiViewModel>() where TUiViewModel : UiViewModel;
+        void Show<TUiViewModel>(bool hideCurrentWindow = true, bool forced = false) where TUiViewModel : UiViewModel, new();
+        void Hide<TUiViewModel>(bool hideCurrentWindow = true, bool forced = false) where TUiViewModel : UiViewModel;
+        void Close<TUiViewModel>(bool hideCurrentWindow = true, bool forced = false) where TUiViewModel : UiViewModel;
         void Back(bool hideCurrentWindow = true, bool forced = false);
         void CloseAllWindowInStack();
     }

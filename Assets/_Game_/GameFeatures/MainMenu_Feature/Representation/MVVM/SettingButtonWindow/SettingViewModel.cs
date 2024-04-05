@@ -7,6 +7,5 @@ public class SettingViewModel : WindowViewModel
     {
         Log.PrintYellow("SettingViewModel OpenSettingMenuWindow");
         UI.Show<MainMenuViewModel>();
-        Close();
     }
 } 
