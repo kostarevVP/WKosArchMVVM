@@ -1,23 +1,24 @@
-﻿using System;
+﻿using Lukomor;
 using System.Collections.Generic;
 using System.Linq;
+using WKosArch.Services.UIService.UI;
 
 namespace WKosArch.UIService.Views.Windows
 {
-    public class WindowsStack
+    public class WindowsStack<TreeNode> where TreeNode : WindowTreeNode
     {
         public int Length => _windowsQueue.Count;
 
-        private List<Type> _windowsQueue;
+        private List<TreeNode> _windowsQueue;
 
         public WindowsStack()
         {
-            _windowsQueue = new List<Type>();
+            _windowsQueue = new List<TreeNode>();
         }
 
-        public void Push(Type windowType)
+        public void Push(TreeNode windowType)
         {
-            bool queaAllreadyHasIHomeWIndow = Length == 1 && typeof(IHomeWindow).IsAssignableFrom(windowType);
+            bool queaAllreadyHasIHomeWIndow = Length == 1 && typeof(IHomeWindow).IsAssignableFrom(windowType.GetType());
 
             if (queaAllreadyHasIHomeWIndow)
                 return;
@@ -25,9 +26,9 @@ namespace WKosArch.UIService.Views.Windows
                 _windowsQueue.Add(windowType);
         }
 
-        public Type Pop()
+        public TreeNode Pop()
         {
-            Type result = null;
+            TreeNode result = null;
 
             if (_windowsQueue.Any())
             {
@@ -35,7 +36,7 @@ namespace WKosArch.UIService.Views.Windows
 
                 result = _windowsQueue[lastIndex];
 
-                if (!typeof(IHomeWindow).IsAssignableFrom(result))
+                if (!typeof(IHomeWindow).IsAssignableFrom(result.GetType()))
                 {
                     _windowsQueue.RemoveAt(lastIndex);
                 }
@@ -49,7 +50,7 @@ namespace WKosArch.UIService.Views.Windows
             _windowsQueue.Clear();
         }
 
-        public void RemoveLast(Type type)
+        public void RemoveLast(TreeNode type)
         {
             if (_windowsQueue.Contains(type))
             {
@@ -59,12 +60,12 @@ namespace WKosArch.UIService.Views.Windows
             }
         }
 
-        public Type GetLast()
+        public TreeNode GetLast()
         {
             return _windowsQueue.Last();
         }
 
-        internal void Remove(Type windowType)
+        internal void Remove(TreeNode windowType)
         {
             _windowsQueue.Remove(windowType);
         }

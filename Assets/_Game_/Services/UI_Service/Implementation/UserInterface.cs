@@ -1,18 +1,16 @@
-﻿
-using Assets._Game_.Services.UI_Service.Implementation;
+﻿using Assets._Game_.Services.UI_Service.Implementation;
 using Assets.LocalPackages.WKosArch.Scripts.Common.DIContainer;
 using Lukomor;
 using System;
-using UnityEngine;
-using WKosArch.Extentions;
+using System.Collections.Generic;
 using WKosArch.UIService.Views.Windows;
 
 namespace WKosArch.Services.UIService.UI
 {
-    public class UserInterface : IUserInterface
+    public class UserInterface : IUserInterface, IDisposable
     {
         private IUserInterfaceFactory _uiFactory;
-        private WindowsStack _windowStack = new WindowsStack();
+        private WindowsStack<WindowTreeNode> _windowStack = new WindowsStack<WindowTreeNode>();
 
         public Lukomor.WindowViewModel FocusedWindowViewModel { get; private set; }
 
@@ -23,38 +21,38 @@ namespace WKosArch.Services.UIService.UI
             _uiFactory.Construct(container, this);
         }
 
-        //public void Back(bool hideCurrentWindow = true, bool forced = false)
-        //{
-        //    var currentWindowType = _windowStack.Pop();
+        public void Back(bool hideCurrentWindow = true, bool forced = false)
+        {
+            //var currentWindowType = _windowStack.Pop();
 
-        //    if (IsHomeWindowType(currentWindowType))
-        //    {
-        //        OpenGameCloseWindow();
-        //    }
+            //if (IsHomeWindowType(currentWindowType))
+            //{
+            //    OpenGameCloseWindow();
+            //}
 
-        //    if (hideCurrentWindow)
-        //    {
-        //        FocusedWindowViewModel.Close(forced);
-        //        FocusedWindowViewModel = null;
-        //    }
+            //if (hideCurrentWindow)
+            //{
+            //    FocusedWindowViewModel.Close(forced);
+            //    FocusedWindowViewModel = null;
+            //}
 
-        //    var previousWindowType = _windowStack.Pop();
+            //var previousWindowType = _windowStack.Pop();
 
-        //    // chek in windowcache if there has windowViewModel else it`s mean that window was destroyed
-        //    if (_uiFactory.UiViewModelsCache.TryGetValue(previousWindowType, out UiViewModel currentUiView))
-        //    {
-        //        var previousWindowViewModel = (WindowViewModel)currentUiView;
+            //// chek in windowcache if there has windowViewModel else it`s mean that window was destroyed
+            //if (_uiFactory.UiViewModelsCache.TryGetValue(previousWindowType, out UiViewModel currentUiView))
+            //{
+            //    var previousWindowViewModel = (WindowViewModel)currentUiView;
 
-        //        if (!previousWindowViewModel.IsActive)
-        //        {
-        //            Show<WindowViewModel>(previousWindowType);
-        //        }
-        //    }
-        //    else
-        //    {
-        //        Show<WindowViewModel>(previousWindowType);
-        //    }
-        //}
+            //    if (!previousWindowViewModel.IsActive)
+            //    {
+            //        Show<WindowViewModel>(previousWindowType);
+            //    }
+            //}
+            //else
+            //{
+            //    Show<WindowViewModel>(previousWindowType);
+            //}
+        }
 
         //public void CloseAllWindowInStack()
         //{
@@ -130,26 +128,26 @@ namespace WKosArch.Services.UIService.UI
         //    Log.PrintColor($"OpenGameCloseWindow", Color.red);
         //}
 
-        private bool IsHomeWindowType(Type windowType) =>
-            typeof(IHomeWindow).IsAssignableFrom(windowType);
+        private bool IsHomeWindowType(UiViewModel windowType) =>
+            typeof(IHomeWindow).IsAssignableFrom(windowType.GetType());
 
-        public void Show<TWindowViewModel>(UiViewModel uiViewModel) where TWindowViewModel : UiViewModel
+
+        public void Show<TUiViewModel>() where TUiViewModel : UiViewModel, new()
         {
-            //_uiFactory.CreateView(uiViewModel);
+            UiViewModel uiViewModel = _uiFactory.GetOrCreateViewModel<TUiViewModel>();
+            _uiFactory.GetOrCreateActiveView(uiViewModel);
+
+            _windowStack.Push(new WindowTreeNode(uiViewModel));
         }
 
-        public void Show(UiViewModel uiViewModel)
+        public void OpenLastWindow()
         {
-            //_uiFactory.CreateView(uiViewModel);
+            UiViewModel window = _windowStack.Pop().WindowViewModel;
+            _uiFactory.GetOrCreateActiveView(window);
+
         }
 
-        public void Show<TUiViewModel>() where TUiViewModel : UiViewModel, new() 
-        {
-           var viewModel = _uiFactory.GetOrCreateViewModel<TUiViewModel>();
-           _uiFactory.GetOrCreateActiveView(viewModel);
-        }
-
-        public void Close<TUiViewModel>() where TUiViewModel: UiViewModel
+        public void Close<TUiViewModel>() where TUiViewModel : UiViewModel
         {
             _uiFactory.Close<TUiViewModel>();
         }
@@ -158,5 +156,49 @@ namespace WKosArch.Services.UIService.UI
         {
             _uiFactory.Hide<TUiViewModel>();
         }
+
+        public void CloseAllWindowInStack()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Dispose()
+        {
+            _uiFactory.Dispose();
+            _windowStack.Clear();
+        }
+    }
+
+    public class WindowTreeNode
+    {
+        public UiViewModel WindowViewModel { get; }
+        public List<UiViewModel> Widgets { get; }
+        public bool HasChild => Widgets.Count > 0;
+
+        public WindowTreeNode(UiViewModel windowName)
+        {
+            WindowViewModel = windowName;
+            Widgets = new List<UiViewModel>();
+        }
+
+        public void AddWidgetName(UiViewModel name)
+        {
+            Widgets.Add(name);
+        }
+
+        public UiViewModel RemoveLastWindgetName()
+        {
+            UiViewModel name = null;
+
+            if (Widgets.Count > 0)
+            {
+                name = Widgets[Widgets.Count - 1];
+                Widgets.RemoveAt(Widgets.Count - 1);
+            }
+
+            return name;
+        }
+
+
     }
 }
