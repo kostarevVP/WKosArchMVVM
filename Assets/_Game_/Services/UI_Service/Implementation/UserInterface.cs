@@ -3,6 +3,9 @@ using Assets.LocalPackages.WKosArch.Scripts.Common.DIContainer;
 using Lukomor;
 using System;
 using System.Collections.Generic;
+using UnityEditor.PackageManager.UI;
+using UnityEngine;
+using WKosArch.Extentions;
 using WKosArch.UIService.Views.Windows;
 
 namespace WKosArch.Services.UIService.UI
@@ -23,35 +26,21 @@ namespace WKosArch.Services.UIService.UI
 
         public void Back(bool hideCurrentWindow = true, bool forced = false)
         {
-            //var currentWindowType = _windowStack.Pop();
+            var currentUiViewModel = _windowStack.Pop().WindowViewModel;
 
-            //if (IsHomeWindowType(currentWindowType))
-            //{
-            //    OpenGameCloseWindow();
-            //}
+            if (IsHomeWindowType(currentUiViewModel))
+            {
+                OpenGameCloseWindow();
+            }
 
-            //if (hideCurrentWindow)
-            //{
-            //    FocusedWindowViewModel.Close(forced);
-            //    FocusedWindowViewModel = null;
-            //}
+            if (hideCurrentWindow)
+            {
+                currentUiViewModel.Close(forced);
+            }
 
-            //var previousWindowType = _windowStack.Pop();
+            var previousUiViewModel = _windowStack.Pop().WindowViewModel;
 
-            //// chek in windowcache if there has windowViewModel else it`s mean that window was destroyed
-            //if (_uiFactory.UiViewModelsCache.TryGetValue(previousWindowType, out UiViewModel currentUiView))
-            //{
-            //    var previousWindowViewModel = (WindowViewModel)currentUiView;
-
-            //    if (!previousWindowViewModel.IsActive)
-            //    {
-            //        Show<WindowViewModel>(previousWindowType);
-            //    }
-            //}
-            //else
-            //{
-            //    Show<WindowViewModel>(previousWindowType);
-            //}
+            _uiFactory.GetOrCreateActiveView(previousUiViewModel);
         }
 
         //public void CloseAllWindowInStack()
@@ -123,13 +112,13 @@ namespace WKosArch.Services.UIService.UI
             _uiFactory.Build(config);
         }
 
-        //private void OpenGameCloseWindow()
-        //{
-        //    Log.PrintColor($"OpenGameCloseWindow", Color.red);
-        //}
+        private void OpenGameCloseWindow()
+        {
+            Log.PrintColor($"OpenGameCloseWindow", Color.red);
+        }
 
-        private bool IsHomeWindowType(UiViewModel windowType) =>
-            typeof(IHomeWindow).IsAssignableFrom(windowType.GetType());
+        private bool IsHomeWindowType(UiViewModel viewModel) =>
+            typeof(IHomeWindow).IsAssignableFrom(viewModel.GetType());
 
 
         public void Show<TUiViewModel>() where TUiViewModel : UiViewModel, new()
@@ -172,28 +161,28 @@ namespace WKosArch.Services.UIService.UI
     public class WindowTreeNode
     {
         public UiViewModel WindowViewModel { get; }
-        public List<UiViewModel> Widgets { get; }
-        public bool HasChild => Widgets.Count > 0;
+        public List<UiViewModel> WidgetViewModels { get; }
+        public bool HasChild => WidgetViewModels.Count > 0;
 
         public WindowTreeNode(UiViewModel windowName)
         {
             WindowViewModel = windowName;
-            Widgets = new List<UiViewModel>();
+            WidgetViewModels = new List<UiViewModel>();
         }
 
-        public void AddWidgetName(UiViewModel name)
+        public void AddWidget(UiViewModel name)
         {
-            Widgets.Add(name);
+            WidgetViewModels.Add(name);
         }
 
-        public UiViewModel RemoveLastWindgetName()
+        public UiViewModel RemoveLastWindget()
         {
             UiViewModel name = null;
 
-            if (Widgets.Count > 0)
+            if (WidgetViewModels.Count > 0)
             {
-                name = Widgets[Widgets.Count - 1];
-                Widgets.RemoveAt(Widgets.Count - 1);
+                name = WidgetViewModels[WidgetViewModels.Count - 1];
+                WidgetViewModels.RemoveAt(WidgetViewModels.Count - 1);
             }
 
             return name;
