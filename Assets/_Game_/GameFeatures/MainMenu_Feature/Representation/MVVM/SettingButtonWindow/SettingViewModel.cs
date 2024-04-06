@@ -1,11 +1,25 @@
 using Lukomor;
-using WKosArch.Extentions;
+using WKosArch.Common.DIContainer;
+using WKosArch.UIService.Views.Windows;
 
-public class SettingViewModel : WindowViewModel
+public class SettingViewModel : Lukomor.WindowViewModel, IHomeWindow
 {
     public void OpenSettingMenuWindow()
     {
-        Log.PrintYellow("SettingViewModel OpenSettingMenuWindow");
         UI.Show<MainMenuViewModel>();
+    }
+
+    public void OpenSoundSettingWindow()
+    {
+        
+    }
+
+    public void RestartLevel()
+    {
+        DiContainer.Resolve<>
+    }
+    public void QuitGame()
+    {
+
     }
 } 

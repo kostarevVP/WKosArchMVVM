@@ -1,7 +1,6 @@
 using Assets.LocalPackages.WKosArch.Scripts.Common.DIContainer;
 using Lukomor;
 using Lukomor.MVVM;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -133,30 +132,36 @@ namespace Assets._Game_.Services.UI_Service.Implementation
 
                 _createdViewCache.Add(fullName, view);
             }
-
-            
-
+             
             return view;
         }
 
-        public void Close(UiViewModel viewModel)
+        public void Close(string fullName, bool forcedHide = false)
         {
-            var fullName = viewModel.GetType().FullName;
-
-            _createdUiViewModelsCache[fullName].Close();
+            _createdUiViewModelsCache[fullName].Close(forcedHide);
             _createdViewCache.Remove(fullName);
         }
 
-        public void Hide(UiViewModel viewModel)
+        public void Hide(string fullName, bool forcedHide = false)
         {
-            var fullName = viewModel.GetType().FullName;
-
-            _createdUiViewModelsCache[fullName].Hide();
+            _createdUiViewModelsCache[fullName].Hide(forcedHide);
         }
 
         private Transform GetLayerContainer(UILayer layer)
         {
             return _containers.FirstOrDefault(container => container.Layer == layer)?.transform;
+        }
+
+        public void Close(UiViewModel viewModel, bool forcedHide = false)
+        {
+            string fullName = viewModel.GetType().FullName;
+            Close(fullName, forcedHide);
+        }
+
+        public void Hide(UiViewModel viewModel, bool forcedHide = false)
+        {
+            string fullName = viewModel.GetType().FullName;
+            Hide(fullName, forcedHide);
         }
 
         public void Dispose()
