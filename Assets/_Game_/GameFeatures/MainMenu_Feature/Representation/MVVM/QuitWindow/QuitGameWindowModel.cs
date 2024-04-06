@@ -4,13 +4,13 @@ using WKosArch.UIService.Views.Windows;
 
 public class QuitGameWindowModel : WindowViewModel
 {
-    private ISaveLoadService _saveLoadService;
+    private ISaveLoadFeature _saveLoadService;
 
     public override void InjectDI(IDIContainer container)
     {
         base.InjectDI(container);
 
-        _saveLoadService = DiContainer.Resolve<ISaveLoadService>();
+        _saveLoadService = DiContainer.Resolve<ISaveLoadFeature>();
     }
 
     internal void CloseAplication()

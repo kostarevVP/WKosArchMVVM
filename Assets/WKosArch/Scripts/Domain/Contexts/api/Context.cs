@@ -37,11 +37,11 @@ namespace WKosArch.Domain.Contexts
 
         private bool _isReady;
 
-        [SerializeField] private FeatureInstaller[] _serviceFeaturesInstallers;
-        [SerializeField] private FeatureInstaller[] _gameplayFeatureInstallers;
+        [SerializeField] private FeatureInstaller[] _featureInstallers;
+        //[SerializeField] private FeatureInstaller[] _gameplayFeatureInstallers;
 
-        private List<IFeature> _cachedServiceFeatures;
-        private List<IFeature> _cachedGameplayFeatures;
+        private List<IFeature> _cachedFeatures;
+        //private List<IFeature> _cachedGameplayFeatures;
 
         private IDIContainer _container;
 
@@ -49,8 +49,8 @@ namespace WKosArch.Domain.Contexts
 
         private void Awake()
         {
-            _cachedServiceFeatures = new List<IFeature>();
-            _cachedGameplayFeatures = new List<IFeature>();
+            _cachedFeatures = new List<IFeature>();
+            //_cachedGameplayFeatures = new List<IFeature>();
         }
 
         private void OnDestroy()
@@ -62,32 +62,32 @@ namespace WKosArch.Domain.Contexts
 
         private void OnApplicationFocus(bool hasFocus)
         {
-            foreach (IFeature serviceFeature in _cachedServiceFeatures)
+            foreach (IFeature serviceFeature in _cachedFeatures)
             {
                 if (serviceFeature is IFocusPauseFeature focusFeature)
                     focusFeature.OnApplicationFocus(hasFocus);
             }
 
-            foreach (IFeature gameplayFeature in _cachedGameplayFeatures)
-            {
-                if (gameplayFeature is IFocusPauseFeature focusFeature)
-                    focusFeature.OnApplicationFocus(hasFocus);
-            }
+            //foreach (IFeature gameplayFeature in _cachedGameplayFeatures)
+            //{
+            //    if (gameplayFeature is IFocusPauseFeature focusFeature)
+            //        focusFeature.OnApplicationFocus(hasFocus);
+            //}
         }
 
         private void OnApplicationPause(bool pauseStatus)
         {
-            foreach (IFeature serviceFeature in _cachedServiceFeatures)
+            foreach (IFeature serviceFeature in _cachedFeatures)
             {
                 if (serviceFeature is IFocusPauseFeature pauseFeature)
                     pauseFeature.OnApplicationPause(pauseStatus);
             }
 
-            foreach (IFeature gameplayFeature in _cachedGameplayFeatures)
-            {
-                if (gameplayFeature is IFocusPauseFeature pauseFeature)
-                    pauseFeature.OnApplicationPause(pauseStatus);
-            }
+            //foreach (IFeature gameplayFeature in _cachedGameplayFeatures)
+            //{
+            //    if (gameplayFeature is IFocusPauseFeature pauseFeature)
+            //        pauseFeature.OnApplicationPause(pauseStatus);
+            //}
         }
 
         #endregion
@@ -97,10 +97,10 @@ namespace WKosArch.Domain.Contexts
         public virtual async UniTask InitializeAsync()
         {
             InstallServiceFeatures();
-            InstallGameplayFeatures();
+            //InstallGameplayFeatures();
 
             InitializeServiceFeatures();
-            InitializeGameplayFeatures();
+            //InitializeGameplayFeatures();
 
             await WaitInitializationComplete();
         }
@@ -108,7 +108,7 @@ namespace WKosArch.Domain.Contexts
         public void Destroy()
         {
             DestroyServiceFeatures();
-            DestroyGameplayFeatures();
+            //DestroyGameplayFeatures();
 
             //there are problems with Destroy and OnDestroy, so it needs to be checked
             //because when game is close this method call twice and if not call from OnDestroy
@@ -123,47 +123,47 @@ namespace WKosArch.Domain.Contexts
 
         private void InstallServiceFeatures()
         {
-            foreach (var serviceFeatureInstaller in _serviceFeaturesInstallers)
+            foreach (var serviceFeatureInstaller in _featureInstallers)
             {
                 var createdFeature = serviceFeatureInstaller.Create(Container);
 
-                _cachedServiceFeatures.Add(createdFeature);
+                _cachedFeatures.Add(createdFeature);
             }
         }
 
-        private void InstallGameplayFeatures()
-        {
-            foreach (var gameplayFeatureInstaller in _gameplayFeatureInstallers)
-            {
-                var createdFeature = gameplayFeatureInstaller.Create(Container);
+        //private void InstallGameplayFeatures()
+        //{
+        //    foreach (var gameplayFeatureInstaller in _gameplayFeatureInstallers)
+        //    {
+        //        var createdFeature = gameplayFeatureInstaller.Create(Container);
 
-                _cachedGameplayFeatures.Add(createdFeature);
-            }
-        }
+        //        _cachedGameplayFeatures.Add(createdFeature);
+        //    }
+        //}
 
         private void InitializeServiceFeatures()
         {
-            foreach (IFeature serviceFeature in _cachedServiceFeatures)
+            foreach (IFeature serviceFeature in _cachedFeatures)
             {
                 if (serviceFeature is IAsyncFeature asyncFeature)
                     asyncFeature.InitializeAsync();
             }
         }
 
-        private void InitializeGameplayFeatures()
-        {
-            foreach (IFeature gameplayFeature in _cachedGameplayFeatures)
-            {
-                if (gameplayFeature is IAsyncFeature asyncFeature)
-                    asyncFeature.InitializeAsync();
-            }
-        }
+        //private void InitializeGameplayFeatures()
+        //{
+        //    foreach (IFeature gameplayFeature in _cachedGameplayFeatures)
+        //    {
+        //        if (gameplayFeature is IAsyncFeature asyncFeature)
+        //            asyncFeature.InitializeAsync();
+        //    }
+        //}
 
         private async UniTask WaitInitializationComplete()
         {
             var asyncFeatures = new List<IAsyncFeature>();
 
-            foreach (var feature in _cachedGameplayFeatures)
+            foreach (var feature in _cachedFeatures)
             {
                 if (feature is IAsyncFeature asyncFeature)
                     asyncFeatures.Add(asyncFeature);
@@ -177,7 +177,7 @@ namespace WKosArch.Domain.Contexts
 
         private void DestroyServiceFeatures()
         {
-            foreach (IFeature serviceFeature in _cachedServiceFeatures)
+            foreach (IFeature serviceFeature in _cachedFeatures)
             {
                 if (serviceFeature is IAsyncFeature asyncFeature)
                     asyncFeature.DestroyAsync();
@@ -185,30 +185,30 @@ namespace WKosArch.Domain.Contexts
                     disposable.Dispose();
             }
 
-            _cachedServiceFeatures.Clear();
+            _cachedFeatures.Clear();
 
-            foreach (var serviceFeaturesInstaller in _serviceFeaturesInstallers)
+            foreach (var serviceFeaturesInstaller in _featureInstallers)
             {
                 serviceFeaturesInstaller.Dispose();
             }
         }
 
-        private void DestroyGameplayFeatures()
-        {
-            foreach (IFeature gameplayFeature in _cachedGameplayFeatures)
-            {
-                if (gameplayFeature is IAsyncFeature asyncFeature)
-                    asyncFeature.DestroyAsync();
-                if (gameplayFeature is IDisposable disposable)
-                    disposable.Dispose();
-            }
+        //private void DestroyGameplayFeatures()
+        //{
+        //    foreach (IFeature gameplayFeature in _cachedGameplayFeatures)
+        //    {
+        //        if (gameplayFeature is IAsyncFeature asyncFeature)
+        //            asyncFeature.DestroyAsync();
+        //        if (gameplayFeature is IDisposable disposable)
+        //            disposable.Dispose();
+        //    }
 
-            _cachedGameplayFeatures.Clear();
+        //    _cachedGameplayFeatures.Clear();
 
-            foreach (var featureInstaller in _gameplayFeatureInstallers)
-            {
-                featureInstaller.Dispose();
-            }
-        }
+        //    foreach (var featureInstaller in _gameplayFeatureInstallers)
+        //    {
+        //        featureInstaller.Dispose();
+        //    }
+        //}
     }
 }

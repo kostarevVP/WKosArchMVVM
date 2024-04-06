@@ -16,7 +16,7 @@ public class SettingViewModel : Lukomor.WindowViewModel, IHomeWindow
 
     public void RestartLevel()
     {
-        DiContainer.Resolve<>
+       
     }
     public void QuitGame()
     {

@@ -1,9 +1,9 @@
-﻿using WKosArch.Domain.Features;
-using WKosArch.Services.Scenes;
+﻿using System;
+using WKosArch.Domain.Features;
 
 namespace WKosArch.Features.LoadLevelFeature
 {
-	public interface ILoadLevelFeature : IAsyncFeature
+	public interface ILoadLevelFeature : IFeature, IDisposable
     {
 		void LoadGameLevelEnviroment();
         void PlayStartLevelAnimation();

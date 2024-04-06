@@ -11,7 +11,7 @@ public class QuestFeature_Installer : FeatureInstaller
 {
     public override IFeature Create(IDIContainer container)
     {
-        var _staticDataService = container.Resolve<IStaticDataService>();
+        var _staticDataService = container.Resolve<IStaticDataFeature>();
         var questsList = _staticDataService.QuestsList;
 
         var saveHolders = container.Resolve<ISaveLoadHandlerService>();

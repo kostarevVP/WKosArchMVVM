@@ -1,4 +1,3 @@
-using Cysharp.Threading.Tasks;
 using WKosArch.Extentions;
 using WKosArch.Services.Scenes;
 using WKosArch.Services.UIService.UI;
@@ -7,31 +6,19 @@ namespace WKosArch.Features.LoadLevelFeature
 {
     public class LoadLevelFeature : ILoadLevelFeature
     {
-        public bool IsReady => _isReady;
-
-        private ISceneManagementService _sceneManagementService;
+        private ISceneManagementFeature _sceneManagementService;
         private IUserInterface _ui;
-        private bool _isReady;
 
-
-
-        public LoadLevelFeature(ISceneManagementService sceneManagementService, IUserInterface ui)
+        public LoadLevelFeature(ISceneManagementFeature sceneManagementService, IUserInterface ui)
         {
             _sceneManagementService = sceneManagementService;
             _ui = ui;
-        }
 
-        public UniTask InitializeAsync()
-        {
             Subscribe();
-            _isReady = true;
-            return UniTask.CompletedTask;
         }
-
-        public UniTask DestroyAsync()
+        public void Dispose() 
         {
             Unsubscribe();
-            return UniTask.CompletedTask;
         }
 
         private void Subscribe()

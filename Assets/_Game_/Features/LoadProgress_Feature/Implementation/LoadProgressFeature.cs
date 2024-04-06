@@ -7,13 +7,13 @@ namespace WKosArch.Features.LoadProgressFeature
     {
         public bool IsReady => _isReady;
 
-        private readonly IProgressService _progressService;
-        private readonly ISaveLoadService _saveLoadService;
-        private readonly IStaticDataService _staticDataService;
+        private readonly IProgressFeature _progressService;
+        private readonly ISaveLoadFeature _saveLoadService;
+        private readonly IStaticDataFeature _staticDataService;
 
         private bool _isReady;
 
-        public LoadProgressFeature(IProgressService progressService, ISaveLoadService saveLoadService, IStaticDataService staticDataService)
+        public LoadProgressFeature(IProgressFeature progressService, ISaveLoadFeature saveLoadService, IStaticDataFeature staticDataService)
         {
             _progressService = progressService;
             _saveLoadService = saveLoadService;

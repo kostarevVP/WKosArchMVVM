@@ -2,9 +2,7 @@
 
 namespace WKosArch.Domain.Features
 {
-    public interface IFeature
-    {
-    }
+    public interface IFeature { }
 
     public interface IAsyncFeature : IFeature
     {

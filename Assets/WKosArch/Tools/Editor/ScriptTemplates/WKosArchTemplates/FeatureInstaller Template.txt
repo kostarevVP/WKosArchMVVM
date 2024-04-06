@@ -21,7 +21,7 @@ using UnityEngine;
 
         public override void Dispose() { }
 
-        private void BindFeature(IDIContainer container, IFeature feature)
+        private void BindFeature(IDIContainer container, var feature)
         {
             container.Bind(feature);
             Log.PrintColor($"[#SCRIPTNAME#] Create and Bind", Color.cyan);

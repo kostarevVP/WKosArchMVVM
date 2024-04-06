@@ -219,38 +219,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_RenderShadows: 1
-  m_RequiresDepthTextureOption: 2
-  m_RequiresOpaqueTextureOption: 2
-  m_CameraType: 0
-  m_Cameras: []
-  m_RendererIndex: -1
-  m_VolumeLayerMask:
-    serializedVersion: 2
-    m_Bits: 1
-  m_VolumeTrigger: {fileID: 0}
-  m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
-  m_Antialiasing: 0
-  m_AntialiasingQuality: 2
-  m_StopNaN: 0
-  m_Dithering: 0
-  m_ClearDepth: 1
-  m_AllowXRRendering: 1
-  m_AllowHDROutput: 1
-  m_UseScreenCoordOverride: 0
-  m_ScreenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
-  m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
-  m_RequiresDepthTexture: 0
-  m_RequiresColorTexture: 0
-  m_Version: 2
-  m_TaaSettings:
-    quality: 3
-    frameInfluence: 0.1
-    jitterScale: 1
-    mipBias: 0
-    varianceClampScale: 0.9
-    contrastAdaptiveSharpening: 0
 --- !u!1 &961713360
 GameObject:
   m_ObjectHideFlags: 0
@@ -295,10 +263,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b32e2169070c17945a81781d5f276e98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _serviceFeaturesInstallers: []
-  _gameplayFeatureInstallers:
-  - {fileID: 11400000, guid: 01f9ac501a6ea7648bbf3ed8bee95d18, type: 2}
-  - {fileID: 11400000, guid: 913ea561b6ca9094baee490e1674c581, type: 2}
+  _featureInstallers:
   - {fileID: 11400000, guid: 33b86da11e5b7cc4d88de88260c69b69, type: 2}
   _scene: {fileID: 102900000, guid: f77eb623bfe4bb14faebe16f012b5529, type: 3}
   SceneName: Quest_Scene
@@ -409,17 +374,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Version: 3
-  m_UsePipelineSettings: 1
-  m_AdditionalLightsShadowResolutionTier: 2
-  m_LightLayerMask: 1
-  m_RenderingLayers: 1
-  m_CustomShadowLayers: 0
-  m_ShadowLayerMask: 1
-  m_ShadowRenderingLayers: 1
-  m_LightCookieSize: {x: 1, y: 1}
-  m_LightCookieOffset: {x: 0, y: 0}
-  m_SoftShadowQuality: 1
 --- !u!1001 &1397382957
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -609,17 +563,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdcf7d0e8b2119f49a98e25f3e1d7400, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _serviceFeaturesInstallers:
-  - {fileID: 11400000, guid: ed95d4f0e4dae024ea4b5a7bb20d1ed9, type: 2}
+  _featureInstallers:
   - {fileID: 11400000, guid: a8ca2b350168bb047b52ac4d51996d67, type: 2}
-  - {fileID: 11400000, guid: 5ff5a8e89e1806c4dbc49b41a9d05dd6, type: 2}
   - {fileID: 11400000, guid: 0d3688a0a0f7626498820196a396b816, type: 2}
+  - {fileID: 11400000, guid: 5ff5a8e89e1806c4dbc49b41a9d05dd6, type: 2}
+  - {fileID: 11400000, guid: ed95d4f0e4dae024ea4b5a7bb20d1ed9, type: 2}
   - {fileID: 11400000, guid: 3725633fc2377f04c861def053b4d09f, type: 2}
+  - {fileID: 11400000, guid: e5c118413ac53454b9ada85d591adb1d, type: 2}
   - {fileID: 11400000, guid: 11ee3f98653fd574895ebd45d186486f, type: 2}
   - {fileID: 11400000, guid: 5e7d5883aef09c641b9ae397fa1fe7ef, type: 2}
-  - {fileID: 11400000, guid: e5c118413ac53454b9ada85d591adb1d, type: 2}
-  - {fileID: 11400000, guid: b71d89225d30d5e4495e8222d202647a, type: 2}
-  _gameplayFeatureInstallers: []
   _sceneContexts:
   - {fileID: 961713362}
 --- !u!1 &7073980424495917774

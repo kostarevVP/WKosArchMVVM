@@ -3,8 +3,8 @@ using WKosArch.UIService.Views.Windows;
 
 public class RestartWindowModel : WindowViewModel
 {
-    private ISaveLoadService _saveLoadService => DiContainer.Resolve<ISaveLoadService>();
-    private ISceneManagementService _sceneManagementService => DiContainer.Resolve<ISceneManagementService>();
+    private ISaveLoadFeature _saveLoadService => DiContainer.Resolve<ISaveLoadFeature>();
+    private ISceneManagementFeature _sceneManagementService => DiContainer.Resolve<ISceneManagementFeature>();
 
     internal void RestartGame()
     {

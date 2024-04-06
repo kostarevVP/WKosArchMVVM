@@ -12,28 +12,30 @@ namespace WKosArch.Features.LoadProgressFeature
     [CreateAssetMenu(fileName = "LoadProgressFeature_Installer", menuName = "Game/Installers/LoadProgressFeature_Installer")]
     public class LoadProgressFeature_Installer : FeatureInstaller
     {
-        private ILoadProgressFeature _feature;
         public override IFeature Create(IDIContainer container)
         {
-            var progressService = container.Resolve<IProgressService>();
-            var saveLoadService = container.Resolve<ISaveLoadService>();
-            var staticDataService = container.Resolve<IStaticDataService>();
-            var sceneManagementService = container.Resolve<ISceneManagementService>();
+            IProgressFeature progressService = container.Resolve<IProgressFeature>();
+            ISaveLoadFeature saveLoadService = container.Resolve<ISaveLoadFeature>();
+            IStaticDataFeature staticDataService = container.Resolve<IStaticDataFeature>();
+            ISceneManagementFeature sceneManagementService = container.Resolve<ISceneManagementFeature>();
 
-            _feature = new LoadProgressFeature(progressService, saveLoadService, staticDataService);
+            ILoadProgressFeature feature = new LoadProgressFeature(progressService, saveLoadService, staticDataService);
 
-            _feature.LoadProgressOrInitNew();
+            feature.LoadProgressOrInitNew();
 
-
-            container.Bind(_feature);
-
-            Log.PrintColor($"[ILoadProgressFeature] Create and Bind", Color.cyan);
+            BindFeature(container, feature);
 
             sceneManagementService.LoadScene(progressService.Progress.SceneIndex);
 
-            return _feature;
+            return feature;
         }
 
         public override void Dispose() { }
+
+        private void BindFeature(IDIContainer container, ILoadProgressFeature feature)
+        {
+            container.Bind(feature);
+            Log.PrintColor($"[SaveLoadFeature] Create and Bind", Color.cyan);
+        }
     } 
 }
