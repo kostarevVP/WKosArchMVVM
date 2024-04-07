@@ -35,7 +35,7 @@ namespace WKosArch.Features.LoadProgressFeature
         private void BindFeature(IDIContainer container, ILoadProgressFeature feature)
         {
             container.Bind(feature);
-            Log.PrintColor($"[SaveLoadFeature] Create and Bind", Color.cyan);
+            Log.PrintColor($"[ILoadProgressFeature] Create and Bind", Color.cyan);
         }
     } 
 }

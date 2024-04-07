@@ -14,13 +14,15 @@ namespace WKosArch.Application
             Game.StartGameAsync(_projectContext).RunAsync();
         }
 
+#if UNITY_EDITOR
         private void Reset()
         {
             if (_projectContext == null)
             {
                 _projectContext = GetComponent<ProjectContext>();
             }
-        }
+        } 
+#endif
     }
 
 

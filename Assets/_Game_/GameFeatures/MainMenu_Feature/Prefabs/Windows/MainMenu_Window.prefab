@@ -9,8 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2090357814624075155}
-  - component: {fileID: 8295979030991519121}
-  - component: {fileID: 599133409862149525}
   - component: {fileID: 6680581566465189090}
   - component: {fileID: 5061450925046217436}
   - component: {fileID: 3765569506975932943}
@@ -42,42 +40,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &8295979030991519121
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 103598324810646785}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2682e3666b37e4c40a5c5cd8b450e971, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _windowSettings:
-    TargetLayer: 50
-    IsPreCached: 1
-    OpenWhenCreated: 0
---- !u!114 &599133409862149525
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 103598324810646785}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a6f39509b965ca4289574b11f483bfb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _transitionIn: {fileID: 5061450925046217436}
-  _transitionOut: {fileID: 6680581566465189090}
-  _closeButton: {fileID: 3744570008101064539}
-  _backButton: {fileID: 2835237085178587278}
-  AboutButton: {fileID: 1043545060568012771}
-  SoundButton: {fileID: 8520978428048692456}
-  QuitButton: {fileID: 8486898096087253265}
-  RestartButton: {fileID: 6821963936499945165}
 --- !u!114 &6680581566465189090
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -118,7 +80,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5989cd7a91e7628428e62faf560317b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _viewModelTypeFullName: MainMenuViewModel
+  _viewModelTypeFullName: MainMenuWindowModel
   _viewModelPropertyName: 
   _isParentView: 1
   _subViews: []
@@ -126,6 +88,7 @@ MonoBehaviour:
   - {fileID: 2850882910359497733}
   - {fileID: 7167405750220154372}
   - {fileID: 2949813194069655877}
+  - {fileID: 7677146851072756333}
 --- !u!114 &2949813194069655877
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -177,9 +140,9 @@ RectTransform:
   - {fileID: 1741124567155128235}
   m_Father: {fileID: 2970593297344176606}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 400, y: -95}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 400, y: 0}
   m_SizeDelta: {x: 800, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3895978652880622904
@@ -472,7 +435,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _viewModelTypeFullName: MainMenuViewModel
-  _propertyName: OpenAboutUs
+  _propertyName: OpenAboutUsWindow
   _button: {fileID: 1043545060568012771}
 --- !u!1 &1042366055000135132
 GameObject:
@@ -964,6 +927,7 @@ GameObject:
   - component: {fileID: 931144794770321558}
   - component: {fileID: 6712620238335517458}
   - component: {fileID: 6821963936499945165}
+  - component: {fileID: 7677146851072756333}
   m_Layer: 5
   m_Name: Restart Button
   m_TagString: Untagged
@@ -1073,6 +1037,21 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &7677146851072756333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2347377137785320775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06cf34b09b4bdd54c9a5e0beb612ddee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _viewModelTypeFullName: MainMenuViewModel
+  _propertyName: OpenRestartWindow
+  _button: {fileID: 6821963936499945165}
 --- !u!1 &2956017662875987575
 GameObject:
   m_ObjectHideFlags: 0
@@ -1240,9 +1219,9 @@ RectTransform:
   - {fileID: 2900076053021942653}
   m_Father: {fileID: 2970593297344176606}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 400, y: -50}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 400, y: 0}
   m_SizeDelta: {x: 800, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3048610721109006811
@@ -2522,9 +2501,9 @@ RectTransform:
   - {fileID: 7420455639294847143}
   m_Father: {fileID: 2970593297344176606}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 400, y: -80}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 400, y: 0}
   m_SizeDelta: {x: 800, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2400416781786359189
@@ -3040,9 +3019,9 @@ RectTransform:
   - {fileID: 5776852267773200597}
   m_Father: {fileID: 2970593297344176606}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 400, y: -65}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 400, y: 0}
   m_SizeDelta: {x: 800, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7781218810967071704

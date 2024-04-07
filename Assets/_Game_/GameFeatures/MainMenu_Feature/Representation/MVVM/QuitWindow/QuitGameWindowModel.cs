@@ -1,22 +1,17 @@
-﻿using Assets.LocalPackages.WKosArch.Scripts.Common.DIContainer;
-using UnityEngine;
-using WKosArch.UIService.Views.Windows;
+﻿using Lukomor;
 
 public class QuitGameWindowModel : WindowViewModel
 {
-    private ISaveLoadFeature _saveLoadService;
+    private ISaveLoadFeature _saveLoadService => DiContainer.Resolve<ISaveLoadFeature>();
 
-    public override void InjectDI(IDIContainer container)
-    {
-        base.InjectDI(container);
-
-        _saveLoadService = DiContainer.Resolve<ISaveLoadFeature>();
-    }
-
-    internal void CloseAplication()
+    public void CloseAplication()
     {
         _saveLoadService.SaveProgress();
 
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
         Application.Quit();
+#endif
     }
 }

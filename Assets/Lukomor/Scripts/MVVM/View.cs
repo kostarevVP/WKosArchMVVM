@@ -2,6 +2,7 @@
 using System.Linq;
 using Lukomor.MVVM.Binders;
 using UnityEngine;
+using WKosArch.Services.UIService.Common;
 
 namespace Lukomor.MVVM
 {
@@ -16,9 +17,12 @@ namespace Lukomor.MVVM
 
         [SerializeField] private List<View> _subViews = new();
         [SerializeField] private List<Binder> _childBinders = new();
+        [SerializeField] private UILayer _layer;
 
         public string ViewModelTypeFullName => _viewModelTypeFullName;
         public string ViewModelPropertyName => _viewModelPropertyName;
+        public UILayer Layer => _layer;
+
 
 #if UNITY_EDITOR
         private void Start()
@@ -142,7 +146,11 @@ namespace Lukomor.MVVM
                     RegisterView(foundSubView);
                 }
             }
+        }
 
+        public void ChangeLayer(UILayer layer)
+        {
+            _layer = layer;
         }
 
         private void RegisterView(View view)
@@ -157,6 +165,8 @@ namespace Lukomor.MVVM
         {
             _subViews.Remove(view);
         }
+
+
 #endif
     }
 }

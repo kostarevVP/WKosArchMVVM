@@ -4,12 +4,15 @@ using System.Linq;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using WKosArch.Extentions;
+using WKosArch.Services.UIService.Common;
 
 namespace Lukomor.MVVM.Editor
 {
     [CustomEditor(typeof(View))]
     public class ViewEditor : UnityEditor.Editor
     {
+        private SerializedProperty _layerProperty;
         private SerializedProperty _viewModelTypeFullName;
         private SerializedProperty _viewModelPropertyName;
         private SerializedProperty _isParentView;
@@ -23,6 +26,7 @@ namespace Lukomor.MVVM.Editor
         private void OnEnable()
         {
             _view = (View)target;
+            _layerProperty = serializedObject.FindProperty("_layer");
             _viewModelTypeFullName = serializedObject.FindProperty(nameof(_viewModelTypeFullName));
             _viewModelPropertyName = serializedObject.FindProperty(nameof(_viewModelPropertyName));
             _isParentView = serializedObject.FindProperty(nameof(_isParentView));
@@ -33,14 +37,17 @@ namespace Lukomor.MVVM.Editor
         public override void OnInspectorGUI()
         {
             _cachedViewModelTypes = TypeCache.GetTypesDerivedFrom<IViewModel>();
-            
+
             DrawScriptTitle();
-            
+
+            DrawLayerEnumFlagField();
+
             var parentView = _view.GetComponentsInParent<View>().FirstOrDefault(c => !ReferenceEquals(c, _view));
             var provider = CreateInstance<StringListSearchProvider>();
             var isParentViewExist = parentView != null;
             var parentViewGo = isParentViewExist ? parentView.gameObject : _view.gameObject;
-            
+
+
             if (isParentViewExist && !string.IsNullOrEmpty(parentView.ViewModelTypeFullName))
             {
                 SetParentViewBoolean(false);
@@ -49,7 +56,7 @@ namespace Lukomor.MVVM.Editor
                 DrawDebug();
 
                 var childViewModelType = GetChildViewModelType(parentView.ViewModelTypeFullName, _view.ViewModelPropertyName);
-                
+
                 DrawSubViewModelDebugButtons(parentViewGo, childViewModelType?.FullName);
             }
             else
@@ -89,23 +96,23 @@ namespace Lukomor.MVVM.Editor
 
                 serializedObject.ApplyModifiedProperties();
             });
-                
+
             EditorGUILayout.BeginHorizontal();
 
             var childPropertyType = GetChildViewModelType(parentViewModelTypeFullName, _viewModelPropertyName.stringValue);
             var propertyTypeName = childPropertyType != null ? $" ({childPropertyType.Name})" : string.Empty;
-            
+
             EditorGUILayout.LabelField($"Property Name{propertyTypeName}:");
 
             var displayName = string.IsNullOrEmpty(_viewModelPropertyName.stringValue)
                 ? MVVMConstants.NONE
                 : _viewModelPropertyName.stringValue;
-            
+
             if (GUILayout.Button(displayName, EditorStyles.popup))
             {
                 SearchWindow.Open(new SearchWindowContext(GUIUtility.GUIToScreenPoint(Event.current.mousePosition)), provider);
             }
-            
+
             EditorGUILayout.EndHorizontal();
         }
 
@@ -119,7 +126,7 @@ namespace Lukomor.MVVM.Editor
 
                 serializedObject.ApplyModifiedProperties();
             });
-                
+
             EditorGUILayout.BeginHorizontal();
 
             EditorGUILayout.LabelField(MVVMConstants.VIEW_MODEL);
@@ -127,22 +134,22 @@ namespace Lukomor.MVVM.Editor
             var displayName = string.IsNullOrEmpty(_viewModelTypeFullName.stringValue)
                 ? MVVMConstants.NONE
                 : ViewModelsEditorUtility.ToShortName(_viewModelTypeFullName.stringValue, _cachedViewModelTypes);
-            
+
             if (GUILayout.Button(displayName, EditorStyles.popup))
             {
                 SearchWindow.Open(new SearchWindowContext(GUIUtility.GUIToScreenPoint(Event.current.mousePosition)), provider);
             }
-            
+
             EditorGUILayout.EndHorizontal();
         }
-        
+
         private void SetParentViewBoolean(bool isParentView)
         {
             if (Application.isPlaying)
             {
                 return;
             }
-            
+
             _isParentView.boolValue = isParentView;
 
             serializedObject.ApplyModifiedProperties();
@@ -212,23 +219,23 @@ namespace Lukomor.MVVM.Editor
 
             DrawPingParentViewButton(parentViewGo);
             DrawOpenViewModelButton(viewModelTypeFullName);
-            
+
             EditorGUILayout.EndHorizontal();
         }
-        
+
         private Type GetChildViewModelType(string parentViewModelTypeFullName, string propertyName)
         {
             if (!string.IsNullOrEmpty(propertyName))
             {
                 var parentViewModelType = GetViewModelType(parentViewModelTypeFullName);
                 var property = parentViewModelType.GetProperty(propertyName);
-  
+
                 return property.PropertyType;
             }
-            
+
             return null;
         }
-        
+
         private void OpenScript(string typeName)
         {
             var guids = AssetDatabase.FindAssets($"t: script {typeName}");
@@ -236,7 +243,7 @@ namespace Lukomor.MVVM.Editor
             if (guids.Length > 0)
             {
                 var scriptPath = AssetDatabase.GUIDToAssetPath(guids[0]);
-                
+
                 EditorUtility.OpenWithDefaultApp(scriptPath);
             }
             else
@@ -248,11 +255,21 @@ namespace Lukomor.MVVM.Editor
         private void DrawFixButton()
         {
             EditorGUILayout.HelpBox("Some binders or sub views are missing. Please, fix it", MessageType.Warning);
-            
+
             if (GUILayout.Button($"Fix"))
             {
                 _view.Fix();
             }
+        }
+
+        private void DrawLayerEnumFlagField()
+        {
+            serializedObject.Update();
+
+            _layerProperty.intValue = (int)(UILayer)EditorGUILayout.EnumPopup("Layer", (UILayer)_layerProperty.intValue);
+            serializedObject.ApplyModifiedProperties();
+
+            _view.ChangeLayer((UILayer)_layerProperty.intValue);
         }
     }
 }

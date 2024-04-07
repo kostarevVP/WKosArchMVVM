@@ -24,10 +24,10 @@ namespace WKosArch.Application
                 DI.AddDIContainer(projectContext.Container);
                 DI.Bind(projectContext);
 
-                if (projectContext != null)
-                {
-                    await ProjectContext.InitializeAsync();
-                }
+                //if (projectContext != null)
+                //{
+                await ProjectContext.InitializeAsync();
+                //}
 
                 _iSsStarted = true;
                 _gameStarting = false;

@@ -29,7 +29,7 @@ namespace WKosArch.Features.LoadLevelFeature
         private void BindFeature(IDIContainer container, ILoadLevelFeature feature)
         {
             container.Bind(feature);
-            Log.PrintColor($"[SaveLoadFeature] Create and Bind", Color.cyan);
+            Log.PrintColor($"[ILoadLevelFeature] Create and Bind", Color.cyan);
         }
     }
 }

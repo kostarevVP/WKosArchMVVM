@@ -203,6 +203,7 @@ MonoBehaviour:
   _childBinders:
   - {fileID: -6443120374579071707}
   - {fileID: 1961483515448083985}
+  _layer: 0
 --- !u!114 &-6443120374579071707
 MonoBehaviour:
   m_ObjectHideFlags: 0

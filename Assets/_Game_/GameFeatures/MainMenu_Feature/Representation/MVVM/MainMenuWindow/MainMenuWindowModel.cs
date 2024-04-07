@@ -1,17 +1,17 @@
-﻿using WKosArch.Services.SoundService;
-using WKosArch.UIService.Views.Windows;
+﻿
+using Lukomor;
 
 public partial class MainMenuWindowModel : WindowViewModel
 {
-    //internal void OpenAboutWindow() => 
-    //    UI.Show<AboutUsWindowModel>();
+    public void OpenAboutWindow() =>
+        UI.Show<AboutUsWindowModel>();
 
-    //internal void OpenQuitGameWindow() => 
-    //    UI.Show<QuitGameWindowModel>();
+    public void OpenQuitGameWindow() =>
+        UI.Show<QuitGameWindowModel>();
 
-    //internal void OpenRestartWindow() => 
-    //    UI.Show<RestartWindowModel>();
+    public void OpenRestartWindow() =>
+        UI.Show<RestartWindowModel>();
 
-    //internal void OpenSoundWindow() => 
-    //    UI.Show<AudioSettingViewModel>();
+    //public void OpenSoundWindow() =>
+    //    UI.Show<AudioSettingWindowModel>();
 }
