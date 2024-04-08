@@ -80,7 +80,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5989cd7a91e7628428e62faf560317b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _viewModelTypeFullName: MainMenuWindowModel
+  _viewModelTypeFullName: MainMenuViewModel
   _viewModelPropertyName: 
   _isParentView: 1
   _subViews: []
@@ -89,6 +89,8 @@ MonoBehaviour:
   - {fileID: 7167405750220154372}
   - {fileID: 2949813194069655877}
   - {fileID: 7677146851072756333}
+  - {fileID: 390059248716764978}
+  _layer: 0
 --- !u!114 &2949813194069655877
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1856,6 +1858,7 @@ GameObject:
   - component: {fileID: 3862944514576689140}
   - component: {fileID: 7064983813160048581}
   - component: {fileID: 8486898096087253265}
+  - component: {fileID: 390059248716764978}
   m_Layer: 5
   m_Name: Quit  Button
   m_TagString: Untagged
@@ -1965,6 +1968,21 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &390059248716764978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5732426165394133503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06cf34b09b4bdd54c9a5e0beb612ddee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _viewModelTypeFullName: MainMenuViewModel
+  _propertyName: OpenQuitWindow
+  _button: {fileID: 8486898096087253265}
 --- !u!1 &7111650165046197314
 GameObject:
   m_ObjectHideFlags: 0

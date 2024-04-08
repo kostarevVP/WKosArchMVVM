@@ -14,7 +14,8 @@ public class MainMenuViewModel : WindowViewModel
 
     public void OpenQuitWindow()
     {
-
+        bool closeThisViewModel = false;
+        UI.Show<QuitGameWindowModel>(closeThisViewModel);
     }
 
     public void OpenRestartWindow()

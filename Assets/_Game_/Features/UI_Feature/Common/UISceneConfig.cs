@@ -1,34 +1,26 @@
-using Assets._Game_.Services.UI_Service.Views.UiView;
 using Lukomor.MVVM;
-using System;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using WKosArch.Extentions;
-using WKosArch.UIService.Views.HUD;
-using WKosArch.UIService.Views.Widgets;
-using WKosArch.UIService.Views.Windows;
 
 namespace WKosArch.Services.UIService
 {
     [CreateAssetMenu(fileName = "UI_SceneConfig", menuName = "UI/Configs/_UI_SceneConfig")]
     public class UISceneConfig : ScriptableObject
     {
-        [SerializeField] private WindowViewModel[] _windowPrefabs;
-        [SerializeField] private HudViewModel[] _hudPrefabs;
-        [SerializeField] private WidgetViewModel[] _widgetPrefabs;
-
-        [SerializeField] private List<ViewModelToViewMapping> _windowPrefabMappings;
-        [SerializeField] private View _windowPrefabByDefault;
+        [SerializeField] private List<ViewModelToViewMapping> _windowPrefabs;
+        [SerializeField] private List<ViewModelToViewMapping> _hudPrefabs;
+        [SerializeField] private List<ViewModelToViewMapping> _widgetPrefabs;
 
         private readonly Dictionary<string, View> _windowMappings = new();
-
-        public WindowViewModel[] WindowPrefabs => _windowPrefabs;
-        public HudViewModel[] HudPrefabs => _hudPrefabs;
-        public WidgetViewModel[] WidgetPrefabs => _widgetPrefabs;
+        private readonly Dictionary<string, View> _hudMappings = new();
+        private readonly Dictionary<string, View> _widgetMappings = new();
 
         public Dictionary<string, View> WindowMappings => _windowMappings;
+        public Dictionary<string, View> HudMappings => _windowMappings;
+        public Dictionary<string, View> WidgetMappings => _windowMappings;
 
 
         [HideInInspector] public string[] SceneName;
@@ -61,7 +53,9 @@ namespace WKosArch.Services.UIService
                 }
             }
 
-            RefreshMappings(_windowMappings, _windowPrefabMappings);
+            RefreshMappings(_windowMappings, _windowPrefabs);
+            RefreshMappings(_hudMappings, _hudPrefabs);
+            RefreshMappings(_widgetMappings, _widgetPrefabs);
 
         }
 
@@ -72,78 +66,8 @@ namespace WKosArch.Services.UIService
                 maping.TryAdd(prefabMapping.ViewModelTypeFullName, prefabMapping.PrefabView);
             }
         }
+
 #endif
-
-        public bool TryGetPrefab<T>(out T requestedPrefab) where T : UiViewModel
-        {
-            requestedPrefab = null;
-
-            foreach (var prefab in _windowPrefabs)
-            {
-                if (prefab is T certainPrefab)
-                {
-                    requestedPrefab = certainPrefab;
-
-                    break;
-                }
-            }
-            foreach (var prefab in _hudPrefabs)
-            {
-                if (prefab is T certainPrefab)
-                {
-                    requestedPrefab = certainPrefab;
-
-                    break;
-                }
-            }
-
-            return requestedPrefab != null;
-        }
-
-        public bool TryGetPrefab<T>(Type typeViewModel, out T requestedPrefab) where T : UiViewModel
-        {
-            requestedPrefab = null;
-
-            foreach (var prefab in _windowPrefabs)
-            {
-                if (prefab.GetType() == typeViewModel)
-                {
-                    requestedPrefab = prefab as T;
-
-                    break;
-                }
-            }
-
-            foreach (var prefab in _hudPrefabs)
-            {
-                if (prefab.GetType() == typeViewModel)
-                {
-                    requestedPrefab = prefab as T;
-
-                    break;
-                }
-            }
-
-            return requestedPrefab != null;
-        }
-
-
-        public bool TryGetWidgetPrefab<T>(Type typeViewModel, out T requestedPrefab) where T : WidgetViewModel
-        {
-            requestedPrefab = null;
-
-            foreach (var prefab in _widgetPrefabs)
-            {
-                if (prefab is T certainPrefab)
-                {
-                    requestedPrefab = certainPrefab;
-
-                    break;
-                }
-            }
-
-            return requestedPrefab != null;
-        }
 
         private int GetSceneIndexByName(string sceneName)
         {

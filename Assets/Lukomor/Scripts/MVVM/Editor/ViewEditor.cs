@@ -267,8 +267,8 @@ namespace Lukomor.MVVM.Editor
             serializedObject.Update();
 
             _layerProperty.intValue = (int)(UILayer)EditorGUILayout.EnumPopup("Layer", (UILayer)_layerProperty.intValue);
-            serializedObject.ApplyModifiedProperties();
 
+            serializedObject.ApplyModifiedProperties();
             _view.ChangeLayer((UILayer)_layerProperty.intValue);
         }
     }

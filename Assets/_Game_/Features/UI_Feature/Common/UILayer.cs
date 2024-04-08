@@ -5,9 +5,10 @@ namespace WKosArch.Services.UIService.Common
     [Serializable]
     public enum UILayer
     {
-        Base = 0,
-        UnderPopupFX = 50,
-        Popup = 100,
-        OverPopupFX = 150
+        UnderBase = 0,
+        Base = 50,
+        UnderPopup = 100,
+        Popup = 150,
+        OverPopup = 200,
     }
 }
