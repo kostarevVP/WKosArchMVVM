@@ -10,6 +10,5 @@ namespace WKosArch.Services.StaticDataServices
 		GameProgressConfig GameProgressConfig { get; }
 		Dictionary<string, UISceneConfig> SceneConfigsMap { get; }
         Dictionary<RenderingQuality, RenderPipelineAsset> RenderQualityConfigMap { get; }
-        List<IQuest> QuestsList { get; }
     } 
 }

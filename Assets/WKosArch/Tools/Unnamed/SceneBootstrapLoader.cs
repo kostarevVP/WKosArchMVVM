@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class SceneBootstrapLoader : MonoBehaviour
 {
-    void Start()
+    void Awake()
     {
         // Check if an object with the class ProjectContext exists in the scene
         ProjectContext projectContext = FindObjectOfType<ProjectContext>();

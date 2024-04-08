@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.Rendering;
 using WKosArch.Extentions;
 using WKosArch.Services.UIService;
@@ -11,18 +12,9 @@ namespace WKosArch.Services.StaticDataServices
         private const string UISceneConfigsFolderPath = "SeneConfigs";
         private const string QualitySettinsPath = "URPRenderersConfig";
 
-        private const string CollectingQuestsFolderPath = "CollectingQuests";
-        private const string JourneyQuestsFolderPath = "JourneyQuests";
-
-
         public GameProgressConfig GameProgressConfig => _gameProgressStaticData;
-
         public Dictionary<string, UISceneConfig> SceneConfigsMap => _sceneConfigsMap;
-
         public Dictionary<RenderingQuality, RenderPipelineAsset> RenderQualityConfigMap => _renderQualityConfigMap;
-
-        public List<IQuest> QuestsList => _questList;
-
 
         private IAssetProviderFeature _assetProviderService;
 
@@ -30,7 +22,6 @@ namespace WKosArch.Services.StaticDataServices
         private Dictionary<string, UISceneConfig> _sceneConfigsMap = new();
         private Dictionary<RenderingQuality, RenderPipelineAsset> _renderQualityConfigMap = new();
 
-        private List<IQuest> _questList = new();
 
 
         public StaticDataFeature(IAssetProviderFeature assetProviderService)
@@ -40,9 +31,6 @@ namespace WKosArch.Services.StaticDataServices
             LoadGameProgressConfig();
             LoadSceneConfigs();
             LoadQualityConfigs();
-
-            LoadCollectionQuests();
-            LoadJounreyQuests();
         }
 
         public void Dispose() =>
@@ -69,42 +57,6 @@ namespace WKosArch.Services.StaticDataServices
             }
         }
 
-        private void LoadCollectionQuests()
-        {
-            var questConfigs = _assetProviderService.LoadAll<CollectingQuestConfig>(CollectingQuestsFolderPath);
-
-            foreach (var config in questConfigs)
-            {
-                ICollectionQuest quest = new CollectioinQuest();
-
-                quest.State = QuestState.New;
-
-                quest.Name = config.Name;
-                quest.Description = config.Description;
-                quest.StuffName = config.StuffName;
-                quest.Amount = config.Amount;
-
-                _questList.Add(quest);
-            }
-        }
-
-        private void LoadJounreyQuests()
-        {
-            var questConfigs = _assetProviderService.LoadAll<JourneyQuestConfig>(JourneyQuestsFolderPath);
-
-            foreach (var config in questConfigs)
-            {
-                IJourneyQuest quest = new JourneyQuest();
-
-                quest.State = QuestState.New;
-
-                quest.Name = config.Name;
-                quest.Description = config.Description;
-                quest.PlaceArrival = config.PlaceArrival;
-
-                _questList.Add(quest);
-            }
-        }
 
         private void LoadQualityConfigs()
         {
@@ -119,8 +71,6 @@ namespace WKosArch.Services.StaticDataServices
             _gameProgressStaticData = null;
             _sceneConfigsMap.Clear();
             _renderQualityConfigMap.Clear();
-
-            _questList.Clear();
         }
     }
 }

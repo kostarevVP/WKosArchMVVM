@@ -80,7 +80,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5989cd7a91e7628428e62faf560317b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _viewModelTypeFullName: MainMenuViewModel
+  _viewModelTypeFullName: MainMenuWindowModel
   _viewModelPropertyName: 
   _isParentView: 1
   _subViews: []
@@ -90,7 +90,7 @@ MonoBehaviour:
   - {fileID: 2949813194069655877}
   - {fileID: 7677146851072756333}
   - {fileID: 390059248716764978}
-  _layer: 0
+  _layer: 50
 --- !u!114 &2949813194069655877
 MonoBehaviour:
   m_ObjectHideFlags: 0

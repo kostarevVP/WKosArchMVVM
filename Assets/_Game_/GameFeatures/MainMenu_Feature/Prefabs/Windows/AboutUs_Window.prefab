@@ -2065,7 +2065,6 @@ GameObject:
   - component: {fileID: 4993019835852009041}
   - component: {fileID: 1057400379490127362}
   - component: {fileID: 513986370602217839}
-  - component: {fileID: 726026246678160995}
   - component: {fileID: 2357250500268832167}
   m_Layer: 5
   m_Name: AboutUs_Window
@@ -2132,26 +2131,11 @@ MonoBehaviour:
   _isParentView: 1
   _subViews: []
   _childBinders:
-  - {fileID: 726026246678160995}
+  - {fileID: 0}
   - {fileID: 2357250500268832167}
   - {fileID: 7616897680788907946}
   - {fileID: 1027523397725373608}
---- !u!114 &726026246678160995
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4419004440189377215}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54ab0d0bfec4cb74ca924b03e285ddcf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _viewModelTypeFullName: AboutUsWindowModel
-  _propertyName: Hided
-  _destroyingGameObject: {fileID: 4419004440189377215}
-  _transitionOut: {fileID: 0}
+  _layer: 50
 --- !u!114 &2357250500268832167
 MonoBehaviour:
   m_ObjectHideFlags: 0

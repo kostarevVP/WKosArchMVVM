@@ -2,19 +2,12 @@ using System.Collections.Generic;
 
 public class QuestFeature : IQuestFeature
 {
-    public bool IsReady => _isReady;
     public List<IQuest> Quests => _quests;
-
-
-    private bool _isReady;
 
     private List<IQuest> _quests;
 
-    public QuestFeature(List<IQuest> quests)
+    public QuestFeature()
     {
-        _quests = quests;
-
-        _isReady = true;
     }
 
     public void SaveProgress(GameProgress progress)

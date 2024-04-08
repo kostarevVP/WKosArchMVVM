@@ -1,6 +1,6 @@
 using Lukomor;
 
-public class MainMenuViewModel : WindowViewModel
+public class MainMenuWindowModel : WindowViewModel
 {
     public void OpenAboutUsWindow()
     {

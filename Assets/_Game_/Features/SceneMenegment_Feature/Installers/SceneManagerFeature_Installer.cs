@@ -25,7 +25,9 @@ namespace WKosArch.Services.Scenes
 
 
             _sceneManagementService.OnSceneChanged += LoadSceneContext;
+            //_sceneManagementService.OnSceneUnloaded += DestroySceneContext;
             _sceneManagementService.OnSceneReloadBegin += DestroySceneContext;
+
 
             BindFeature(container, _sceneManagementService);
 
@@ -36,7 +38,8 @@ namespace WKosArch.Services.Scenes
         public override void Dispose()
         {
             _sceneManagementService.OnSceneChanged -= LoadSceneContext;
-            _sceneManagementService.OnSceneUnloaded -= DestroySceneContext;
+            //_sceneManagementService.OnSceneUnloaded -= DestroySceneContext;
+            _sceneManagementService.OnSceneReloadBegin -= DestroySceneContext;
 
         }
         private void BindFeature(IDIContainer container, ISceneManagementFeature feature)

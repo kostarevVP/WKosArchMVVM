@@ -1094,7 +1094,7 @@ MonoBehaviour:
   - {fileID: 5464125020594134018}
   - {fileID: 1548659070469407973}
   - {fileID: 5007549670805078277}
-  _layer: 0
+  _layer: 50
 --- !u!114 &3178695322801496145
 MonoBehaviour:
   m_ObjectHideFlags: 0

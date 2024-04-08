@@ -1,62 +1,17 @@
 using UnityEditor;
 using System.IO;
-using System;
 
 public class CreateFolders : AssetPostprocessor
 {
-    private static readonly string[] _featureFolders = new string[] { "api", "Implementation", "View ViewModel",  "Installers", "Prefabs", "Resources" };
-    private static readonly string[] _serviceFolders = new string[] { "api", "Implementation", "Installers", "View ViewModel", "Prefabs", "Resources" };
+    private static readonly string[] _featureFolders = new string[] { "api", "Implementation", "Installers", "ViewModels", "Prefabs", "Resources" };
+    private static readonly string[] _serviceFolders = new string[] { "api", "Implementation", "Installers", "ViewModels", "Prefabs", "Resources" };
     private static readonly string[] _ecsServiceFolders = new string[] { "api", "Implementation", "Installers", "ECS", "Prefabs", "Resources" };
     private static readonly string[] _ecsFeatureFolders = new string[] { "api", "Implementation", "Installers", "ECS", "Prefabs", "Resources" };
 
     private static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths)
     {
-        //foreach (string assetPath in importedAssets)
-        //{
-        //    if (assetPath.EndsWith("Feature") && assetPath.Contains("/Features/"))
-        //    {
-        //        CreateFoldersAtPath(assetPath, _featureFolders);
-        //    }
-        //    else if (assetPath.EndsWith("Service") && assetPath.Contains("/Services/"))
-        //    {
-        //        CreateFoldersAtPath(assetPath, _serviceFolders);
-        //    }
-        //    else if (assetPath.EndsWith("Service") && assetPath.Contains("/GameFeatures/"))
-        //    {
-        //        CreateFoldersAtPath(assetPath, _serviceFolders);
-        //    }
-        //    else if (assetPath.EndsWith("Feature") && assetPath.Contains("/GameFeatures/"))
-        //    {
-        //        CreateFoldersAtPath(assetPath, _serviceFolders);
-        //    }
-        //    else if (assetPath.EndsWith("ECS_Service") && assetPath.Contains("/ECS_Services/"))
-        //    {
-        //        CreateECSFoldersAtPath(assetPath, _ecsServiceFolders);
-        //    }
-        //    else if (assetPath.EndsWith("ECS_Feature") && assetPath.Contains("/ECS_Features/"))
-        //    {
-        //        CreateECSFoldersAtPath(assetPath, _ecsFeatureFolders);
-        //    }
-        //    else if (assetPath.EndsWith("ECS_Service") && assetPath.Contains("/GameFeatures/"))
-        //    {
-        //        CreateECSFoldersAtPath(assetPath, _ecsServiceFolders);
-        //    }
-        //    else if (assetPath.EndsWith("ECS_Feature") && assetPath.Contains("/GameFeatures/"))
-        //    {
-        //        CreateECSFoldersAtPath(assetPath, _ecsFeatureFolders);
-        //    }
-        //    else if (assetPath.EndsWith("ECS_Service") && assetPath.Contains("/Features/"))
-        //    {
-        //        CreateECSFoldersAtPath(assetPath, _ecsServiceFolders);
-        //    }
-        //    else if (assetPath.EndsWith("ECS_Feature") && assetPath.Contains("/Services/"))
-        //    {
-        //        CreateECSFoldersAtPath(assetPath, _ecsFeatureFolders);
-        //    }
-        //}
         foreach (string assetPath in importedAssets)
         {
-
             switch (assetPath)
             {
                 case var path when path.EndsWith("Feature") && path.Contains("/Features/"):
@@ -100,7 +55,6 @@ public class CreateFolders : AssetPostprocessor
                     break;
             }
         }
-
     }
 
     private static void CreateFoldersAtPath(string path, string[] folders)
@@ -165,6 +119,4 @@ public class CreateFolders : AssetPostprocessor
             }
         }
     }
-
-
 }

@@ -203,7 +203,7 @@ MonoBehaviour:
   _childBinders:
   - {fileID: -6443120374579071707}
   - {fileID: 1961483515448083985}
-  _layer: 150
+  _layer: 50
 --- !u!114 &-6443120374579071707
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -232,5 +232,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d771d1c7e81d5804b87137301734e1f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _duration: 1
-  _ease: 19
+  _duration: 0.3
+  _ease: 3
