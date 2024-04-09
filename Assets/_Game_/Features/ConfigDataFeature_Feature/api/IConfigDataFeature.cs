@@ -5,7 +5,7 @@ using UnityEngine.Rendering;
 
 namespace WKosArch.Services.StaticDataServices
 {
-	public interface IStaticDataFeature : IFeature
+	public interface IConfigDataFeature : IFeature
 	{
 		GameProgressConfig GameProgressConfig { get; }
 		Dictionary<string, UISceneConfig> SceneConfigsMap { get; }

@@ -3,7 +3,7 @@ using WKosArch.Services.UIService.Common;
 
 namespace Lukomor.MVVM.Binders
 {
-    public class CloseWindowWithAnimationBinder : ObservableBinder<bool>
+    public class CloseViewWithAnimationBinder : ObservableBinder<bool>
     {
         [SerializeField] private GameObject _destroyingGameObject;
         [Space]

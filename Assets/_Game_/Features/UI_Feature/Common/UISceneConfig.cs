@@ -19,8 +19,8 @@ namespace WKosArch.Services.UIService
         private readonly Dictionary<string, View> _widgetMappings = new();
 
         public Dictionary<string, View> WindowMappings => _windowMappings;
-        public Dictionary<string, View> HudMappings => _windowMappings;
-        public Dictionary<string, View> WidgetMappings => _windowMappings;
+        public Dictionary<string, View> HudMappings => _hudMappings;
+        public Dictionary<string, View> WidgetMappings => _widgetMappings;
 
 
         [HideInInspector] public string[] SceneName;

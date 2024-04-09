@@ -6,7 +6,7 @@ using WKosArch.Services.UIService;
 
 namespace WKosArch.Services.StaticDataServices
 {
-    public class StaticDataFeature : IStaticDataFeature
+    public class ConfigDataFeature : IConfigDataFeature
     {
         private const string GameProgressPath = "NewGameProgressStaticData";
         private const string UISceneConfigsFolderPath = "SeneConfigs";
@@ -16,6 +16,7 @@ namespace WKosArch.Services.StaticDataServices
         public Dictionary<string, UISceneConfig> SceneConfigsMap => _sceneConfigsMap;
         public Dictionary<RenderingQuality, RenderPipelineAsset> RenderQualityConfigMap => _renderQualityConfigMap;
 
+
         private IAssetProviderFeature _assetProviderService;
 
         private GameProgressConfig _gameProgressStaticData;
@@ -24,7 +25,7 @@ namespace WKosArch.Services.StaticDataServices
 
 
 
-        public StaticDataFeature(IAssetProviderFeature assetProviderService)
+        public ConfigDataFeature(IAssetProviderFeature assetProviderService)
         {
             _assetProviderService = assetProviderService;
 
@@ -57,14 +58,12 @@ namespace WKosArch.Services.StaticDataServices
             }
         }
 
-
         private void LoadQualityConfigs()
         {
             var qualityConfig = _assetProviderService.Load<URPRenderersConfig>(QualitySettinsPath);
             qualityConfig.Init();
             _renderQualityConfigMap = qualityConfig.RendererQualityMap;
         }
-
 
         private void Clear()
         {

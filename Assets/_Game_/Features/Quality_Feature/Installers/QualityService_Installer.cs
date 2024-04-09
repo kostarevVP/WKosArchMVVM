@@ -14,7 +14,7 @@ public class QualityService_Installer : FeatureInstaller
     private IQualityService _qualityService;
     public override IFeature Create(IDIContainer container)
     {
-        var _staticDataService = container.Resolve<IStaticDataFeature>();
+        var _staticDataService = container.Resolve<IConfigDataFeature>();
 
         _qualityService = new QualityService(_staticDataService.RenderQualityConfigMap);
 

@@ -26,7 +26,7 @@ namespace WKosArch.Services.Scenes
 
             _sceneManagementService.OnSceneChanged += LoadSceneContext;
             //_sceneManagementService.OnSceneUnloaded += DestroySceneContext;
-            _sceneManagementService.OnSceneReloadBegin += DestroySceneContext;
+            //_sceneManagementService.OnSceneReloadBegin += DestroyContext;
 
 
             BindFeature(container, _sceneManagementService);
@@ -39,7 +39,7 @@ namespace WKosArch.Services.Scenes
         {
             _sceneManagementService.OnSceneChanged -= LoadSceneContext;
             //_sceneManagementService.OnSceneUnloaded -= DestroySceneContext;
-            _sceneManagementService.OnSceneReloadBegin -= DestroySceneContext;
+            //_sceneManagementService.OnSceneReloadBegin -= DestroyContext;
 
         }
         private void BindFeature(IDIContainer container, ISceneManagementFeature feature)
@@ -48,12 +48,10 @@ namespace WKosArch.Services.Scenes
             Log.PrintColor($"[ISceneManagementFeature] Create and Bind", Color.cyan);
         }
 
-        private async void LoadSceneContext(string sceneName) =>
-            await LoadContext(sceneName);
-
-        private void DestroySceneContext(string sceneName)
+        private async void LoadSceneContext(string sceneName)
         {
-            DestroyContext(sceneName);
+            DestroyContext(_sceneManagementService.CurrentSceneName);
+            await LoadContext(sceneName);
         }
 
         private ILoadingScreen IsntatiateLoadingScreen()

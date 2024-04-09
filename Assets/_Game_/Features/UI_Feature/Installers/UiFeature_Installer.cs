@@ -15,9 +15,9 @@ namespace  WKosArch.Services.UIService
         public override IFeature Create(IDIContainer container)
         {
             ISceneManagementFeature sceneMenegmentService = container.Resolve<ISceneManagementFeature>();
-            IStaticDataFeature staticDataService = container.Resolve<IStaticDataFeature>();
+            IConfigDataFeature configDataService = container.Resolve<IConfigDataFeature>();
 
-            IUiFeature feature = new UiFeature(staticDataService, sceneMenegmentService, container);
+            IUiFeature feature = new UiFeature(configDataService, sceneMenegmentService, container);
 
             BindFeature(container, feature);
 

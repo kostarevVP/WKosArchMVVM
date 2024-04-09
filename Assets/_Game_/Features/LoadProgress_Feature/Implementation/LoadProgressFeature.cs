@@ -7,13 +7,13 @@ namespace WKosArch.Features.LoadProgressFeature
     {
         private readonly IProgressFeature _progressService;
         private readonly ISaveLoadFeature _saveLoadService;
-        private readonly IStaticDataFeature _staticDataService;
+        private readonly IConfigDataFeature _configDataService;
 
-        public LoadProgressFeature(IProgressFeature progressService, ISaveLoadFeature saveLoadService, IStaticDataFeature staticDataService)
+        public LoadProgressFeature(IProgressFeature progressService, ISaveLoadFeature saveLoadService, IConfigDataFeature staticDataService)
         {
             _progressService = progressService;
             _saveLoadService = saveLoadService;
-            _staticDataService = staticDataService;
+            _configDataService = staticDataService;
         }
 
         public void LoadProgressOrInitNew() =>
@@ -23,7 +23,7 @@ namespace WKosArch.Features.LoadProgressFeature
         {
             var progress = new GameProgress();
 
-            progress.SceneIndex = _staticDataService.GameProgressConfig.SceneIndex;
+            progress.SceneIndex = _configDataService.GameProgressConfig.SceneIndex;
 
             return progress;
         }

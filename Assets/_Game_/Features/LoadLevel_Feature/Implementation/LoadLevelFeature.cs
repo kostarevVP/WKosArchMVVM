@@ -38,22 +38,16 @@ namespace WKosArch.Features.LoadLevelFeature
             LoadGameLevelEnviroment();
             SceneReadyToStart();
         }
+        public void LoadGameLevelEnviroment()
+        {
+            Log.PrintYellow("Load environment");
+            _ui.Show<SettingViewModel>();
+            _ui.Show<FpsInfoHudViewModel>();
+        }
 
         private void SceneStarted(string sceneName)
         {
-            PlayStartLevelAnimation();
-        }
-
-        public void LoadGameLevelEnviroment()
-        {
-            //in this point load player and all environment
-            Log.PrintYellow("Load environment");
-            _ui.Show<SettingViewModel>();
-        }
-
-        public void PlayStartLevelAnimation()
-        {
-            Log.PrintYellow("Play Start animation");
+           
         }
 
         public void SceneReadyToStart()

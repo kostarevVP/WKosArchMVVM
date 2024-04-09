@@ -3,15 +3,15 @@ using System.Collections.Generic;
 
 namespace WKosArch.Services.UIService.UI
 {
-    public class WindowTreeNode
+    public class ViewModelTreeNode
     {
-        public UiViewModel WindowViewModel { get; }
+        public UiViewModel UiViewModel { get; }
         public List<UiViewModel> WidgetViewModels { get; }
         public bool HasChild => WidgetViewModels.Count > 0;
 
-        public WindowTreeNode(UiViewModel windowName)
+        public ViewModelTreeNode(UiViewModel windowName)
         {
-            WindowViewModel = windowName;
+            UiViewModel = windowName;
             WidgetViewModels = new List<UiViewModel>();
         }
 

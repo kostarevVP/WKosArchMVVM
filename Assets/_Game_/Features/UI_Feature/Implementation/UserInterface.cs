@@ -1,19 +1,19 @@
 ﻿using Assets._Game_.Services.UI_Service.Implementation;
 using Assets.LocalPackages.WKosArch.Scripts.Common.DIContainer;
 using Lukomor;
-using System;
 using UnityEngine;
 using WKosArch.Extentions;
 using WKosArch.UIService.Views.Windows;
 
 namespace WKosArch.Services.UIService.UI
 {
-    public class UserInterface : IUserInterface, IDisposable
+    public class UserInterface : IUserInterface
     {
         public Lukomor.WindowViewModel FocusedWindowViewModel { get; private set; }
 
         private IUserInterfaceFactory _uiFactory;
-        private WindowsStack<WindowTreeNode> _windowStack = new WindowsStack<WindowTreeNode>();
+        private ViewModelStack<ViewModelTreeNode> _windowStack = new();
+        private ViewModelStack<ViewModelTreeNode> _hudStack = new();
 
 
         public UserInterface(IDIContainer container)
@@ -21,28 +21,29 @@ namespace WKosArch.Services.UIService.UI
             _uiFactory = UserInterfaceFactory.CreateInstance();
             _uiFactory.Construct(container, this);
         }
+
         public void Build(UISceneConfig config) =>
             _uiFactory.Build(config);
 
-        public void Show<TUiViewModel>(bool hideCurrentWindow = true, bool forced = false) where TUiViewModel : UiViewModel, new()
+        public void Show<TUiViewModel>(bool hideCurrentWindow = true, bool hideForced = false, bool openForced = false) where TUiViewModel : UiViewModel, new()
         {
-            if (hideCurrentWindow && FocusedWindowViewModel != null)
-                _uiFactory.Close(FocusedWindowViewModel);
+            var isWindowViewModel = typeof(Lukomor.WindowViewModel).IsAssignableFrom(typeof(TUiViewModel));
+            if (hideCurrentWindow && FocusedWindowViewModel != null && isWindowViewModel)
+                _uiFactory.Close(FocusedWindowViewModel, hideForced);
 
-            UiViewModel uiViewModel = _uiFactory.GetOrCreateViewModel<TUiViewModel>();
-            _uiFactory.GetOrCreateActiveView(uiViewModel);
+            UiViewModel uiViewModel = _uiFactory.CreateOrGetViewModel<TUiViewModel>();
+            _uiFactory.CreateOrGetActiveView(uiViewModel, openForced);
 
-            AddWindowToWindowStack(uiViewModel);
+            AddViewModelStack(uiViewModel);
         }
-
         public void Back(bool hideCurrentWindow = true, bool forced = false)
         {
-            var currentUiViewModel = _windowStack.Pop().WindowViewModel;
+            var currentUiViewModel = _windowStack.Pop().UiViewModel;
 
             if (IsHomeWindowType(currentUiViewModel))
             {
-                _windowStack.Push(new WindowTreeNode(currentUiViewModel));
-                OpenGameCloseWindowPopup();
+                _windowStack.Push(new ViewModelTreeNode(currentUiViewModel));
+                OpenCloseGameWindowPopup();
                 return;
             }
 
@@ -51,20 +52,19 @@ namespace WKosArch.Services.UIService.UI
                 _uiFactory.Close(currentUiViewModel);
             }
 
-            var previousUiViewModel = _windowStack.Pop().WindowViewModel;
+            var previousUiViewModel = _windowStack.Pop().UiViewModel;
 
-            _uiFactory.GetOrCreateActiveView(previousUiViewModel);
+            _uiFactory.CreateOrGetActiveView(previousUiViewModel);
 
-            AddWindowToWindowStack(previousUiViewModel);
+            AddViewModelStack(previousUiViewModel);
         }
-
         public void CloseAllWindowInStack()
         {
             var stackLenght = _windowStack.Length;
 
             for (int i = 0; i < stackLenght; i++)
             {
-                var currentWindowViewModel = _windowStack.Pop().WindowViewModel;
+                var currentWindowViewModel = _windowStack.Pop().UiViewModel;
                 bool isHomeWindow = IsHomeWindowType(currentWindowViewModel);
 
                 if (!isHomeWindow)
@@ -76,19 +76,55 @@ namespace WKosArch.Services.UIService.UI
                 }
                 else if (isHomeWindow)
                 {
-                    _uiFactory.GetOrCreateActiveView(currentWindowViewModel);
-                    AddWindowToWindowStack(currentWindowViewModel);
+                    _uiFactory.CreateOrGetActiveView(currentWindowViewModel);
+                    AddViewModelStack(currentWindowViewModel);
                 }
             }
         }
 
-        public void Close<TUiViewModel>(bool hideCurrentWindow = true, bool forced = false) where TUiViewModel : UiViewModel
+        public void ShowAllHudInStack(bool openForced = false)
+        {
+            foreach (var hudViewModel in _hudStack.ViewModelQueue)
+            {
+                _uiFactory.CreateOrGetActiveView(hudViewModel.UiViewModel, openForced);
+            }
+        }
+        public void HideAllHudInStack(bool hideForce = false)
+        {
+            foreach (var hudViewModel in _hudStack.ViewModelQueue)
+            {
+                _uiFactory.Close(hudViewModel.UiViewModel.GetType().FullName, hideForce);
+            }
+        }
+        public void CloseAllHudInStack(bool forcedHide = false)
+        {
+            var stackLenght = _hudStack.Length;
+
+            for (int i = 0; i < stackLenght; i++)
+            {
+                var currentWindowViewModel = _hudStack.Pop().UiViewModel;
+
+                _uiFactory.Close(currentWindowViewModel, forcedHide);
+            }
+        }
+
+
+        public void CloseHud<TUiViewModel>(bool hideCurrentWindow = true, bool forced = false) where TUiViewModel : HudViewModel
         {
             var fullName = typeof(TUiViewModel).FullName;
             _uiFactory.Close(fullName);
         }
-
-        public void Hide<TUiViewModel>(bool hideCurrentWindow = true, bool forced = false) where TUiViewModel : UiViewModel
+        public void CloseWidget<TUiViewModel>(bool hideCurrentWindow = true, bool forced = false) where TUiViewModel : WidgetViewModel
+        {
+            var fullName = typeof(TUiViewModel).FullName;
+            _uiFactory.Close(fullName);
+        }
+        public void HideHud<TUiViewModel>(bool hideCurrentWindow = true, bool forced = false) where TUiViewModel : HudViewModel
+        {
+            var fullName = typeof(TUiViewModel).FullName;
+            _uiFactory.Hide(fullName);
+        }
+        public void HideWidget<TUiViewModel>(bool hideCurrentWindow = true, bool forced = false) where TUiViewModel : WidgetViewModel
         {
             var fullName = typeof(TUiViewModel).FullName;
             _uiFactory.Hide(fullName);
@@ -98,20 +134,25 @@ namespace WKosArch.Services.UIService.UI
         {
             _uiFactory.Dispose();
             _windowStack.Clear();
+            _hudStack.Clear();
         }
 
 
-        private void AddWindowToWindowStack(UiViewModel uiViewModel)
+        private void AddViewModelStack(UiViewModel uiViewModel)
         {
             if (uiViewModel is Lukomor.WindowViewModel windowViewModel)
             {
                 FocusedWindowViewModel = windowViewModel;
-                _windowStack.Push(new WindowTreeNode(windowViewModel));
+                _windowStack.Push(new ViewModelTreeNode(windowViewModel));
+            }
+            if (uiViewModel is HudViewModel hudViewModel)
+            {
+                _hudStack.Push(new ViewModelTreeNode(hudViewModel));
             }
         }
         private bool IsHomeWindowType(UiViewModel viewModel) =>
             typeof(IHomeWindow).IsAssignableFrom(viewModel.GetType());
-        private void OpenGameCloseWindowPopup() =>
+        private void OpenCloseGameWindowPopup() =>
             Log.PrintColor($"OpenGameCloseWindow", Color.red);
     }
 }

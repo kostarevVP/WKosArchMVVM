@@ -58,11 +58,20 @@ namespace Assets._Game_.Services.UI_Service.Implementation
             _uiSceneConfig = config;
         }
 
-        private View CreateView(UiViewModel uiViewModel, Transform containerLayer = null)
+        private View CreateView(UiViewModel uiViewModel, bool forced = false, Transform containerLayer = null)
         {
             View view = null;
+            Dictionary<string, View> viewMapping = new();
 
-            if (_uiSceneConfig.WindowMappings.TryGetValue(uiViewModel.GetType().FullName, out View prefabView))
+            if (uiViewModel is WindowViewModel)
+                viewMapping = _uiSceneConfig.WindowMappings;
+            else if (uiViewModel is HudViewModel)
+                viewMapping = _uiSceneConfig.HudMappings;
+            else if (uiViewModel is WidgetViewModel)
+                viewMapping = _uiSceneConfig.WidgetMappings;
+
+
+            if (viewMapping.TryGetValue(uiViewModel.GetType().FullName, out View prefabView))
             {
                 if (prefabView == null)
                 {
@@ -75,7 +84,9 @@ namespace Assets._Game_.Services.UI_Service.Implementation
                         containerLayer = GetLayerContainer(prefabView.Layer);
                     }
                     view = Instantiate(prefabView, containerLayer);
+                    uiViewModel.Hide(true);
                     view.Bind(uiViewModel);
+                    uiViewModel.Open(forced);
                 }
             }
             else
@@ -86,7 +97,7 @@ namespace Assets._Game_.Services.UI_Service.Implementation
             return view;
         }
 
-        public UiViewModel GetOrCreateViewModel<TUiViewModel>() where TUiViewModel : UiViewModel, new()
+        public UiViewModel CreateOrGetViewModel<TUiViewModel>() where TUiViewModel : UiViewModel, new()
         {
             var fullName = typeof(TUiViewModel).FullName;
 
@@ -113,7 +124,7 @@ namespace Assets._Game_.Services.UI_Service.Implementation
             return uiViewModel;
         }
 
-        public View GetOrCreateActiveView(UiViewModel viewModel, Transform containerLayer = null)
+        public View CreateOrGetActiveView(UiViewModel viewModel, bool forced = false, Transform containerLayer = null)
         {
             var fullName = viewModel.GetType().FullName;
 
@@ -122,13 +133,13 @@ namespace Assets._Game_.Services.UI_Service.Implementation
                 if (!view.isActiveAndEnabled)
                 {
                     view.gameObject.SetActive(true);
-                    viewModel.Open();
+                    viewModel.Open(forced);
                 }
                 return view;
             }
             else
             {
-                view = CreateView(viewModel, containerLayer);
+                view = CreateView(viewModel, forced, containerLayer);
 
                 _createdViewCache.Add(fullName, view);
             }

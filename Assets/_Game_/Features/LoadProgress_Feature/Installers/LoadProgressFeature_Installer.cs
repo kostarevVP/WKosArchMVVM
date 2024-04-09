@@ -16,10 +16,10 @@ namespace WKosArch.Features.LoadProgressFeature
         {
             IProgressFeature progressService = container.Resolve<IProgressFeature>();
             ISaveLoadFeature saveLoadService = container.Resolve<ISaveLoadFeature>();
-            IStaticDataFeature staticDataService = container.Resolve<IStaticDataFeature>();
+            IConfigDataFeature configDataService = container.Resolve<IConfigDataFeature>();
             ISceneManagementFeature sceneManagementService = container.Resolve<ISceneManagementFeature>();
 
-            ILoadProgressFeature feature = new LoadProgressFeature(progressService, saveLoadService, staticDataService);
+            ILoadProgressFeature feature = new LoadProgressFeature(progressService, saveLoadService, configDataService);
 
             feature.LoadProgressOrInitNew();
 

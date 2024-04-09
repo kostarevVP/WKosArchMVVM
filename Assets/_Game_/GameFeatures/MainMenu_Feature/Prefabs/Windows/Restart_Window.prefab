@@ -135,6 +135,7 @@ MonoBehaviour:
   - {fileID: 6726976463150137887}
   - {fileID: 7704932190065228531}
   - {fileID: 8393885469010133139}
+  - {fileID: 5615811274313785903}
   _layer: 50
 --- !u!114 &5001860280134545979
 MonoBehaviour:
@@ -1151,6 +1152,7 @@ GameObject:
   - component: {fileID: 6344446173225456071}
   - component: {fileID: 4593765424669911864}
   - component: {fileID: 6143592040225318452}
+  - component: {fileID: 5615811274313785903}
   m_Layer: 5
   m_Name: Apply Button
   m_TagString: Untagged
@@ -1274,6 +1276,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _viewModelTypeFullName: RestartWindowModel
   _propertyName: RestartGame
+  _button: {fileID: 4593765424669911864}
+--- !u!114 &5615811274313785903
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6634732589370735022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06cf34b09b4bdd54c9a5e0beb612ddee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _viewModelTypeFullName: RestartWindowModel
+  _propertyName: CloseAllWindow
   _button: {fileID: 4593765424669911864}
 --- !u!1 &6897412652174461477
 GameObject:

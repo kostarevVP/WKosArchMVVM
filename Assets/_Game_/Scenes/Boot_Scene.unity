@@ -899,6 +899,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: FPS_Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 6438206452894490775, guid: d51c082a29ca7174594b0ba95b192177,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1126,7 +1131,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2772311142509988015
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1197,10 +1202,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _featureInstallers:
-  - {fileID: 11400000, guid: a8ca2b350168bb047b52ac4d51996d67, type: 2}
-  - {fileID: 11400000, guid: 0d3688a0a0f7626498820196a396b816, type: 2}
-  - {fileID: 11400000, guid: 5ff5a8e89e1806c4dbc49b41a9d05dd6, type: 2}
   - {fileID: 11400000, guid: ed95d4f0e4dae024ea4b5a7bb20d1ed9, type: 2}
+  - {fileID: 11400000, guid: a8ca2b350168bb047b52ac4d51996d67, type: 2}
+  - {fileID: 11400000, guid: 5ff5a8e89e1806c4dbc49b41a9d05dd6, type: 2}
+  - {fileID: 11400000, guid: 0d3688a0a0f7626498820196a396b816, type: 2}
   - {fileID: 11400000, guid: 3725633fc2377f04c861def053b4d09f, type: 2}
   - {fileID: 11400000, guid: e5c118413ac53454b9ada85d591adb1d, type: 2}
   - {fileID: 11400000, guid: 11ee3f98653fd574895ebd45d186486f, type: 2}

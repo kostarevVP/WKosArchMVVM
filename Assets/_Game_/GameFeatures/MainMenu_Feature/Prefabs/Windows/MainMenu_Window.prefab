@@ -90,6 +90,7 @@ MonoBehaviour:
   - {fileID: 2949813194069655877}
   - {fileID: 7677146851072756333}
   - {fileID: 390059248716764978}
+  - {fileID: 5993624106224657943}
   _layer: 50
 --- !u!114 &2949813194069655877
 MonoBehaviour:
@@ -451,6 +452,7 @@ GameObject:
   - component: {fileID: 1199125178875316610}
   - component: {fileID: 6696068008122173030}
   - component: {fileID: 8520978428048692456}
+  - component: {fileID: 5993624106224657943}
   m_Layer: 5
   m_Name: Audio Button
   m_TagString: Untagged
@@ -560,6 +562,21 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &5993624106224657943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1042366055000135132}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06cf34b09b4bdd54c9a5e0beb612ddee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _viewModelTypeFullName: MainMenuWindowModel
+  _propertyName: OpenAudioSettingsWindow
+  _button: {fileID: 8520978428048692456}
 --- !u!1 &1165163950565364592
 GameObject:
   m_ObjectHideFlags: 0

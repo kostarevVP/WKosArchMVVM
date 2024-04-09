@@ -9,14 +9,14 @@ namespace WKosArch.Services.UIService
     public class UiFeature : IUiFeature
     {
         private readonly ISceneManagementFeature _sceneManagementService;
-        private readonly IStaticDataFeature _staticDataService;
+        private readonly IConfigDataFeature _configDataService;
 
         public IUserInterface UI { get; private set; }
 
-        public UiFeature(IStaticDataFeature staticDataService, ISceneManagementFeature sceneManagementService,
+        public UiFeature(IConfigDataFeature configDataService, ISceneManagementFeature sceneManagementService,
             IDIContainer container)
         {
-            _staticDataService = staticDataService;
+            _configDataService = configDataService;
             _sceneManagementService = sceneManagementService;
 
             UI = new UserInterface(container);
@@ -26,6 +26,7 @@ namespace WKosArch.Services.UIService
 
         public void Dispose()
         {
+            UI.Dispose();
             _sceneManagementService.OnSceneLoaded -= SceneLoaded;
         }
 
@@ -34,7 +35,7 @@ namespace WKosArch.Services.UIService
             //SubScene from DOTS after open get same callBack SceneLoaded
             //Thats why there is TryGet before was like below
             //var config = _staticDataService.SceneConfigsMap[sceneName];
-            if (_staticDataService.SceneConfigsMap.TryGetValue(sceneName, out var config))
+            if (_configDataService.SceneConfigsMap.TryGetValue(sceneName, out var config))
             {
                 UI.Build(config);
             }

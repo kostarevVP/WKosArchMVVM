@@ -13,10 +13,12 @@ public class ScaleTransitionOut : Transition
 
     protected override async UniTask PlayInternal()
     {
-        RectTransform rectTransform  = GetComponent<RectTransform>();
+        RectTransform rectTransform = GetComponent<RectTransform>();
+
+
         Sequence mySequence = DOTween.Sequence();
         _ = mySequence.Append(rectTransform.DOScale(Vector3.zero, 1f).SetEase(_ease));
-        _ = mySequence.Join((rectTransform.DOSizeDelta(new Vector2(1f, 0f), _duration)).SetEase(_ease)) ;
+        _ = mySequence.Join((rectTransform.DOSizeDelta(new Vector2(1f, 0f), _duration)).SetEase(_ease));
 
         await mySequence.ToUniTask();
     }

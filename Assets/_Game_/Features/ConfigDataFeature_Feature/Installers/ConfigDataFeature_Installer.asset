@@ -10,5 +10,5 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fa1d692553bcbfd439c86f5e3699fe4f, type: 3}
-  m_Name: StaticDataFeature_Installer
+  m_Name: ConfigDataFeature_Installer
   m_EditorClassIdentifier: 
