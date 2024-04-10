@@ -3,14 +3,14 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using WKosArch.Extentions;
 
-public class QualityService : IQualityService
+public class QualityFeature : IQualityFeature
 {
     private Dictionary<RenderingQuality, RenderPipelineAsset> _renderQualityConfigMap;
     private bool _isReady;
 
     public bool IsReady => _isReady;
 
-    public QualityService(Dictionary<RenderingQuality, RenderPipelineAsset> renderQualityConfigMap)
+    public QualityFeature(Dictionary<RenderingQuality, RenderPipelineAsset> renderQualityConfigMap)
     {
         _renderQualityConfigMap = renderQualityConfigMap;
         _isReady = true;
