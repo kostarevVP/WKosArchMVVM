@@ -678,7 +678,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _viewModelTypeFullName: QuitGameWindowModel
-  _propertyName: Back
+  _propertyName: BackToPreviousWindow
   _button: {fileID: 2557549619450037822}
 --- !u!1 &3681585267103112741
 GameObject:
@@ -995,7 +995,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _viewModelTypeFullName: QuitGameWindowModel
-  _propertyName: Back
+  _propertyName: BackToPreviousWindow
   _button: {fileID: 5572152820814210173}
 --- !u!1 &5620906485897958458
 GameObject:

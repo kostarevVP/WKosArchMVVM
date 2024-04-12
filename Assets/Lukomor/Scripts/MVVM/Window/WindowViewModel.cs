@@ -2,7 +2,7 @@ namespace Lukomor
 {
     public abstract class WindowViewModel : UiViewModel
     {
-        public void Back() => 
+        public void BackToPreviousWindow() => 
             UI.Back();
 
         public void CloseAllWindow() => 

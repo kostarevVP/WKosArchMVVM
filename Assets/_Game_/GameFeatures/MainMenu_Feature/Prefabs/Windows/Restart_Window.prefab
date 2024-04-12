@@ -869,7 +869,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _viewModelTypeFullName: RestartWindowModel
-  _propertyName: Back
+  _propertyName: BackToPreviousWindow
   _button: {fileID: 3581436035719214824}
 --- !u!1 &2800823056497837582
 GameObject:
@@ -1532,7 +1532,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _viewModelTypeFullName: RestartWindowModel
-  _propertyName: Back
+  _propertyName: BackToPreviousWindow
   _button: {fileID: 2193002139436816501}
 --- !u!1 &8847544131880017035
 GameObject:

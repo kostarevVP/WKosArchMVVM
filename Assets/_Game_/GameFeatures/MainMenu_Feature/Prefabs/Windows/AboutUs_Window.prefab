@@ -1205,7 +1205,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _viewModelTypeFullName: AboutUsWindowModel
-  _propertyName: Back
+  _propertyName: BackToPreviousWindow
   _button: {fileID: 8894514058345726443}
 --- !u!1 &2899021979017246604
 GameObject:
@@ -2131,7 +2131,6 @@ MonoBehaviour:
   _isParentView: 1
   _subViews: []
   _childBinders:
-  - {fileID: 0}
   - {fileID: 2357250500268832167}
   - {fileID: 7616897680788907946}
   - {fileID: 1027523397725373608}
