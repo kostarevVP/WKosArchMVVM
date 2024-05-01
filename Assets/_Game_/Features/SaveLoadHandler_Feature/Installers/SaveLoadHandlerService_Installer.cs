@@ -1,9 +1,9 @@
-using Assets.LocalPackages.WKosArch.Scripts.Common.DIContainer;
 using WKosArch.Domain.Contexts;
 using WKosArch.Domain.Features;
 using WKosArch.Extentions;
 using UnityEngine;
 using Assets.Game.Services.ProgressService.api;
+using WKosArch.DependencyInjection;
 
 
 [CreateAssetMenu(fileName = " SaveLoadHandlerService_Installer", menuName = "Game/Installers/SaveLoadHandlerService_Installer")]
@@ -18,7 +18,7 @@ public class SaveLoadHandlerService_Installer : FeatureInstaller
 
         _feature = new SaveLoadHandlerService(progressService, saveLoadService);
 
-        BindFeature(container, _feature);
+        RegisterFeatureAsSingleton(container, _feature);
 
         return _feature;
     }
@@ -28,9 +28,9 @@ public class SaveLoadHandlerService_Installer : FeatureInstaller
         _feature.Clear();
     }
 
-    private void BindFeature(IDIContainer container, ISaveLoadHandlerService feature)
+    private void RegisterFeatureAsSingleton(IDIContainer container, ISaveLoadHandlerService feature)
     {
-        container.Bind(feature);
-        Log.PrintColor($"[SaveLoadHandlerService_Installer] Create and Bind", Color.cyan);
+        container.RegisterSingleton(_ => feature);
+        Log.PrintColor($"[ISaveLoadHandlerService_Installer] Create and RegesterSingleton", Color.cyan);
     }
 }

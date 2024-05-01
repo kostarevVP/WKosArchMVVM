@@ -1,4 +1,4 @@
-﻿using Lukomor;
+﻿using WKosArch;
 
 public class QuitGameWindowModel : WindowViewModel
 {

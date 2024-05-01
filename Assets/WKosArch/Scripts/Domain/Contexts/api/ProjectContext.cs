@@ -1,4 +1,4 @@
-﻿using Assets.LocalPackages.WKosArch.Scripts.Common.DIContainer;
+﻿using WKosArch.DependencyInjection;
 using System.Linq;
 using UnityEngine;
 
@@ -21,9 +21,12 @@ namespace WKosArch.Domain.Contexts
             return result;
         }
 
-        protected override IDIContainer CreateLocalContainer()
+        protected override IDIContainer CreateLocalContainer(IDIContainer dIContainer = null)
         {
-            return new DIContainer();
+            var rootContainer = new DIContainer();
+            rootContainer.RegisterSingleton(_ => this);
+
+            return rootContainer;
         }
     }
 }

@@ -1,13 +1,10 @@
-using WKosArch.Common.DIContainer;
-using WKosArch.UIService.Views.Windows;
-
 namespace WKosArch.Services.SoundService
 {
     public class AudioSettingViewModel : WindowViewModel
     {
         private const float MinimalVolume = 0.0001f;
 
-        private ISoundFeature _soundService;
+        private ISoundFeature _soundService => DiContainer.Resolve<ISoundFeature>();
 
         private float _previousMusicVolumeValue;
         private float _previousSFXVolumeValue;
@@ -21,13 +18,8 @@ namespace WKosArch.Services.SoundService
         public bool UIToggle { get; private set; }
         public bool HapticToogle { get; private set; }
 
-
-        protected override void AwakeInternal()
+        public AudioSettingViewModel()
         {
-            base.AwakeInternal();
-
-            _soundService = new DIVar<ISoundFeature>().Value;
-
             GetValueFromSettingSO();
         }
 
@@ -126,8 +118,7 @@ namespace WKosArch.Services.SoundService
                 _soundService.MuteMusic();
                 MusicVolumeValue = MinimalVolume;
             }
-
-            Refresh();
+            //Refresh();
         }
 
         internal void SwithcSFX(bool isEnabled)
@@ -147,7 +138,7 @@ namespace WKosArch.Services.SoundService
                 SFXVolumeValue = MinimalVolume;
             }
 
-            Refresh();
+            //Refresh();
         }
 
         internal void SwithcUI(bool isEnabled)
@@ -167,7 +158,7 @@ namespace WKosArch.Services.SoundService
                 UIVolumeValue = MinimalVolume;
             }
 
-            Refresh();
+            //Refresh();
         }
 
         internal void SwitchHaptic(bool isEnabled)

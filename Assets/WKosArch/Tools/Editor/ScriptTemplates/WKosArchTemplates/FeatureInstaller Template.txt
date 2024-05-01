@@ -14,17 +14,17 @@ using UnityEngine;
         {
             var feature = new Feature();
         
-            BindFeature(container, feature);
+            RegisterFeatureAsSingleton(container, feature);
 
             return feature;
         }
 
         public override void Dispose() { }
 
-        private void BindFeature(IDIContainer container, var feature)
+        private void RegisterFeatureAsSingleton(IDIContainer container, var feature)
         {
-            container.Bind(feature);
-            Log.PrintColor($"[#SCRIPTNAME#] Create and Bind", Color.cyan);
+            container.RegisterSingleton(_ => feature);
+            Log.PrintColor($"[#SCRIPTNAME#] Create and RegisterSingleton", Color.cyan);
         }
     }
 

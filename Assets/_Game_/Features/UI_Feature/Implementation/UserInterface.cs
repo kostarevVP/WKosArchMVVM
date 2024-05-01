@@ -1,6 +1,5 @@
 ﻿using Assets._Game_.Services.UI_Service.Implementation;
-using Assets.LocalPackages.WKosArch.Scripts.Common.DIContainer;
-using Lukomor;
+using WKosArch.DependencyInjection;
 using UnityEngine;
 using WKosArch.Extentions;
 using WKosArch.UIService.Views.Windows;
@@ -9,7 +8,7 @@ namespace WKosArch.Services.UIService.UI
 {
     public class UserInterface : IUserInterface
     {
-        public Lukomor.WindowViewModel FocusedWindowViewModel { get; private set; }
+        public WindowViewModel FocusedWindowViewModel { get; private set; }
 
         private IUserInterfaceFactory _uiFactory;
         private ViewModelStack<ViewModelTreeNode> _windowStack = new();
@@ -27,7 +26,7 @@ namespace WKosArch.Services.UIService.UI
 
         public void Show<TUiViewModel>(bool hideCurrentWindow = true, bool hideForced = false, bool openForced = false) where TUiViewModel : UiViewModel, new()
         {
-            var isWindowViewModel = typeof(Lukomor.WindowViewModel).IsAssignableFrom(typeof(TUiViewModel));
+            var isWindowViewModel = typeof(WKosArch.WindowViewModel).IsAssignableFrom(typeof(TUiViewModel));
             if (hideCurrentWindow && FocusedWindowViewModel != null && isWindowViewModel)
                 _uiFactory.Close(FocusedWindowViewModel, hideForced);
 
@@ -140,7 +139,7 @@ namespace WKosArch.Services.UIService.UI
 
         private void AddViewModelStack(UiViewModel uiViewModel)
         {
-            if (uiViewModel is Lukomor.WindowViewModel windowViewModel)
+            if (uiViewModel is WKosArch.WindowViewModel windowViewModel)
             {
                 FocusedWindowViewModel = windowViewModel;
                 _windowStack.Push(new ViewModelTreeNode(windowViewModel));

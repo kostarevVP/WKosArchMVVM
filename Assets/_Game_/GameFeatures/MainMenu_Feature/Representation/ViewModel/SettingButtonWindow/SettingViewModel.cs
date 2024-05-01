@@ -1,7 +1,6 @@
-using Lukomor;
-using WKosArch.UIService.Views.Windows;
+using WKosArch;
 
-public class SettingViewModel : Lukomor.WindowViewModel, IHomeWindow
+public class SettingViewModel : WKosArch.WindowViewModel, IHomeWindow
 {
     public void OpenSettingMenuWindow()
     {

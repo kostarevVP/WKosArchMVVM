@@ -1,25 +1,19 @@
-﻿using Assets.LocalPackages.WKosArch.Scripts.Common.DIContainer;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace WKosArch.Common.DIContainer
+namespace WKosArch.DependencyInjection
 {
     public static class DI
     {
-        private static IDIContainer _dIcontainer = null;
+        private static IDIContainer _rootDIcontainer = null;
 
-        public static void AddDIContainer(IDIContainer dIcontainer)
+        public static void AddRootDIContainer(IDIContainer dIcontainer)
         {
-            _dIcontainer = dIcontainer;
+            _rootDIcontainer = dIcontainer;
         }
 
-        public static TResolve GetResolve<TResolve>() where TResolve : class
+        public static TResolve Resolve<TResolve>() where TResolve : class
         {
-            return _dIcontainer.Resolve<TResolve>();
-        }
-
-        public static void Bind<TResolve>(TResolve instance) where TResolve : class
-        {
-            _dIcontainer?.Bind(instance);
+            return _rootDIcontainer.Resolve<TResolve>();
         }
 
         //need for not Reload Domain each time
@@ -27,7 +21,7 @@ namespace WKosArch.Common.DIContainer
         [RuntimeInitializeOnLoadMethod]
         static void Init()
         {
-            _dIcontainer = null;
+            _rootDIcontainer = null;
         }
     }
 }

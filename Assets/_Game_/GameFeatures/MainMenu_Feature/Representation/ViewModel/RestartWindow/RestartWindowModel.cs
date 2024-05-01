@@ -1,4 +1,4 @@
-﻿using Lukomor;
+﻿using WKosArch;
 using WKosArch.Services.Scenes;
 
 public class RestartWindowModel : WindowViewModel

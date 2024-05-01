@@ -1,4 +1,4 @@
-using Assets.LocalPackages.WKosArch.Scripts.Common.DIContainer;
+using WKosArch.DependencyInjection;
 using WKosArch.Extentions;
 using WKosArch.Services.Scenes;
 using WKosArch.Services.StaticDataServices;

@@ -1,75 +1,111 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Assets.LocalPackages.WKosArch.Scripts.Common.DIContainer
+namespace WKosArch.DependencyInjection
 {
     public class DIContainer : IDIContainer
     {
-        public bool IsRoot => _parentContainer == null;
-        public IDIContainer ChildContainer { get; set; }
-        public Dictionary<Type, object> Instances => _instances;
+        private readonly Dictionary<(string, Type), DIEntry> _factoriesMap = new();
+        private readonly HashSet<(string, Type)> _cachedKeysForResolving = new();
 
-        private readonly Dictionary<Type, object> _instances = new();
-        private readonly IDIContainer _parentContainer;
+        private readonly IDIContainer _parentDiContainer;
 
-        public DIContainer() { }
 
-        public DIContainer(IDIContainer parentContainer)
+
+        public DIContainer(IDIContainer parentDiContainer = null)
         {
-            _parentContainer = parentContainer;
-            _parentContainer.ChildContainer = this;
+            _parentDiContainer = parentDiContainer;
         }
 
-        public void Bind<T>(T instance) where T : class
+        public DIBuilder<T> RegisterSingleton<T>(Func<DIContainer, T> factory)
         {
-            var type = typeof(T);
-
-            if (_instances.ContainsKey(type))
-            {
-                throw new Exception($"You cannot add the same type of instance to container twice. Type: {type}");
-            }
-
-            _instances[type] = instance;
+            return RegisterSingleton("", factory);
         }
 
-        public T Resolve<T>() where T : class
+        public DIBuilder<T> RegisterSingleton<T>(string tag, Func<DIContainer, T> factory)
+        {
+            var key = (tag, typeof(T));
+
+            return RegisterSingleton(key, factory);
+        }
+
+        public DIBuilder<T> Register<T>(Func<DIContainer, T> factory)
+        {
+            return Register("", factory);
+        }
+
+        public DIBuilder<T> Register<T>(string tag, Func<DIContainer, T> factory)
+        {
+            var key = (tag, typeof(T));
+
+            return Register(key, factory);
+        }
+
+        public T Resolve<T>(string tag = "")
         {
             var type = typeof(T);
+            var key = (tag, type);
 
-            if (_instances.TryGetValue(type, out var foundInstance))
+            if (_cachedKeysForResolving.Contains(key))
             {
-                return (T)foundInstance;
+                throw new Exception($"Cyclic dependencies. Key: {key}");
             }
 
-            if (ChildContainer != null && ChildContainer.Instances.TryGetValue(type, out var foundInstanceInChild))
+            _cachedKeysForResolving.Add(key);
+
+            T result;
+
+            if (!_factoriesMap.ContainsKey(key))
             {
-                return (T)foundInstanceInChild;
+                if (_parentDiContainer == null)
+                {
+                    throw new Exception($"There is no factory registered for key: {key}");
+                }
+
+                result = _parentDiContainer.Resolve<T>(tag);
+            }
+            else
+            {
+                result = _factoriesMap[key].Resolve<T>();
             }
 
-            if (!IsRoot)
+            _cachedKeysForResolving.Remove(key);
+
+            return result;
+        }
+
+        private DIBuilder<T> RegisterSingleton<T>((string, Type) key, Func<DIContainer, T> factory)
+        {
+            if (_factoriesMap.ContainsKey(key))
             {
-                return _parentContainer.Resolve<T>();
+                throw new Exception("Already has factory entry for key: " + key);
             }
 
-            throw new Exception($"There is no instance of type registered. Type: {type}");
+            var diEntry = new DIEntrySingleton<T>(this, factory);
+
+            _factoriesMap[key] = diEntry;
+
+            return new DIBuilder<T>(diEntry);
+        }
+
+        private DIBuilder<T> Register<T>((string, Type) key, Func<DIContainer, T> factory)
+        {
+            if (_factoriesMap.ContainsKey(key))
+            {
+                throw new Exception("Already has factory entry for type: " + key.Item2.Name);
+            }
+
+            var diEntry = new DIEntryTransient<T>(this, factory);
+
+            _factoriesMap[key] = diEntry;
+
+            return new DIBuilder<T>(diEntry);
         }
 
         public void Dispose()
         {
-            _instances.Clear();
-        }
-
-        public override string ToString()
-        {
-            string str = $"IsRoot={IsRoot}\n";
-
-            str += "Instances service:\n";
-            foreach (var kvp in Instances)
-            {
-                str += $"  - {kvp.Key.Name}: {kvp.Value}\n";
-            }
-
-            return str;
+            _factoriesMap.Clear();
+            _cachedKeysForResolving.Clear();
         }
     }
 }

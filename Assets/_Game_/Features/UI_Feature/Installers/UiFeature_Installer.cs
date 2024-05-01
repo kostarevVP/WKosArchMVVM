@@ -1,12 +1,12 @@
 using WKosArch.Domain.Contexts;
 using WKosArch.Domain.Features;
 using WKosArch.Services.Scenes;
-using Assets.LocalPackages.WKosArch.Scripts.Common.DIContainer;
 using WKosArch.Services.StaticDataServices;
 using UnityEngine;
 using WKosArch.Extentions;
+using WKosArch.DependencyInjection;
 
-namespace  WKosArch.Services.UIService
+namespace WKosArch.Services.UIService
 
 {
     [CreateAssetMenu(fileName = "UiFeature_Installer", menuName = "Game/Installers/UiFeature_Installer")]
@@ -19,20 +19,20 @@ namespace  WKosArch.Services.UIService
 
             IUiFeature feature = new UiFeature(configDataService, sceneMenegmentService, container);
 
-            BindFeature(container, feature);
+            RegisterFeatureAsSingleton(container, feature);
 
-            container.Bind(feature.UI);
-
-            Log.PrintColor($"[UI] Create and Bind", Color.cyan);
+            container.RegisterSingleton(_ => feature.UI);
+            Log.PrintColor($"[UI] Create and RegesterSingleton", Color.cyan);
 
             return feature;
         }
 
         public override void Dispose() { }
-        private void BindFeature(IDIContainer container, IUiFeature feature)
+
+        private void RegisterFeatureAsSingleton(IDIContainer container, IUiFeature feature)
         {
-            container.Bind(feature);
-            Log.PrintColor($"[IUiFeature] Create and Bind", Color.cyan);
+            container.RegisterSingleton(_ => feature);
+            Log.PrintColor($"[IUiFeature] Create and RegesterSingleton", Color.cyan);
         }
     }
 }

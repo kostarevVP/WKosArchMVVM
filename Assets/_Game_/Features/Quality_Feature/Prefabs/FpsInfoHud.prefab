@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 1279734036341218919}
   - component: {fileID: 9197838417860256531}
   - component: {fileID: 8905088897161283910}
-  - component: {fileID: 1805482638935572581}
   - component: {fileID: 6325324909813942794}
   m_Layer: 5
   m_Name: FpsInfoHud
@@ -86,20 +85,6 @@ MonoBehaviour:
   _propertyName: Opened
   _openingGameObject: {fileID: 2330106388895210479}
   _transitionOut: {fileID: 0}
---- !u!114 &1805482638935572581
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2330106388895210479}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d771d1c7e81d5804b87137301734e1f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _duration: 1
-  _ease: 19
 --- !u!114 &6325324909813942794
 MonoBehaviour:
   m_ObjectHideFlags: 0

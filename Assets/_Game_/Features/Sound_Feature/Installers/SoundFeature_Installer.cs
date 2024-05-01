@@ -2,7 +2,7 @@ using WKosArch.Domain.Contexts;
 using WKosArch.Domain.Features;
 using WKosArch.Extentions;
 using UnityEngine;
-using Assets.LocalPackages.WKosArch.Scripts.Common.DIContainer;
+using WKosArch.DependencyInjection;
 
 namespace WKosArch.Services.SoundService
 {
@@ -13,17 +13,17 @@ namespace WKosArch.Services.SoundService
         {
             ISoundFeature feature = new SoundFeature();
 
-            BindFeature(container, feature);
+            RegisterFeatureAsSingleton(container, feature);
 
             return feature;
         }
 
         public override void Dispose() { }
 
-        private void BindFeature(IDIContainer container, ISoundFeature feature)
+        private void RegisterFeatureAsSingleton(IDIContainer container, ISoundFeature feature)
         {
-            container.Bind(feature);
-            Log.PrintColor($"[ISoundFeature] Create and Bind", Color.cyan);
+            container.RegisterSingleton(_ => feature);
+            Log.PrintColor($"[ISoundFeature] Create and RegesterSingleton", Color.cyan);
         }
     }
 }

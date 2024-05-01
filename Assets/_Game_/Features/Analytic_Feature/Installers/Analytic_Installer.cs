@@ -1,26 +1,28 @@
-using Assets.LocalPackages.WKosArch.Scripts.Common.DIContainer;
 using WKosArch.Domain.Contexts;
 using WKosArch.Domain.Features;
 using WKosArch.Extentions;
 using UnityEngine;
+using WKosArch.DependencyInjection;
 
 namespace WKosArch.Services.AnalyticService
 {
     [CreateAssetMenu(fileName = "Analytic_Installer", menuName = "Game/Installers/Analytic_Installer")]
     public class Analytic_Installer : FeatureInstaller
     {
-        private IAnalyticService _service;
-
         public override IFeature Create(IDIContainer container)
         {
-            _service = new AnalyticLogService();
+            IAnalyticService feature = new AnalyticLogService();
 
-            container.Bind(_service);
+            RegisterFeatureAsSingleton(container, feature);
 
-            Log.PrintColor($"[IAnalyticService] Create and Bind", Color.cyan);
-            return _service;
+            return feature;
         }
-
         public override void Dispose() { }
+
+        private void RegisterFeatureAsSingleton(IDIContainer container, IAnalyticService feature)
+        {
+            container.RegisterSingleton(_ => feature);
+            Log.PrintColor($"[IAnalyticService] Create and RegisterSingleton", Color.cyan);
+        }
     }
 }

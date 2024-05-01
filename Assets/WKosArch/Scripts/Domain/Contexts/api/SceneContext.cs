@@ -1,6 +1,7 @@
-﻿using Assets.LocalPackages.WKosArch.Scripts.Common.DIContainer;
-using WKosArch.Application;
+﻿using WKosArch.Application;
 using UnityEngine;
+using WKosArch.DependencyInjection;
+
 
 namespace WKosArch.Domain.Contexts
 {
@@ -22,9 +23,10 @@ namespace WKosArch.Domain.Contexts
 #endif
         }
 
-        protected override IDIContainer CreateLocalContainer()
+
+        protected override IDIContainer CreateLocalContainer(IDIContainer dIContainer = null)
         {
-            var rootContainer = Game.ProjectContext.Container;
+            IDIContainer rootContainer = Game.ProjectContext.Container;
             return new DIContainer(rootContainer);
         }
     }

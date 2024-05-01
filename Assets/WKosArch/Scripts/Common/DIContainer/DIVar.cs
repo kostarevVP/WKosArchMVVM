@@ -1,4 +1,4 @@
-﻿namespace WKosArch.Common.DIContainer
+﻿namespace WKosArch.DependencyInjection
 {
     public sealed class DIVar<T> where T : class
 	{
@@ -7,7 +7,7 @@
 			{
 				if (_value == null)
 				{
-					_value = DI.GetResolve<T>();
+					_value = DI.Resolve<T>();
 				}
 
 				return _value;

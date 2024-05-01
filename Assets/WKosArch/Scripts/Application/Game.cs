@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using Cysharp.Threading.Tasks;
-using WKosArch.Common.DIContainer;
 using WKosArch.Domain.Contexts;
+using WKosArch.DependencyInjection;
 
 namespace WKosArch.Application
 {
@@ -21,13 +21,12 @@ namespace WKosArch.Application
 
                 ProjectContext = projectContext;
 
-                DI.AddDIContainer(projectContext.Container);
-                DI.Bind(projectContext);
-
-                //if (projectContext != null)
-                //{
-                await ProjectContext.InitializeAsync();
-                //}
+                DI.AddRootDIContainer(projectContext.Container);
+                
+                if (projectContext != null)
+                {
+                    await ProjectContext.InitializeAsync();
+                }
 
                 _iSsStarted = true;
                 _gameStarting = false;

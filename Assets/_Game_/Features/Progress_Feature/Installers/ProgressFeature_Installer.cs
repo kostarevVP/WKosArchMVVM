@@ -1,9 +1,9 @@
 using Assets.Game.Services.ProgressService.api;
-using Assets.LocalPackages.WKosArch.Scripts.Common.DIContainer;
 using WKosArch.Domain.Contexts;
 using WKosArch.Domain.Features;
 using WKosArch.Extentions;
 using UnityEngine;
+using WKosArch.DependencyInjection;
 
 namespace WKosArch.Services.ProgressService
 {
@@ -14,17 +14,17 @@ namespace WKosArch.Services.ProgressService
         {
             IProgressFeature feature = new ProgressFeature();
 
-            BindFeature(container, feature);
+            RegisterFeatureAsSingleton(container, feature);
 
             return feature;
         }
 
         public override void Dispose() { }
 
-        private void BindFeature(IDIContainer container, IProgressFeature feature)
+        private void RegisterFeatureAsSingleton(IDIContainer container, IProgressFeature feature)
         {
-            container.Bind(feature);
-            Log.PrintColor($"[IProgressFeature] Create and Bind", Color.cyan);
+            container.RegisterSingleton(_ => feature);
+            Log.PrintColor($"[IProgressFeature] Create and RegesterSingleton", Color.cyan);
         }
     }
 }

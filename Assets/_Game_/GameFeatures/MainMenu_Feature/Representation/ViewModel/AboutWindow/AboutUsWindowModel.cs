@@ -1,4 +1,4 @@
-using Lukomor;
+using WKosArch;
 using UnityEngine;
 
 public class AboutUsWindowModel : WindowViewModel

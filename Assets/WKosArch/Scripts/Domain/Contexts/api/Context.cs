@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Assets.LocalPackages.WKosArch.Scripts.Common.DIContainer;
 using Cysharp.Threading.Tasks;
 using WKosArch.Common.Utils.Async;
 using WKosArch.Domain.Features;
 using UnityEngine;
 using System;
+using WKosArch.DependencyInjection;
+
 
 
 
@@ -38,10 +39,8 @@ namespace WKosArch.Domain.Contexts
         private bool _isReady;
 
         [SerializeField] private FeatureInstaller[] _featureInstallers;
-        //[SerializeField] private FeatureInstaller[] _gameplayFeatureInstallers;
 
         private List<IFeature> _cachedFeatures;
-        //private List<IFeature> _cachedGameplayFeatures;
 
         private IDIContainer _container;
 
@@ -50,12 +49,10 @@ namespace WKosArch.Domain.Contexts
         private void Awake()
         {
             _cachedFeatures = new List<IFeature>();
-            //_cachedGameplayFeatures = new List<IFeature>();
         }
 
         private void OnDestroy()
         {
-            //Container.Dispose();
             Destroy();
             IsReady = false;
         }
@@ -67,12 +64,6 @@ namespace WKosArch.Domain.Contexts
                 if (serviceFeature is IFocusPauseFeature focusFeature)
                     focusFeature.OnApplicationFocus(hasFocus);
             }
-
-            //foreach (IFeature gameplayFeature in _cachedGameplayFeatures)
-            //{
-            //    if (gameplayFeature is IFocusPauseFeature focusFeature)
-            //        focusFeature.OnApplicationFocus(hasFocus);
-            //}
         }
 
         private void OnApplicationPause(bool pauseStatus)
@@ -82,12 +73,6 @@ namespace WKosArch.Domain.Contexts
                 if (serviceFeature is IFocusPauseFeature pauseFeature)
                     pauseFeature.OnApplicationPause(pauseStatus);
             }
-
-            //foreach (IFeature gameplayFeature in _cachedGameplayFeatures)
-            //{
-            //    if (gameplayFeature is IFocusPauseFeature pauseFeature)
-            //        pauseFeature.OnApplicationPause(pauseStatus);
-            //}
         }
 
         #endregion
@@ -97,10 +82,7 @@ namespace WKosArch.Domain.Contexts
         public virtual async UniTask InitializeAsync()
         {
             InstallServiceFeatures();
-            //InstallGameplayFeatures();
-
             InitializeServiceFeatures();
-            //InitializeGameplayFeatures();
 
             await WaitInitializationComplete();
         }
@@ -108,7 +90,6 @@ namespace WKosArch.Domain.Contexts
         public void Destroy()
         {
             DestroyServiceFeatures();
-            //DestroyGameplayFeatures();
 
             //there are problems with Destroy and OnDestroy, so it needs to be checked
             //because when game is close this method call twice and if not call from OnDestroy
@@ -119,7 +100,7 @@ namespace WKosArch.Domain.Contexts
 
         #endregion
 
-        protected abstract IDIContainer CreateLocalContainer();
+        protected abstract IDIContainer CreateLocalContainer(IDIContainer dIContainer = null);
 
         private void InstallServiceFeatures()
         {
@@ -131,16 +112,6 @@ namespace WKosArch.Domain.Contexts
             }
         }
 
-        //private void InstallGameplayFeatures()
-        //{
-        //    foreach (var gameplayFeatureInstaller in _gameplayFeatureInstallers)
-        //    {
-        //        var createdFeature = gameplayFeatureInstaller.Create(Container);
-
-        //        _cachedGameplayFeatures.Add(createdFeature);
-        //    }
-        //}
-
         private void InitializeServiceFeatures()
         {
             foreach (IFeature serviceFeature in _cachedFeatures)
@@ -150,14 +121,6 @@ namespace WKosArch.Domain.Contexts
             }
         }
 
-        //private void InitializeGameplayFeatures()
-        //{
-        //    foreach (IFeature gameplayFeature in _cachedGameplayFeatures)
-        //    {
-        //        if (gameplayFeature is IAsyncFeature asyncFeature)
-        //            asyncFeature.InitializeAsync();
-        //    }
-        //}
 
         private async UniTask WaitInitializationComplete()
         {
@@ -192,23 +155,5 @@ namespace WKosArch.Domain.Contexts
                 serviceFeaturesInstaller.Dispose();
             }
         }
-
-        //private void DestroyGameplayFeatures()
-        //{
-        //    foreach (IFeature gameplayFeature in _cachedGameplayFeatures)
-        //    {
-        //        if (gameplayFeature is IAsyncFeature asyncFeature)
-        //            asyncFeature.DestroyAsync();
-        //        if (gameplayFeature is IDisposable disposable)
-        //            disposable.Dispose();
-        //    }
-
-        //    _cachedGameplayFeatures.Clear();
-
-        //    foreach (var featureInstaller in _gameplayFeatureInstallers)
-        //    {
-        //        featureInstaller.Dispose();
-        //    }
-        //}
     }
 }

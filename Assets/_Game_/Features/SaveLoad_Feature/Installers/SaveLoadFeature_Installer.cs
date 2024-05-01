@@ -3,7 +3,7 @@ using WKosArch.Domain.Contexts;
 using WKosArch.Domain.Features;
 using WKosArch.Extentions;
 using UnityEngine;
-using Assets.LocalPackages.WKosArch.Scripts.Common.DIContainer;
+using WKosArch.DependencyInjection;
 
 namespace WKosArch.Services.SaveLoadService
 {
@@ -16,17 +16,17 @@ namespace WKosArch.Services.SaveLoadService
 
             ISaveLoadFeature feature = new SaveLoadFeature(progressFeature);
 
-            BindFeature(container, feature);
+            RegisterFeatureAsSingleton(container, feature);
 
             return feature;
         }
 
         public override void Dispose() { }
 
-        private void BindFeature(IDIContainer container, ISaveLoadFeature feature)
+        private void RegisterFeatureAsSingleton(IDIContainer container, ISaveLoadFeature feature)
         {
-            container.Bind(feature);
-            Log.PrintColor($"[ISaveLoadFeature] Create and Bind", Color.cyan);
+            container.RegisterSingleton(_ => feature);
+            Log.PrintColor($"[ISaveLoadFeature] Create and RegesterSingleton", Color.cyan);
         }
     }
 }

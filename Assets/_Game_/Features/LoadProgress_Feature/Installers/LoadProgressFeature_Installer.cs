@@ -4,8 +4,8 @@ using WKosArch.Domain.Features;
 using WKosArch.Extentions;
 using WKosArch.Services.Scenes;
 using UnityEngine;
-using Assets.LocalPackages.WKosArch.Scripts.Common.DIContainer;
 using WKosArch.Services.StaticDataServices;
+using WKosArch.DependencyInjection;
 
 namespace WKosArch.Features.LoadProgressFeature
 {
@@ -23,7 +23,7 @@ namespace WKosArch.Features.LoadProgressFeature
 
             feature.LoadProgressOrInitNew();
 
-            BindFeature(container, feature);
+            RegisterFeatureAsSingleton(container, feature);
 
             sceneManagementService.LoadScene(progressService.Progress.SceneIndex);
 
@@ -32,10 +32,10 @@ namespace WKosArch.Features.LoadProgressFeature
 
         public override void Dispose() { }
 
-        private void BindFeature(IDIContainer container, ILoadProgressFeature feature)
+        private void RegisterFeatureAsSingleton(IDIContainer container, ILoadProgressFeature feature)
         {
-            container.Bind(feature);
-            Log.PrintColor($"[ILoadProgressFeature] Create and Bind", Color.cyan);
+            container.RegisterSingleton(_ => feature);
+            Log.PrintColor($"[ILoadProgressFeature] Create and RegesterSingleton", Color.cyan);
         }
     } 
 }

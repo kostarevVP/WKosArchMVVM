@@ -1,4 +1,4 @@
-﻿using Assets.LocalPackages.WKosArch.Scripts.Common.DIContainer;
+﻿using WKosArch.DependencyInjection;
 using UnityEngine;
 using WKosArch.Domain.Contexts;
 using WKosArch.Domain.Features;
@@ -17,7 +17,7 @@ public class QualityFeature_Installer : FeatureInstaller
 
         IQualityFeature qualityFueature = new QualityFeature(_staticDataService.RenderQualityConfigMap);
 
-        BindFeature(container, qualityFueature);
+        RegisterFeatureAsSingleton(container, qualityFueature);
 
         qualityFueature.SetFPSLimit(_targetFPS);
 
@@ -26,9 +26,9 @@ public class QualityFeature_Installer : FeatureInstaller
 
     public override void Dispose() { }
 
-    private void BindFeature(IDIContainer container, IQualityFeature feature)
+    private void RegisterFeatureAsSingleton(IDIContainer container, IQualityFeature feature)
     {
-        container.Bind(feature);
-        Log.PrintColor($"[IQualityFeature] Create and Bind", Color.cyan);
+        container.RegisterSingleton(_ => feature);
+        Log.PrintColor($"[IQualityFeature] Create and RegesterSingleton", Color.cyan);
     }
 }

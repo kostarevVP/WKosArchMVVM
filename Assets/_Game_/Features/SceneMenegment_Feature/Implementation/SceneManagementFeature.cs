@@ -84,6 +84,8 @@ namespace WKosArch.Services.Scenes
 
             OnSceneChanged?.Invoke(sceneName);
 
+
+
             while (!SceneReadyToStart)
             {
                 await UniTask.Yield();

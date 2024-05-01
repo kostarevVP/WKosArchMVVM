@@ -1,6 +1,6 @@
-using Assets.LocalPackages.WKosArch.Scripts.Common.DIContainer;
-using Lukomor;
-using Lukomor.MVVM;
+using WKosArch;
+using WKosArch.DependencyInjection;
+using WKosArch.MVVM;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;

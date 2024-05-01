@@ -1,4 +1,3 @@
-using Assets.LocalPackages.WKosArch.Scripts.Common.DIContainer;
 using WKosArch.Domain.Contexts;
 using WKosArch.Domain.Features;
 using WKosArch.Extentions;
@@ -6,6 +5,7 @@ using WKosArch.Services.Scenes;
 using UnityEngine;
 using WKosArch.Services.UIService;
 using WKosArch.Services.UIService.UI;
+using WKosArch.DependencyInjection;
 
 namespace WKosArch.Features.LoadLevelFeature
 {
@@ -19,17 +19,17 @@ namespace WKosArch.Features.LoadLevelFeature
 
             ILoadLevelFeature feature = new LoadLevelFeature(sceneManagementService, ui);
 
-            BindFeature(container, feature);
+            RegisterFeatureAsSingleton(container, feature);
 
             return feature;
         }
 
         public override void Dispose() { }
 
-        private void BindFeature(IDIContainer container, ILoadLevelFeature feature)
+        private void RegisterFeatureAsSingleton(IDIContainer container, ILoadLevelFeature feature)
         {
-            container.Bind(feature);
-            Log.PrintColor($"[ILoadLevelFeature] Create and Bind", Color.cyan);
+            container.RegisterSingleton(_ => feature);
+            Log.PrintColor($"[ILoadLevelFeature] Create and RegesterSingleton", Color.cyan);
         }
     }
 }

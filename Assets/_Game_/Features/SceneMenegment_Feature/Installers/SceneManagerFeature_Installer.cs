@@ -1,9 +1,8 @@
-﻿using Cysharp.Threading.Tasks;
-using WKosArch.Domain.Contexts;
+﻿using WKosArch.Domain.Contexts;
 using WKosArch.Domain.Features;
 using WKosArch.Extentions;
 using UnityEngine;
-using Assets.LocalPackages.WKosArch.Scripts.Common.DIContainer;
+using WKosArch.DependencyInjection;
 
 namespace WKosArch.Services.Scenes
 {
@@ -12,46 +11,28 @@ namespace WKosArch.Services.Scenes
     {
         [SerializeField] private GameObject _loadingScreenPrefab;
 
-        private ProjectContext _projectContext;
-        private ISceneManagementFeature _sceneManagementService;
-
         public override IFeature Create(IDIContainer container)
         {
-            _projectContext = container.Resolve<ProjectContext>();
+            ProjectContext projectContext = container.Resolve<ProjectContext>();
 
             ILoadingScreen loadingScreen = IsntatiateLoadingScreen();
 
-            _sceneManagementService = new SceneManagementFeature(loadingScreen);
+            ISceneManagementFeature sceneManagementService = new SceneManagementFeature(loadingScreen);
 
+            new SceneContextFeature(projectContext, sceneManagementService);
 
-            _sceneManagementService.OnSceneChanged += LoadSceneContext;
-            //_sceneManagementService.OnSceneUnloaded += DestroySceneContext;
-            //_sceneManagementService.OnSceneReloadBegin += DestroyContext;
+            RegisterFeatureAsSingleton(container, sceneManagementService);
 
-
-            BindFeature(container, _sceneManagementService);
-
-            return _sceneManagementService;
+            return sceneManagementService;
         }
 
 
-        public override void Dispose()
-        {
-            _sceneManagementService.OnSceneChanged -= LoadSceneContext;
-            //_sceneManagementService.OnSceneUnloaded -= DestroySceneContext;
-            //_sceneManagementService.OnSceneReloadBegin -= DestroyContext;
+        public override void Dispose() { }
 
-        }
-        private void BindFeature(IDIContainer container, ISceneManagementFeature feature)
+        private void RegisterFeatureAsSingleton(IDIContainer container, ISceneManagementFeature feature)
         {
-            container.Bind(feature);
-            Log.PrintColor($"[ISceneManagementFeature] Create and Bind", Color.cyan);
-        }
-
-        private async void LoadSceneContext(string sceneName)
-        {
-            DestroyContext(_sceneManagementService.CurrentSceneName);
-            await LoadContext(sceneName);
+            container.RegisterSingleton(_ => feature);
+            Log.PrintColor($"[ISceneManagementFeature] Create and RegesterSingleton", Color.cyan);
         }
 
         private ILoadingScreen IsntatiateLoadingScreen()
@@ -67,32 +48,6 @@ namespace WKosArch.Services.Scenes
             }
 
             return loadingScreen;
-        }
-
-        private async UniTask<SceneContext> LoadContext(string sceneName)
-        {
-            SceneContext sceneContext = _projectContext.GetSceneContext(sceneName);
-
-            if (sceneContext != null)
-            {
-                await sceneContext.InitializeAsync();
-            }
-
-            _sceneManagementService.OnContextLoadInvoke(sceneContext);
-
-            return sceneContext;
-        }
-
-        private void DestroyContext(string sceneName)
-        {
-            SceneContext sceneContext = _projectContext.GetSceneContext(sceneName);
-
-            _sceneManagementService.OnContextUnLoadInvoke(sceneContext);
-
-            if (sceneContext != null)
-            {
-                sceneContext.Destroy();
-            }
         }
 
         private void OnValidate()

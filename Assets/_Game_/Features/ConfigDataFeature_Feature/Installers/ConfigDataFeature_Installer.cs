@@ -2,7 +2,7 @@ using WKosArch.Domain.Contexts;
 using WKosArch.Domain.Features;
 using WKosArch.Extentions;
 using UnityEngine;
-using Assets.LocalPackages.WKosArch.Scripts.Common.DIContainer;
+using WKosArch.DependencyInjection;
 
 namespace WKosArch.Services.StaticDataServices
 {
@@ -15,17 +15,17 @@ namespace WKosArch.Services.StaticDataServices
 
             IConfigDataFeature feature = new ConfigDataFeature(assetProviderService);
 
-            BindFeature(container, feature);
+            RegisterFeatureAsSingleton(container, feature);
 
             return feature;
         }
 
         public override void Dispose() { }
 
-        private void BindFeature(IDIContainer container, IConfigDataFeature feature)
+        private void RegisterFeatureAsSingleton(IDIContainer container, IConfigDataFeature feature)
         {
-            container.Bind(feature);
-            Log.PrintColor($"[IStaticDataFeature] Create and Bind", Color.cyan);
+            container.RegisterSingleton(_ => feature);
+            Log.PrintColor($"[IStaticDataFeature] Create and RegesterSingleton", Color.cyan);
         }
     } 
 }
