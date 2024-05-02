@@ -1,6 +1,6 @@
 using WKosArch;
 
-public class SettingViewModel : WKosArch.WindowViewModel, IHomeWindow
+public class SettingViewModel : WindowViewModel, IHomeWindow
 {
     public void OpenSettingMenuWindow()
     {
@@ -9,6 +9,6 @@ public class SettingViewModel : WKosArch.WindowViewModel, IHomeWindow
 
     public void OpenQuitGame()
     {
-        
+        UI.Show<QuitGameWindowModel>();
     }
 } 

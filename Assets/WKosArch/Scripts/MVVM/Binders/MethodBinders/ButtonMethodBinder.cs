@@ -15,23 +15,23 @@ namespace WKosArch.MVVM.Binders
 
         private void OnEnable()
         {
-//#if UNITY_EDITOR
-//            if (!Application.isPlaying)
-//            {
-//                return;
-//            }
-//#endif
+#if UNITY_EDITOR
+            if (!Application.isPlaying)
+            {
+                return;
+            }
+#endif
             _button.onClick.AddListener(OnClick);
         }
 
         private void OnDisable()
         {
-//#if UNITY_EDITOR
-//            if (!Application.isPlaying)
-//            {
-//                return;
-//            }
-//#endif
+#if UNITY_EDITOR
+            if (!Application.isPlaying)
+            {
+                return;
+            }
+#endif
             _button.onClick.RemoveListener(OnClick);
         }
 

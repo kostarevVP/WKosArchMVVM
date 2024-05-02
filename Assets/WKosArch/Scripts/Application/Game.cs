@@ -3,7 +3,7 @@ using Cysharp.Threading.Tasks;
 using WKosArch.Domain.Contexts;
 using WKosArch.DependencyInjection;
 
-namespace WKosArch.Application
+namespace WKosArch.Game
 {
     public static class Game
     {

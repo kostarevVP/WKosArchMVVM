@@ -2,7 +2,7 @@
 using WKosArch.Domain.Contexts;
 using UnityEngine;
 
-namespace WKosArch.Application
+namespace WKosArch.Game
 {
     [RequireComponent(typeof(ProjectContext))]
     public class Bootstrap : MonoBehaviour
