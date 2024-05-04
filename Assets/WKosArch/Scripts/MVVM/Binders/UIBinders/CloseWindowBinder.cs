@@ -1,13 +1,12 @@
-using System.Reactive;
 using UnityEngine;
 
 namespace WKosArch.MVVM.Binders
 {
-    public class CloseWindowBinder : ObservableBinder<Unit>
+    public class CloseWindowBinder : ObservableBinder<bool>
     {
         [SerializeField] private GameObject _destroyingGameObject;
         
-        protected override void OnPropertyChanged(Unit newValue)
+        protected override void OnPropertyChanged(bool forced)
         {
             Destroy(_destroyingGameObject);
         }
