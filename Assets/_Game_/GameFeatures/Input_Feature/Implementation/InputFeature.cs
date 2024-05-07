@@ -18,14 +18,14 @@ namespace Input_Feature
         public event Action<Vector3> OnMoveVectorEvent;
 
 
-        public void MoveVector(Vector2 vector2)
+        public void MoveDirectionVector(Vector2 vector2)
         {
             OnMoveVectorEvent?.Invoke(vector2);
 
             Log.PrintYellow($"MoveVector = {vector2}");
         }
 
-        public void JoystickVector(Vector2 vector2)
+        public void JoystickDirectionVector(Vector2 vector2)
         {
             OnJoystickVectorEvent?.Invoke(vector2);
 

@@ -1,12 +1,13 @@
+using Input_Feature;
 using UnityEngine;
 using WKosArch;
-using WKosArch.Extentions;
 
 public class JoystickHudModel : HudViewModel
 {
-    public void MoveJoystic(Vector2 vector2)
-    {
+    private IInputFeature _inputFeature => DiContainer.Resolve<IInputFeature>();
 
-        Log.PrintYellow($"MoveJoystick vector2={vector2}");
+    public void JoystickMoved(Vector2 vector2)
+    {
+        _inputFeature.JoystickDirectionVector(vector2);
     }
 }

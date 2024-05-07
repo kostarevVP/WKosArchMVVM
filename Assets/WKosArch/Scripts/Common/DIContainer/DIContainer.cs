@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace WKosArch.DependencyInjection
 {
@@ -9,12 +10,16 @@ namespace WKosArch.DependencyInjection
         private readonly HashSet<(string, Type)> _cachedKeysForResolving = new();
 
         private readonly IDIContainer _parentDiContainer;
+        private readonly List<IDIContainer> _childContainers = new();
 
 
 
         public DIContainer(IDIContainer parentDiContainer = null)
         {
             _parentDiContainer = parentDiContainer;
+
+            if(_parentDiContainer != null)
+                _parentDiContainer.AddChildContainer(this);
         }
 
         public DIBuilder<T> RegisterSingleton<T>(Func<DIContainer, T> factory)
@@ -41,6 +46,7 @@ namespace WKosArch.DependencyInjection
             return Register(key, factory);
         }
 
+
         public T Resolve<T>(string tag = "")
         {
             var type = typeof(T);
@@ -53,25 +59,68 @@ namespace WKosArch.DependencyInjection
 
             _cachedKeysForResolving.Add(key);
 
-            T result;
+            List<IDIContainer> registeredContainers = new List<IDIContainer>();
 
-            if (!_factoriesMap.ContainsKey(key))
+            // Check the current container
+            if (_factoriesMap.ContainsKey(key))
             {
-                if (_parentDiContainer == null)
+                registeredContainers.Add(this);
+            }
+
+            // Check the parent container
+            if (_parentDiContainer is DIContainer parentContainer)
+            {
+                try
                 {
-                    throw new Exception($"There is no factory registered for key: {key}");
+                    parentContainer.Resolve<T>(tag);
+                    registeredContainers.Add(parentContainer);
                 }
+                catch {/*Ignore exception and continue*/}
+            }
 
-                result = _parentDiContainer.Resolve<T>(tag);
-            }
-            else
+            // Check child containers
+            foreach (var childContainer in _childContainers)
             {
-                result = _factoriesMap[key].Resolve<T>();
+                try
+                {
+                    childContainer.Resolve<T>(tag);
+                    registeredContainers.Add(childContainer);
+                }
+                catch {/*Ignore exception and continue*/}
             }
+
+            // If no containers have the key, raise an error
+            if (registeredContainers.Count == 0)
+            {
+                _cachedKeysForResolving.Remove(key);
+                throw new Exception($"There is no factory registered for key: {key}");
+            }
+
+            // If more than one container has the key, raise an error
+            if (registeredContainers.Count > 1)
+            {
+                _cachedKeysForResolving.Remove(key);
+                throw new Exception($"Multiple factories registered for key: {key}");
+            }
+
+            // Resolve from the appropriate container
+            var result = registeredContainers.First().ResolveFromCurrent<T>();
 
             _cachedKeysForResolving.Remove(key);
-
             return result;
+        }
+
+        public T ResolveFromCurrent<T>(string tag = "")
+        {
+            var type = typeof(T);
+            var key = (tag, type);
+
+            if (_factoriesMap.TryGetValue(key, out DIEntry dIEntry))
+            {
+                return dIEntry.Resolve<T>();
+            }
+
+            throw new Exception($"No factory registered for key: {key}");
         }
 
         private DIBuilder<T> RegisterSingleton<T>((string, Type) key, Func<DIContainer, T> factory)
@@ -102,10 +151,16 @@ namespace WKosArch.DependencyInjection
             return new DIBuilder<T>(diEntry);
         }
 
+        public void AddChildContainer(IDIContainer container)
+        {
+            _childContainers.Add(container);
+        }
+
         public void Dispose()
         {
             _factoriesMap.Clear();
             _cachedKeysForResolving.Clear();
+            _childContainers.Clear();
         }
     }
 }

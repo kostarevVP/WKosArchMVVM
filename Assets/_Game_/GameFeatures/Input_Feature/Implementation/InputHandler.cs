@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using WKosArch.Extentions;
 
 namespace Input_Feature
 {
@@ -9,7 +10,7 @@ namespace Input_Feature
 
         private Vector2 _throttleBrakeVector2;
         private Vector2 _wheelVector2;
-        private InputFeature _inputFeature;
+        private IInputFeature _inputFeature;
 
         public static InputHandler CreateInstance()
         {
@@ -21,7 +22,7 @@ namespace Input_Feature
             return inputHandler;
         }
 
-        public void Inject(InputFeature inputFeature)
+        public void Inject(IInputFeature inputFeature)
         {
             _inputFeature = inputFeature;
         }
@@ -33,7 +34,7 @@ namespace Input_Feature
 
             var directionVector2 = _throttleBrakeVector2 + _wheelVector2;
 
-            _inputFeature.MoveVector(directionVector2);
+            _inputFeature.MoveDirectionVector(directionVector2);
         }
 
         public void OnThrottleBrake(InputValue inputValue)
@@ -42,21 +43,21 @@ namespace Input_Feature
 
             var directionVector2 = _throttleBrakeVector2 + _wheelVector2;
 
-            _inputFeature.MoveVector(directionVector2);
+            _inputFeature.MoveDirectionVector(directionVector2);
         }
 
         public void OnParkingBrake(InputValue inputValue)
         {
             var isPressed = inputValue.isPressed;
 
-            //_inputService.OnParkingBrake(isPressed);
+            //_inputFeature.OnParkingBrake(isPressed);
         }
 
         public void OnTouchStick(InputValue inputValue)
         {
             var vector2 = inputValue.Get<Vector2>();
 
-            _inputFeature.JoystickVector(vector2);
+            _inputFeature.JoystickDirectionVector(vector2);
         }
     }
 }

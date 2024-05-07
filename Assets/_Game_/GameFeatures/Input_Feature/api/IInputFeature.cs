@@ -9,7 +9,7 @@ namespace Input_Feature
         event Action<Vector2> OnJoystickVectorEvent;
         event Action<Vector3> OnMoveVectorEvent;
 
-        void JoystickVector(Vector2 vector2);
-        void MoveVector(Vector2 vector2);
+        void JoystickDirectionVector(Vector2 vector2);
+        void MoveDirectionVector(Vector2 vector2);
     }
 }
