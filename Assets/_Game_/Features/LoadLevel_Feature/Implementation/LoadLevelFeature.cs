@@ -43,6 +43,7 @@ namespace WKosArch.Features.LoadLevelFeature
             Log.PrintYellow("Load environment");
             _ui.Show<SettingViewModel>();
             _ui.Show<FpsInfoHudViewModel>();
+            _ui.Show<JoystickHudModel>();
         }
 
         private void SceneStarted(string sceneName)
