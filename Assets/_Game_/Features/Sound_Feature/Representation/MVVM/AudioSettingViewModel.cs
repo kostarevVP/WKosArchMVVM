@@ -20,7 +20,7 @@ namespace WKosArch.Services.SoundService
 
         public AudioSettingViewModel()
         {
-            GetValueFromSettingSO();
+            //GetValueFromSettingSO();
         }
 
         internal void SetMusicValue(float value)
@@ -161,7 +161,7 @@ namespace WKosArch.Services.SoundService
             //Refresh();
         }
 
-        internal void SwitchHaptic(bool isEnabled)
+        public void SwitchHaptic(bool isEnabled)
         {
             _soundService.SwitchHaptic(isEnabled);
             HapticToogle = isEnabled;

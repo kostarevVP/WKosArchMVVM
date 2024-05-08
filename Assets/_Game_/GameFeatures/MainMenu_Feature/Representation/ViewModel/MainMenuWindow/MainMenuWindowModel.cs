@@ -1,4 +1,5 @@
 using WKosArch;
+using WKosArch.Services.SoundService;
 
 public class MainMenuWindowModel : WindowViewModel
 {
@@ -7,7 +8,7 @@ public class MainMenuWindowModel : WindowViewModel
 
     public void OpenAudioSettingsWindow()
     {
-
+        UI.Show<AudioSettingViewModel>();
     }
 
     public void OpenQuitWindow() =>

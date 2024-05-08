@@ -28,6 +28,9 @@ MonoBehaviour:
   - ViewModelTypeFullName: QuitGameWindowModel
     PrefabView: {fileID: 1811144823999690847, guid: b995157c9ed9978499a89e395fc692ac,
       type: 3}
+  - ViewModelTypeFullName: WKosArch.Services.SoundService.AudioSettingViewModel
+    PrefabView: {fileID: 2945317383277880485, guid: 55b2eed892c67f84e97acf48ddbdb6f0,
+      type: 3}
   _hudPrefabs:
   - ViewModelTypeFullName: FpsInfoHudViewModel
     PrefabView: {fileID: 9197838417860256531, guid: 8a0926d6459be0041a9578c36aba3e0c,
@@ -41,6 +44,6 @@ MonoBehaviour:
   _widgetPrefabs: []
   SceneName:
   - Prototype_Scene
-  SceneIndex: 02000000
+  SceneIndex: 01000000
   _scenes:
   - {fileID: 102900000, guid: e4b7be23950f9f84d9fa339321d6f07f, type: 3}
