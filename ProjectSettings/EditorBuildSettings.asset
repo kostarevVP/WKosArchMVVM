@@ -11,6 +11,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Game_/Scenes/Quest_Scene.unity
     guid: f77eb623bfe4bb14faebe16f012b5529
+  - enabled: 1
+    path: Assets/_Game_/Scenes/Prototype_Scene.unity
+    guid: e4b7be23950f9f84d9fa339321d6f07f
   m_configObjects:
     com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000,
       guid: 80caadb032a9110439a6f16cb43c7c26, type: 2}

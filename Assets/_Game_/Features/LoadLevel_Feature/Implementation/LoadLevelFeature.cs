@@ -18,6 +18,7 @@ namespace WKosArch.Features.LoadLevelFeature
         }
         public void Dispose() 
         {
+            Log.PrintRed("LoadLevelFeature Dispose");
             Unsubscribe();
         }
 
@@ -44,6 +45,7 @@ namespace WKosArch.Features.LoadLevelFeature
             _ui.Show<SettingViewModel>();
             _ui.Show<FpsInfoHudViewModel>();
             _ui.Show<JoystickHudModel>();
+            _ui.Show<InputTextHudModel>();
         }
 
         private void SceneStarted(string sceneName)

@@ -166,6 +166,7 @@ GameObject:
   - component: {fileID: 4156218187402728255}
   - component: {fileID: 1760684954285874105}
   - component: {fileID: 8808023694123362097}
+  - component: {fileID: 5817720370106164351}
   m_Layer: 5
   m_Name: JoysticHud
   m_TagString: Untagged
@@ -211,6 +212,7 @@ MonoBehaviour:
   _subViews: []
   _childBinders:
   - {fileID: 8808023694123362097}
+  - {fileID: 5817720370106164351}
   _layer: 0
 --- !u!114 &8536451102986137470
 MonoBehaviour:
@@ -314,3 +316,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _viewModelTypeFullName: JoystickHudModel
   _propertyName: JoystickMoved
+--- !u!114 &5817720370106164351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8098832484007032768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54ab0d0bfec4cb74ca924b03e285ddcf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _viewModelTypeFullName: JoystickHudModel
+  _propertyName: Closed
+  _destroyingGameObject: {fileID: 8098832484007032768}
+  _transitionOut: {fileID: 0}

@@ -38,13 +38,23 @@ namespace WKosArch
             _userInterface = userInterface;
         }
 
-        public void Open(bool forced = false) => 
-            _opened?.Invoke(forced);
+        public virtual void Subscribe() { }
+        public virtual void Unsubscribe() { }
 
-        public void Close(bool forced = false) => 
+        public void Open(bool forced = false)
+        {
+            Subscribe();
+            _opened?.Invoke(forced);
+        }
+
+        public void Close(bool forced = false)
+        {
+            Unsubscribe();
             _closed?.Invoke(forced);
+        }
 
         public void Hide(bool forced = false) =>
             _hided?.Invoke(forced);
+
     }
 }

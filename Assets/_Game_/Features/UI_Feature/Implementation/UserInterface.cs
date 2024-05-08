@@ -21,8 +21,12 @@ namespace WKosArch.Services.UIService.UI
             _uiFactory.Construct(container, this);
         }
 
-        public void Build(UISceneConfig config) =>
+        public void Build(UISceneConfig config)
+        {
+            CloseAllWindowInStack();
+            CloseAllHudInStack();
             _uiFactory.Build(config);
+        }
 
         public void Show<TUiViewModel>(bool hideCurrentWindow = true, bool hideForced = false, bool openForced = false) where TUiViewModel : UiViewModel, new()
         {
@@ -131,6 +135,8 @@ namespace WKosArch.Services.UIService.UI
 
         public void Dispose()
         {
+            CloseAllWindowInStack();
+            CloseAllHudInStack();
             _uiFactory.Dispose();
             _windowStack.Clear();
             _hudStack.Clear();
@@ -151,6 +157,7 @@ namespace WKosArch.Services.UIService.UI
         }
         private bool IsHomeWindowType(UiViewModel viewModel) =>
             typeof(IHomeWindow).IsAssignableFrom(viewModel.GetType());
+
         private void OpenCloseGameWindowPopup() =>
             Log.PrintColor($"OpenGameCloseWindow", Color.red);
     }

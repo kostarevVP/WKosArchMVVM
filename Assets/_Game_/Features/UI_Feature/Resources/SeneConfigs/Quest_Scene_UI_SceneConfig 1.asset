@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1527d79005dfd304893aa7df04aebaa4, type: 3}
-  m_Name: Quest_Scene_UI_SceneConfig
+  m_Name: Quest_Scene_UI_SceneConfig 1
   m_EditorClassIdentifier: 
   _windowPrefabs:
   - ViewModelTypeFullName: SettingViewModel
@@ -34,6 +34,9 @@ MonoBehaviour:
       type: 3}
   - ViewModelTypeFullName: JoystickHudModel
     PrefabView: {fileID: 609282482233254345, guid: 11db64a494d62ae4ca93b897bbf2b9ed,
+      type: 3}
+  - ViewModelTypeFullName: InputTextHudModel
+    PrefabView: {fileID: 2482668562685104444, guid: 6e53b15d0fd37d944ba4aeff34414581,
       type: 3}
   _widgetPrefabs: []
   SceneName:
