@@ -23,7 +23,7 @@ namespace WKosArch.Services.UIService.UI
 
         public void Build(UISceneConfig config)
         {
-            CloseAllWindowInStack();
+            CloseAllWindowInStack(true);
             CloseAllHudInStack();
             _uiFactory.Build(config);
         }
@@ -61,29 +61,50 @@ namespace WKosArch.Services.UIService.UI
 
             AddViewModelStack(previousUiViewModel);
         }
-        public void CloseAllWindowInStack()
+        //public void CloseAllWindowInStack(bool withHomeWindow = false)
+        //{
+        //    var stackLenght = _windowStack.Length;
+
+        //    for (int i = 0; i < stackLenght; i++)
+        //    {
+        //        var currentWindowViewModel = _windowStack.Pop().UiViewModel;
+        //        bool isHomeWindow = IsHomeWindowType(currentWindowViewModel);
+
+        //        if (!isHomeWindow)
+        //        {
+        //            bool forcedHide = (i != 0);
+
+        //            _uiFactory.Close(currentWindowViewModel, forcedHide);
+
+        //        }
+        //        else if (isHomeWindow && !withHomeWindow)
+        //        {
+        //            _uiFactory.CreateOrGetActiveView(currentWindowViewModel);
+        //            AddViewModelStack(currentWindowViewModel);
+        //        }
+        //    }
+        //}
+        public void CloseAllWindowInStack(bool includeHomeWindow = false)
         {
-            var stackLenght = _windowStack.Length;
+            int stackLength = _windowStack.Length;
 
-            for (int i = 0; i < stackLenght; i++)
+            for (int i = stackLength - 1; i >= 0; i--)
             {
-                var currentWindowViewModel = _windowStack.Pop().UiViewModel;
-                bool isHomeWindow = IsHomeWindowType(currentWindowViewModel);
+                var viewModel = _windowStack.Pop().UiViewModel;
+                bool isHomeWindow = IsHomeWindowType(viewModel);
 
-                if (!isHomeWindow)
+                if (isHomeWindow && !includeHomeWindow)
                 {
-                    bool forcedHide = (i != 0);
-
-                    _uiFactory.Close(currentWindowViewModel, forcedHide);
-
+                    _uiFactory.CreateOrGetActiveView(viewModel);
+                    AddViewModelStack(viewModel);
                 }
-                else if (isHomeWindow)
+                else
                 {
-                    _uiFactory.CreateOrGetActiveView(currentWindowViewModel);
-                    AddViewModelStack(currentWindowViewModel);
+                    _uiFactory.Close(viewModel, forcedHide: i != stackLength - 1);
                 }
             }
         }
+
 
         public void ShowAllHudInStack(bool openForced = false)
         {
@@ -145,7 +166,7 @@ namespace WKosArch.Services.UIService.UI
 
         private void AddViewModelStack(UiViewModel uiViewModel)
         {
-            if (uiViewModel is WKosArch.WindowViewModel windowViewModel)
+            if (uiViewModel is WindowViewModel windowViewModel)
             {
                 FocusedWindowViewModel = windowViewModel;
                 _windowStack.Push(new ViewModelTreeNode(windowViewModel));

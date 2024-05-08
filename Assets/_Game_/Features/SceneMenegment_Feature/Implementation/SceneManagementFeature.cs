@@ -1,5 +1,6 @@
 ﻿using Cysharp.Threading.Tasks;
 using System;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using WKosArch.Domain.Contexts;
 
@@ -17,6 +18,7 @@ namespace WKosArch.Services.Scenes
         public event Action<string> OnSceneReloadBegin;
         public bool SceneReadyToStart { get; set; }
         public string CurrentSceneName => _currentSceneName;
+        public int CurrentSceneIndex => GetBuildIndexFromSceneName(_currentSceneName);
 
         private string _currentSceneName => SceneManager.GetActiveScene().name;
 
@@ -54,13 +56,33 @@ namespace WKosArch.Services.Scenes
 
         public void LoadScene(int sceneIndex)
         {
+            string sceneName = GetSceneNameFromIndex(sceneIndex);
+
+            LoadScene(sceneName);
+        }
+
+        private string GetSceneNameFromIndex(int sceneIndex)
+        {
             var path = SceneUtility.GetScenePathByBuildIndex(sceneIndex);
             var lastSlash = path.LastIndexOf('/');
             var nameWithExtension = path.Substring(lastSlash + 1);
             var lastDot = nameWithExtension.LastIndexOf('.');
             var sceneName = nameWithExtension.Substring(0, lastDot);
+            return sceneName;
+        }
 
-            LoadScene(sceneName);
+        private int GetBuildIndexFromSceneName(string sceneName)
+        {
+            var scene = SceneManager.GetSceneByName(sceneName);
+            if (scene != null)
+            {
+                return scene.buildIndex;
+            }
+            else
+            {
+                Debug.LogError("Scene " + sceneName + " not found in build settings!");
+                return -1; // Return -1 or handle the error as needed
+            }
         }
 
         private async void LoadSceneAsync(string sceneName)

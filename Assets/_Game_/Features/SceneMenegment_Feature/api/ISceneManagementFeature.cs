@@ -8,6 +8,7 @@ namespace WKosArch.Services.Scenes
     {
         bool SceneReadyToStart { get; set; }
         string CurrentSceneName { get; }
+        int CurrentSceneIndex { get; }
 
         event Action<string> OnSceneLoadingStarted;
         event Action<string> OnSceneChanged;

@@ -3,7 +3,6 @@ using System;
 using System.Reactive.Subjects;
 using UnityEngine;
 using WKosArch;
-using WKosArch.Extentions;
 using WKosArch.Reactive;
 using WKosArch.Services.Scenes;
 
@@ -26,29 +25,18 @@ public class InputTextHudModel : HudViewModel
 
     public override void Subscribe()
     {
-        Log.PrintRed("InputTextHudModel Subscribe");
         _inputFeature = DiContainer.Resolve<IInputFeature>();
         _inputFeature.OnJoystickVectorEvent += ReciveMoveVector;
+        ReciveMoveVector(Vector2.zero);
     }
 
     public override void Unsubscribe()
     {
-        Log.PrintRed("InputTextHudModel UnsubscribeS");
-
         _inputFeature.OnJoystickVectorEvent -= ReciveMoveVector;
     }
 
     private void ReciveMoveVector(Vector2 vector)
     {
         _observableVectorText.OnNext($"{vector}");
-    }
-
-    public void LoadPrototypeScene()
-    {
-        DiContainer.Resolve<ISceneManagementFeature>().LoadScene(2);
-    }
-    public void LoadQuestScene()
-    {
-        DiContainer.Resolve<ISceneManagementFeature>().LoadScene(1);
     }
 }

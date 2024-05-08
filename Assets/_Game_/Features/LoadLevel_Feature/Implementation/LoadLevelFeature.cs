@@ -16,7 +16,7 @@ namespace WKosArch.Features.LoadLevelFeature
 
             Subscribe();
         }
-        public void Dispose() 
+        public void Dispose()
         {
             Log.PrintRed("LoadLevelFeature Dispose");
             Unsubscribe();
@@ -50,7 +50,7 @@ namespace WKosArch.Features.LoadLevelFeature
 
         private void SceneStarted(string sceneName)
         {
-           
+
         }
 
         public void SceneReadyToStart()

@@ -17,7 +17,7 @@ namespace WKosArch.Services.UIService.UI
         /// <param name="openForced"> animation for Open - true PlayAnimation or false without animation</param>
         void Show<TUiViewModel>(bool hideCurrentWindow = true, bool hideForced = false, bool openForced = false) where TUiViewModel : UiViewModel, new();
         void Back(bool hideCurrentWindow = true, bool forced = false);
-        void CloseAllWindowInStack();
+        void CloseAllWindowInStack(bool withHomeWindow = false);
 
         void HideHud<TUiViewModel>(bool hideCurrentWindow = true, bool forced = false) where TUiViewModel : HudViewModel;
         void CloseHud<TUiViewModel>(bool hideCurrentWindow = true, bool forced = false) where TUiViewModel : HudViewModel;

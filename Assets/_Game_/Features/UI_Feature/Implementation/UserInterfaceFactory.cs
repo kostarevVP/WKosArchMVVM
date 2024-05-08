@@ -177,7 +177,6 @@ namespace Assets._Game_.Services.UI_Service.Implementation
 
         public void Dispose()
         {
-            Log.PrintRed("UserInterfaceFactory Dispose");
             _createdViewCache.Clear();
             _createdUiViewModelsCache.Clear();
         }

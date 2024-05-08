@@ -26,8 +26,6 @@ namespace WKosArch.Services.UIService
 
         public void Dispose()
         {
-            Log.PrintRed("UiFeature Dispose");
-
             UI.Dispose();
             _sceneManagementService.OnSceneLoaded -= SceneLoaded;
         }
