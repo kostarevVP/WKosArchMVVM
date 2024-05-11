@@ -39,6 +39,7 @@ namespace WKosArch.Services.UIService.UI
 
             AddViewModelStack(uiViewModel);
         }
+
         public void Back(bool hideCurrentWindow = true, bool forced = false)
         {
             var currentUiViewModel = _windowStack.Pop().UiViewModel;
@@ -61,29 +62,7 @@ namespace WKosArch.Services.UIService.UI
 
             AddViewModelStack(previousUiViewModel);
         }
-        //public void CloseAllWindowInStack(bool withHomeWindow = false)
-        //{
-        //    var stackLenght = _windowStack.Length;
 
-        //    for (int i = 0; i < stackLenght; i++)
-        //    {
-        //        var currentWindowViewModel = _windowStack.Pop().UiViewModel;
-        //        bool isHomeWindow = IsHomeWindowType(currentWindowViewModel);
-
-        //        if (!isHomeWindow)
-        //        {
-        //            bool forcedHide = (i != 0);
-
-        //            _uiFactory.Close(currentWindowViewModel, forcedHide);
-
-        //        }
-        //        else if (isHomeWindow && !withHomeWindow)
-        //        {
-        //            _uiFactory.CreateOrGetActiveView(currentWindowViewModel);
-        //            AddViewModelStack(currentWindowViewModel);
-        //        }
-        //    }
-        //}
         public void CloseAllWindowInStack(bool includeHomeWindow = false)
         {
             int stackLength = _windowStack.Length;
@@ -156,8 +135,6 @@ namespace WKosArch.Services.UIService.UI
 
         public void Dispose()
         {
-            CloseAllWindowInStack();
-            CloseAllHudInStack();
             _uiFactory.Dispose();
             _windowStack.Clear();
             _hudStack.Clear();

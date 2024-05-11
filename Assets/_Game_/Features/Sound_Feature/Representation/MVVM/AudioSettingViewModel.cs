@@ -1,3 +1,8 @@
+using System;
+using System.Reactive.Subjects;
+using UnityEngine;
+using WKosArch.Reactive;
+
 namespace WKosArch.Services.SoundService
 {
     public class AudioSettingViewModel : WindowViewModel
@@ -18,10 +23,30 @@ namespace WKosArch.Services.SoundService
         public bool UIToggle { get; private set; }
         public bool HapticToogle { get; private set; }
 
+
+        public IObservable<string> SomeObservableText => _someObservableText;
+        public IObservable<string> SomeReactivePropertyText => _someReactivePropertyText;
+
+        private readonly Subject<string> _someObservableText = new();
+        private readonly ReactiveProperty<string> _someReactivePropertyText = new();
+
         public AudioSettingViewModel()
         {
+            _someObservableText.OnNext("Your awesome observableText");
+            _someReactivePropertyText.Value = "Your awesome reactivePropertyText";
             //GetValueFromSettingSO();
         }
+
+        public void EmptyMethod() { }
+        public void FloatMethod(float value) { }
+        public void BoolMethod(bool value) { }
+        public void IntMethod(int value) { }
+        public void Vector2Method(Vector2 value) { }
+        public void Vecotr3Method(Vector3 value) { }
+
+        public void Vector3IntMethod(Vector3Int value) { }
+        public void Vector2IntMethod(Vector2Int value) { }
+
 
         internal void SetMusicValue(float value)
         {

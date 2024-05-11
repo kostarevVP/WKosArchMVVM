@@ -5,10 +5,10 @@ using UnityEngine.UI;
 
 namespace WKosArch.MVVM.Binders
 {
-    [RequireComponent(typeof(Toggle))]
-    public class ToggleMethodBinder : BoolMethodBinder
+    [RequireComponent(typeof(Slider))]
+    public class SliderMethodBinder : FloatMethodBinder
     {
-        [SerializeField] private Toggle _toggle;
+        [SerializeField] private Slider _slider;
 
         private IViewModel _viewModel;
         private MethodInfo _cachedMethod;
@@ -21,7 +21,7 @@ namespace WKosArch.MVVM.Binders
                 return;
             }
 #endif
-            _toggle.onValueChanged.AddListener(OnValueChanged);
+            _slider.onValueChanged.AddListener(OnValueChanged);
         }
 
         private void OnDisable()
@@ -32,12 +32,12 @@ namespace WKosArch.MVVM.Binders
                 return;
             }
 #endif
-            _toggle.onValueChanged.RemoveListener(OnValueChanged);
+            _slider.onValueChanged.RemoveListener(OnValueChanged);
         }
 
-        private void OnValueChanged(bool toggleState)
+        private void OnValueChanged(float value)
         {
-            _cachedMethod?.Invoke(_viewModel, new object[] { toggleState });
+            _cachedMethod?.Invoke(_viewModel, new object[] { value });
         }
 
         protected override IDisposable BindInternal(IViewModel viewModel)
@@ -51,9 +51,9 @@ namespace WKosArch.MVVM.Binders
 #if UNITY_EDITOR
         private void Reset()
         {
-            if (_toggle == null)
+            if (_slider == null)
             {
-                _toggle = GetComponent<Toggle>();
+                _slider = GetComponent<Slider>();
             }
         }
 #endif
