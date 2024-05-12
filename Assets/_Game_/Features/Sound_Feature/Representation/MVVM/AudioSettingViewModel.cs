@@ -1,6 +1,8 @@
+using DG.Tweening;
 using System;
 using System.Reactive.Subjects;
 using UnityEngine;
+using WKosArch.Extentions;
 using WKosArch.Reactive;
 
 namespace WKosArch.Services.SoundService
@@ -26,15 +28,25 @@ namespace WKosArch.Services.SoundService
 
         public IObservable<string> SomeObservableText => _someObservableText;
         public IObservable<string> SomeReactivePropertyText => _someReactivePropertyText;
+        public IObservable<float> SFXVolume => _sfxVolume;
 
         private readonly Subject<string> _someObservableText = new();
         private readonly ReactiveProperty<string> _someReactivePropertyText = new();
 
+        private readonly ReactiveProperty<float> _sfxVolume = new();    
+
         public AudioSettingViewModel()
         {
+            Log.PrintYellow("Constructor in AudioSettingViewModel");
             _someObservableText.OnNext("Your awesome observableText");
             _someReactivePropertyText.Value = "Your awesome reactivePropertyText";
             //GetValueFromSettingSO();
+        }
+
+        public override void Subscribe()
+        {
+            base.Subscribe();
+
         }
 
         public void EmptyMethod() { }

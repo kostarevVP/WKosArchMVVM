@@ -3700,6 +3700,7 @@ MonoBehaviour:
   - {fileID: 3644339403823595773}
   - {fileID: 3047995024046573426}
   - {fileID: 7335882057349578612}
+  - {fileID: 9112960066311816467}
   _layer: 50
 --- !u!114 &3047995024046573426
 MonoBehaviour:
@@ -3878,6 +3879,7 @@ GameObject:
   - component: {fileID: 3277308591447456675}
   - component: {fileID: 2957359420949227788}
   - component: {fileID: 7335882057349578612}
+  - component: {fileID: 9112960066311816467}
   m_Layer: 5
   m_Name: SFX Slider
   m_TagString: Untagged
@@ -3973,6 +3975,35 @@ MonoBehaviour:
   _viewModelTypeFullName: WKosArch.Services.SoundService.AudioSettingViewModel
   _propertyName: FloatMethod
   _slider: {fileID: 2957359420949227788}
+--- !u!114 &9112960066311816467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8719985304076476998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4e415cd7d7a4634a9af81fc711000a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _viewModelTypeFullName: WKosArch.Services.SoundService.AudioSettingViewModel
+  _propertyName: SFXVolume
+  _event:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2957359420949227788}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Slider, UnityEngine.UI
+        m_MethodName: set_value
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8749232840193010253
 GameObject:
   m_ObjectHideFlags: 0
