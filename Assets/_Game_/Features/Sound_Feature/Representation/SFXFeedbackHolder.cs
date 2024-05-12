@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace WKosArch.Services.SoundService
+namespace WKosArch.Sound_Feature
 {
     public class SFXFeedbackHolder : MonoBehaviour
     {

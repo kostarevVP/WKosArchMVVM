@@ -1,6 +1,6 @@
 ﻿using MoreMountains.Tools;
 
-namespace WKosArch.Services.SoundService
+namespace WKosArch.Sound_Feature
 {
     public class MusicPlayer : MMPlaylist
     {

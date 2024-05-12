@@ -4,7 +4,7 @@ using WKosArch.Extentions;
 using UnityEngine;
 using WKosArch.DependencyInjection;
 
-namespace WKosArch.Services.SoundService
+namespace WKosArch.Sound_Feature
 {
     [CreateAssetMenu(fileName = "SoundFeature_Installer", menuName = "Game/Installers/SoundFeature_Installer")]
     public class SoundFeature_Installer : FeatureInstaller

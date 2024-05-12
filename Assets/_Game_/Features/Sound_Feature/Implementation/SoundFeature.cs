@@ -1,7 +1,7 @@
 using Assets.Game.Services.ProgressService.api;
 using System.Collections.Generic;
 
-namespace WKosArch.Services.SoundService
+namespace WKosArch.Sound_Feature
 {
     public class SoundFeature : ISoundFeature
     {

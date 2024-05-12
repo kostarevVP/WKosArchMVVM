@@ -1,8 +1,7 @@
 using System;
-using WKosArch.Extentions;
 using WKosArch.Reactive;
 
-namespace WKosArch.Services.SoundService
+namespace WKosArch.Sound_Feature
 {
     public class AudioSettingViewModel : WindowViewModel
     {
@@ -16,7 +15,7 @@ namespace WKosArch.Services.SoundService
 
         public IObservable<bool> HapticToggle => _hapticToggle;
 
-        private ISoundFeature _soundService => DiContainer.Resolve<ISoundFeature>();
+        private ISoundFeature _soundFeature => DiContainer.Resolve<ISoundFeature>();
 
 
         private readonly ReactiveProperty<float> _musicVolume = new();
@@ -45,7 +44,7 @@ namespace WKosArch.Services.SoundService
         {
             if (value <= MIN_VOLUME)
             {
-                _soundService.SetVolumeMusic(MIN_VOLUME);
+                _soundFeature.SetVolumeMusic(MIN_VOLUME);
                 _musicVolume.Value = MIN_VOLUME;
                 SwitchMusic(false);
             }
@@ -55,14 +54,14 @@ namespace WKosArch.Services.SoundService
                 {
                     _previousMusicVolumeValue = _musicVolume.Value;
                     _musicVolume.Value = value;
-                    _soundService.SetVolumeMusic(value);
+                    _soundFeature.SetVolumeMusic(value);
                     SwitchMusic(true);
                 }
                 else
                 {
                     _previousMusicVolumeValue = _musicVolume.Value;
                     _musicVolume.Value = value;
-                    _soundService.SetVolumeMusic(value);
+                    _soundFeature.SetVolumeMusic(value);
                 }
             }
         }
@@ -71,7 +70,7 @@ namespace WKosArch.Services.SoundService
         {
             if (value <= MIN_VOLUME)
             {
-                _soundService.SetVolumeSfx(MIN_VOLUME);
+                _soundFeature.SetVolumeSfx(MIN_VOLUME);
                 _sfxVolume.Value = MIN_VOLUME;
                 SwithcSFX(false);
             }
@@ -80,14 +79,14 @@ namespace WKosArch.Services.SoundService
                 if (!_sFXToggle.Value && _sfxVolume.Value < value)
                 {
                     _previousSFXVolumeValue = _sfxVolume.Value;
-                    _soundService.SetVolumeSfx(value);
+                    _soundFeature.SetVolumeSfx(value);
                     _sfxVolume.Value = value;
                     SwithcSFX(true);
                 }
                 else
                 {
                     _previousSFXVolumeValue = _sfxVolume.Value;
-                    _soundService.SetVolumeSfx(value);
+                    _soundFeature.SetVolumeSfx(value);
                     _sfxVolume.Value = value;
                 }
             }
@@ -97,7 +96,7 @@ namespace WKosArch.Services.SoundService
         {
             if (value <= MIN_VOLUME)
             {
-                _soundService.SetVolumeUI(MIN_VOLUME);
+                _soundFeature.SetVolumeUI(MIN_VOLUME);
                 _uIVolume.Value = MIN_VOLUME;
                 SwithcUI(false);
             }
@@ -106,14 +105,14 @@ namespace WKosArch.Services.SoundService
                 if (!_UIToggle.Value && _uIVolume.Value < value)
                 {
                     _previousUIVolumeValue = _uIVolume.Value;
-                    _soundService.SetVolumeUI(value);
+                    _soundFeature.SetVolumeUI(value);
                     _uIVolume.Value = value;
                     SwithcUI(true);
                 }
                 else
                 {
                     _previousUIVolumeValue = _uIVolume.Value;
-                    _soundService.SetVolumeUI(value);
+                    _soundFeature.SetVolumeUI(value);
                     _uIVolume.Value = value;
                 }
             }
@@ -126,14 +125,14 @@ namespace WKosArch.Services.SoundService
 
             if (isEnabled)
             {
-                _soundService.UnmuteMusic();
+                _soundFeature.UnmuteMusic();
 
                 if (_musicVolume.Value <= _previousMusicVolumeValue)
                     _musicVolume.Value = _previousMusicVolumeValue;
             }
             else
             {
-                _soundService.MuteMusic();
+                _soundFeature.MuteMusic();
                 _musicVolume.Value = MIN_VOLUME;
             }
         }
@@ -144,14 +143,14 @@ namespace WKosArch.Services.SoundService
 
             if (isEnabled)
             {
-                _soundService.UnmuteSfx();
+                _soundFeature.UnmuteSfx();
 
                 if (_sfxVolume.Value <= _previousSFXVolumeValue)
                     _sfxVolume.Value = _previousSFXVolumeValue;
             }
             else
             {
-                _soundService.MuteSfx();
+                _soundFeature.MuteSfx();
                 _sfxVolume.Value = MIN_VOLUME;
             }
         }
@@ -162,42 +161,42 @@ namespace WKosArch.Services.SoundService
 
             if (isEnabled)
             {
-                _soundService.UnmuteUI();
+                _soundFeature.UnmuteUI();
 
                 if (_uIVolume.Value <= _previousUIVolumeValue)
                     _uIVolume.Value = _previousUIVolumeValue;
             }
             else
             {
-                _soundService.MuteUI();
+                _soundFeature.MuteUI();
                 _uIVolume.Value = MIN_VOLUME;
             }
         }
 
         public void SwitchHaptic(bool isEnabled)
         {
-            _soundService.SwitchHaptic(isEnabled);
+            _soundFeature.SwitchHaptic(isEnabled);
             _hapticToggle.Value = isEnabled;
         }
 
         private void GetValueFromSettingSO()
         {
-            var settigs = _soundService.SoundManager.MMSoundManager.settingsSo.Settings;
+            var settigs = _soundFeature.SoundManager.MMSoundManager.settingsSo.Settings;
 
-            _musicVolume.Value = settigs.MusicVolume;
             _previousMusicVolumeValue = settigs.MusicVolume;
+            _musicVolume.Value = settigs.MusicVolume;
 
-            _sfxVolume.Value = settigs.SfxVolume;
             _previousSFXVolumeValue = settigs.SfxVolume;
+            _sfxVolume.Value = settigs.SfxVolume;
 
-            _uIVolume.Value = settigs.UIVolume;
             _previousUIVolumeValue = settigs.UIVolume;
+            _uIVolume.Value = settigs.UIVolume;
 
             _musicToggle.Value = settigs.MusicOn;
             _sFXToggle.Value = settigs.SfxOn;
             _UIToggle.Value = settigs.UIOn;
 
-            _hapticToggle.Value = _soundService.SoundManager.HapticReceiver.hapticsEnabled;
+            _hapticToggle.Value = _soundFeature.SoundManager.HapticReceiver.hapticsEnabled;
         }
     }
 }

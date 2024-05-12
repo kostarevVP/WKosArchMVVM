@@ -1,6 +1,6 @@
 ﻿using WKosArch.Domain.Features;
 
-namespace WKosArch.Services.SoundService
+namespace WKosArch.Sound_Feature
 {
     public interface ISoundFeature : IFeature
     {
