@@ -1946,6 +1946,8 @@ GameObject:
   - component: {fileID: 3876765610375951081}
   - component: {fileID: 3164264021693147424}
   - component: {fileID: 130455075187260697}
+  - component: {fileID: 4935589274906729505}
+  - component: {fileID: 7951042646718050448}
   m_Layer: 5
   m_Name: Music Toggle
   m_TagString: Untagged
@@ -2041,6 +2043,50 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &4935589274906729505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3546647625906213387}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47de58478a915b24ebbf2c901a8239a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _viewModelTypeFullName: WKosArch.Services.SoundService.AudioSettingViewModel
+  _propertyName: SwitchMusic
+  _toggle: {fileID: 3164264021693147424}
+--- !u!114 &7951042646718050448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3546647625906213387}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afd04067bfdd90f4dbfc8340bf99d28c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _viewModelTypeFullName: WKosArch.Services.SoundService.AudioSettingViewModel
+  _propertyName: MusicToggle
+  _event:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3164264021693147424}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Toggle, UnityEngine.UI
+        m_MethodName: set_isOn
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &3585260267997676763
 GameObject:
   m_ObjectHideFlags: 0
@@ -2234,6 +2280,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7592550925370044253}
   - component: {fileID: 6028433239499661507}
+  - component: {fileID: 8483697443452054895}
+  - component: {fileID: 5280407414036038475}
   m_Layer: 5
   m_Name: Music Slider
   m_TagString: Untagged
@@ -2314,6 +2362,50 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &8483697443452054895
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4183992668352023685}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c89de34948449c6458439f7b2658d050, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _viewModelTypeFullName: WKosArch.Services.SoundService.AudioSettingViewModel
+  _propertyName: SetMusicValue
+  _slider: {fileID: 6028433239499661507}
+--- !u!114 &5280407414036038475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4183992668352023685}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4e415cd7d7a4634a9af81fc711000a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _viewModelTypeFullName: WKosArch.Services.SoundService.AudioSettingViewModel
+  _propertyName: MusicVolume
+  _event:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6028433239499661507}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Slider, UnityEngine.UI
+        m_MethodName: set_value
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4327137770887039839
 GameObject:
   m_ObjectHideFlags: 0
@@ -2404,6 +2496,8 @@ GameObject:
   - component: {fileID: 2756986054248954131}
   - component: {fileID: 5535576391816355472}
   - component: {fileID: 9075866426362066081}
+  - component: {fileID: 5553749487097903741}
+  - component: {fileID: 4803983406621356068}
   m_Layer: 5
   m_Name: SFX Toggle
   m_TagString: Untagged
@@ -2499,6 +2593,50 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &5553749487097903741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4458562724145306937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afd04067bfdd90f4dbfc8340bf99d28c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _viewModelTypeFullName: WKosArch.Services.SoundService.AudioSettingViewModel
+  _propertyName: SFXToggle
+  _event:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5535576391816355472}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Toggle, UnityEngine.UI
+        m_MethodName: set_isOn
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &4803983406621356068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4458562724145306937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47de58478a915b24ebbf2c901a8239a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _viewModelTypeFullName: WKosArch.Services.SoundService.AudioSettingViewModel
+  _propertyName: SwithcSFX
+  _toggle: {fileID: 5535576391816355472}
 --- !u!1 &4957082843767090440
 GameObject:
   m_ObjectHideFlags: 0
@@ -3359,6 +3497,7 @@ GameObject:
   - component: {fileID: 3949067227151650287}
   - component: {fileID: 6525020454753430960}
   - component: {fileID: 3644339403823595773}
+  - component: {fileID: 3240616362285062406}
   m_Layer: 5
   m_Name: Haptic Toggle
   m_TagString: Untagged
@@ -3469,6 +3608,35 @@ MonoBehaviour:
   _viewModelTypeFullName: WKosArch.Services.SoundService.AudioSettingViewModel
   _propertyName: SwitchHaptic
   _toggle: {fileID: 3949067227151650287}
+--- !u!114 &3240616362285062406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7078539931641018767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afd04067bfdd90f4dbfc8340bf99d28c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _viewModelTypeFullName: WKosArch.Services.SoundService.AudioSettingViewModel
+  _propertyName: HapticToggle
+  _event:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3949067227151650287}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Toggle, UnityEngine.UI
+        m_MethodName: set_isOn
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &7243861776064361939
 GameObject:
   m_ObjectHideFlags: 0
@@ -3701,6 +3869,13 @@ MonoBehaviour:
   - {fileID: 3047995024046573426}
   - {fileID: 7335882057349578612}
   - {fileID: 9112960066311816467}
+  - {fileID: 4935589274906729505}
+  - {fileID: 8483697443452054895}
+  - {fileID: 5280407414036038475}
+  - {fileID: 7951042646718050448}
+  - {fileID: 5553749487097903741}
+  - {fileID: 4803983406621356068}
+  - {fileID: 3240616362285062406}
   _layer: 50
 --- !u!114 &3047995024046573426
 MonoBehaviour:
@@ -3973,7 +4148,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _viewModelTypeFullName: WKosArch.Services.SoundService.AudioSettingViewModel
-  _propertyName: FloatMethod
+  _propertyName: SetSFXValue
   _slider: {fileID: 2957359420949227788}
 --- !u!114 &9112960066311816467
 MonoBehaviour:

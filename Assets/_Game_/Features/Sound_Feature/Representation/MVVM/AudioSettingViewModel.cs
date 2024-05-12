@@ -1,7 +1,4 @@
-using DG.Tweening;
 using System;
-using System.Reactive.Subjects;
-using UnityEngine;
 using WKosArch.Extentions;
 using WKosArch.Reactive;
 
@@ -9,214 +6,198 @@ namespace WKosArch.Services.SoundService
 {
     public class AudioSettingViewModel : WindowViewModel
     {
-        private const float MinimalVolume = 0.0001f;
+        private const float MIN_VOLUME = 0.0001f;
+
+        public IObservable<float> MusicVolume => _musicVolume;
+        public IObservable<float> SFXVolume => _sfxVolume;
+
+        public IObservable<bool> MusicToggle => _musicToggle;
+        public IObservable<bool> SFXToggle => _sFXToggle;
+
+        public IObservable<bool> HapticToggle => _hapticToggle;
 
         private ISoundFeature _soundService => DiContainer.Resolve<ISoundFeature>();
+
+
+        private readonly ReactiveProperty<float> _musicVolume = new();
+        private readonly ReactiveProperty<float> _sfxVolume = new();
+        private readonly ReactiveProperty<float> _uIVolume = new();
+
+        private readonly ReactiveProperty<bool> _sFXToggle = new();
+        private readonly ReactiveProperty<bool> _musicToggle = new();
+        private readonly ReactiveProperty<bool> _UIToggle = new();
+        private readonly ReactiveProperty<bool> _hapticToggle = new();
+
 
         private float _previousMusicVolumeValue;
         private float _previousSFXVolumeValue;
         private float _previousUIVolumeValue;
 
-        public float MusicVolumeValue { get; private set; }
-        public float SFXVolumeValue { get; private set; }
-        public float UIVolumeValue { get; private set; }
-        public bool MusicToggleState { get; private set; }
-        public bool SFXToggle { get; private set; }
-        public bool UIToggle { get; private set; }
-        public bool HapticToogle { get; private set; }
-
-
-        public IObservable<string> SomeObservableText => _someObservableText;
-        public IObservable<string> SomeReactivePropertyText => _someReactivePropertyText;
-        public IObservable<float> SFXVolume => _sfxVolume;
-
-        private readonly Subject<string> _someObservableText = new();
-        private readonly ReactiveProperty<string> _someReactivePropertyText = new();
-
-        private readonly ReactiveProperty<float> _sfxVolume = new();    
-
-        public AudioSettingViewModel()
-        {
-            Log.PrintYellow("Constructor in AudioSettingViewModel");
-            _someObservableText.OnNext("Your awesome observableText");
-            _someReactivePropertyText.Value = "Your awesome reactivePropertyText";
-            //GetValueFromSettingSO();
-        }
 
         public override void Subscribe()
         {
             base.Subscribe();
 
+            GetValueFromSettingSO();
         }
 
-        public void EmptyMethod() { }
-        public void FloatMethod(float value) { }
-        public void BoolMethod(bool value) { }
-        public void IntMethod(int value) { }
-        public void Vector2Method(Vector2 value) { }
-        public void Vecotr3Method(Vector3 value) { }
-
-        public void Vector3IntMethod(Vector3Int value) { }
-        public void Vector2IntMethod(Vector2Int value) { }
-
-
-        internal void SetMusicValue(float value)
+        public void SetMusicValue(float value)
         {
-            if (value <= MinimalVolume)
+            if (value <= MIN_VOLUME)
             {
-                _soundService.SetVolumeMusic(MinimalVolume);
-                MusicVolumeValue = MinimalVolume;
+                _soundService.SetVolumeMusic(MIN_VOLUME);
+                _musicVolume.Value = MIN_VOLUME;
                 SwitchMusic(false);
             }
             else
             {
-                if (!MusicToggleState)
+                if (!_musicToggle.Value)
                 {
-                    _previousMusicVolumeValue = MusicVolumeValue;
-                    MusicVolumeValue = value;
+                    _previousMusicVolumeValue = _musicVolume.Value;
+                    _musicVolume.Value = value;
                     _soundService.SetVolumeMusic(value);
                     SwitchMusic(true);
                 }
                 else
                 {
-                    _previousMusicVolumeValue = MusicVolumeValue;
-                    MusicVolumeValue = value;
+                    _previousMusicVolumeValue = _musicVolume.Value;
+                    _musicVolume.Value = value;
                     _soundService.SetVolumeMusic(value);
                 }
             }
         }
 
-        internal void SetSFXValue(float value)
+        public void SetSFXValue(float value)
         {
-            if (value <= MinimalVolume)
+            if (value <= MIN_VOLUME)
             {
-                _soundService.SetVolumeSfx(MinimalVolume);
-                SFXVolumeValue = MinimalVolume;
+                _soundService.SetVolumeSfx(MIN_VOLUME);
+                _sfxVolume.Value = MIN_VOLUME;
                 SwithcSFX(false);
             }
             else
             {
-                if (!SFXToggle && SFXVolumeValue < value)
+                if (!_sFXToggle.Value && _sfxVolume.Value < value)
                 {
-                    _previousSFXVolumeValue = SFXVolumeValue;
+                    _previousSFXVolumeValue = _sfxVolume.Value;
                     _soundService.SetVolumeSfx(value);
-                    SFXVolumeValue = value;
+                    _sfxVolume.Value = value;
                     SwithcSFX(true);
                 }
                 else
                 {
-                    _previousSFXVolumeValue = SFXVolumeValue;
+                    _previousSFXVolumeValue = _sfxVolume.Value;
                     _soundService.SetVolumeSfx(value);
-                    SFXVolumeValue = value;
+                    _sfxVolume.Value = value;
                 }
             }
         }
 
-        internal void SetUiValue(float value)
+        public void SetUiValue(float value)
         {
-            if (value <= MinimalVolume)
+            if (value <= MIN_VOLUME)
             {
-                _soundService.SetVolumeUI(MinimalVolume);
-                UIVolumeValue = MinimalVolume;
+                _soundService.SetVolumeUI(MIN_VOLUME);
+                _uIVolume.Value = MIN_VOLUME;
                 SwithcUI(false);
             }
             else
             {
-                if (!UIToggle && UIVolumeValue < value)
+                if (!_UIToggle.Value && _uIVolume.Value < value)
                 {
-                    _previousUIVolumeValue = UIVolumeValue;
+                    _previousUIVolumeValue = _uIVolume.Value;
                     _soundService.SetVolumeUI(value);
-                    UIVolumeValue = value;
+                    _uIVolume.Value = value;
                     SwithcUI(true);
                 }
                 else
                 {
-                    _previousUIVolumeValue = UIVolumeValue;
+                    _previousUIVolumeValue = _uIVolume.Value;
                     _soundService.SetVolumeUI(value);
-                    UIVolumeValue = value;
+                    _uIVolume.Value = value;
                 }
             }
         }
 
 
-        internal void SwitchMusic(bool isEnabled)
+        public void SwitchMusic(bool isEnabled)
         {
-            MusicToggleState = isEnabled;
+            _musicToggle.Value = isEnabled;
 
             if (isEnabled)
             {
                 _soundService.UnmuteMusic();
 
-                if (MusicVolumeValue <= _previousMusicVolumeValue)
-                    MusicVolumeValue = _previousMusicVolumeValue;
+                if (_musicVolume.Value <= _previousMusicVolumeValue)
+                    _musicVolume.Value = _previousMusicVolumeValue;
             }
             else
             {
                 _soundService.MuteMusic();
-                MusicVolumeValue = MinimalVolume;
+                _musicVolume.Value = MIN_VOLUME;
             }
-            //Refresh();
         }
 
-        internal void SwithcSFX(bool isEnabled)
+        public void SwithcSFX(bool isEnabled)
         {
-            SFXToggle = isEnabled;
+            _sFXToggle.Value = isEnabled;
 
             if (isEnabled)
             {
                 _soundService.UnmuteSfx();
 
-                if (SFXVolumeValue <= _previousSFXVolumeValue)
-                    SFXVolumeValue = _previousSFXVolumeValue;
+                if (_sfxVolume.Value <= _previousSFXVolumeValue)
+                    _sfxVolume.Value = _previousSFXVolumeValue;
             }
             else
             {
                 _soundService.MuteSfx();
-                SFXVolumeValue = MinimalVolume;
+                _sfxVolume.Value = MIN_VOLUME;
             }
-
-            //Refresh();
         }
 
-        internal void SwithcUI(bool isEnabled)
+        public void SwithcUI(bool isEnabled)
         {
-            UIToggle = isEnabled;
+            _UIToggle.Value = isEnabled;
 
             if (isEnabled)
             {
                 _soundService.UnmuteUI();
 
-                if (UIVolumeValue <= _previousUIVolumeValue)
-                    UIVolumeValue = _previousUIVolumeValue;
+                if (_uIVolume.Value <= _previousUIVolumeValue)
+                    _uIVolume.Value = _previousUIVolumeValue;
             }
             else
             {
                 _soundService.MuteUI();
-                UIVolumeValue = MinimalVolume;
+                _uIVolume.Value = MIN_VOLUME;
             }
-
-            //Refresh();
         }
 
         public void SwitchHaptic(bool isEnabled)
         {
             _soundService.SwitchHaptic(isEnabled);
-            HapticToogle = isEnabled;
+            _hapticToggle.Value = isEnabled;
         }
 
         private void GetValueFromSettingSO()
         {
             var settigs = _soundService.SoundManager.MMSoundManager.settingsSo.Settings;
 
-            MusicVolumeValue = _previousMusicVolumeValue = settigs.MusicVolume;
-            SFXVolumeValue = _previousSFXVolumeValue = settigs.SfxVolume;
-            UIVolumeValue = _previousUIVolumeValue = settigs.UIVolume;
+            _musicVolume.Value = settigs.MusicVolume;
+            _previousMusicVolumeValue = settigs.MusicVolume;
 
-            MusicToggleState = settigs.MusicOn;
-            SFXToggle = settigs.SfxOn;
-            UIToggle = settigs.UIOn;
+            _sfxVolume.Value = settigs.SfxVolume;
+            _previousSFXVolumeValue = settigs.SfxVolume;
 
-            HapticToogle = _soundService.SoundManager.HapticReceiver.hapticsEnabled;
+            _uIVolume.Value = settigs.UIVolume;
+            _previousUIVolumeValue = settigs.UIVolume;
+
+            _musicToggle.Value = settigs.MusicOn;
+            _sFXToggle.Value = settigs.SfxOn;
+            _UIToggle.Value = settigs.UIOn;
+
+            _hapticToggle.Value = _soundService.SoundManager.HapticReceiver.hapticsEnabled;
         }
     }
 }

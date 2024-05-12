@@ -12,4 +12,6 @@ namespace WKosArch.MVVM.Binders
             _event.Invoke(newValue);
         }
     }
+
+    
 }

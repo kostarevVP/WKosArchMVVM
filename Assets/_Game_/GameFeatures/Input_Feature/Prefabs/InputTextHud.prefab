@@ -112,7 +112,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _viewModelTypeFullName: InputTextHudModel
-  _propertyName: ObservableVectorText
+  _propertyName: SomeReactivePropertyText
   _event:
     m_PersistentCalls:
       m_Calls:
